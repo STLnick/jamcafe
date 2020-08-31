@@ -1,0 +1,100 @@
+{
+  "name": "capstone-starter",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "@testing-library/jest-dom": "^4.2.4",
+    "@testing-library/react": "^9.3.2",
+    "@testing-library/user-event": "^7.1.2",
+    "eslint-plugin-prettier": "^3.1.4",
+    "formik": "^2.1.5",
+    "node-sass": "^4.14.1",
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1",
+    "react-router-dom": "^5.2.0",
+    "react-scripts": "3.4.3",
+    "yup": "^0.29.3"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test"
+  },
+  "eslintConfig": {
+    "extends": [
+      "react-app",
+      "plugin:react/recommended",
+      "plugin:react-hooks/recommended",
+      "plugin:jsx-a11y/recommended",
+      "prettier"
+    ],
+    "parserOptions": {
+      "ecmaFeatures": {
+        "jsx": true
+      }
+    },
+    "plugins": [
+      "jsx-a11y",
+      "react",
+      "react-hooks"
+    ],
+    "rules": {
+      "array-callback-return": "warn",
+      "no-unused-vars": "warn",
+      "prettier/prettier": [
+        "warn"
+      ],
+      "react-hooks/rules-of-hooks": "error",
+      "react-hooks/exhaustive-deps": "warn",
+      "react/jsx-uses-react": "error",
+      "react/jsx-uses-vars": "error"
+    }
+  },
+  "stylelint": {
+    "extends": "stylelint-config-standard",
+    "plugins": [
+      "stylelint-order",
+      "stylelint-scss"
+    ],
+    "rules": {
+      "declaration-colon-newline-after": null,
+      "order/order": [
+        "custom-properties",
+        "declarations"
+      ],
+      "order/properties-order": [
+        "width",
+        "height"
+      ],
+      "order/properties-alphabetical-order": true,
+      "scss/at-import-no-partial-leading-underscore": null,
+      "string-quotes": "double",
+      "value-list-comma-newline-after": null
+    }
+  },
+  "browserslist": {
+    "production": [
+      "defaults",
+      "not IE 11",
+      "not IE_Mob 11",
+      "maintained node versions"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "devDependencies": {
+    "@creativebulma/bulma-divider": "^1.1.0",
+    "bulma": "^0.9.0",
+    "eslint-config-prettier": "^6.11.0",
+    "eslint-plugin-jsx-a11y": "^6.3.1",
+    "eslint-plugin-react": "^7.20.6",
+    "prettier": "2.1.1",
+    "stylelint": "^13.6.1",
+    "stylelint-config-sass-guidelines": "^7.0.0",
+    "stylelint-config-standard": "^20.0.0",
+    "stylelint-order": "^4.1.0"
+  }
+}
