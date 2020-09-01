@@ -1,6 +1,6 @@
 import { Router } from 'express';
 import {
-  addPost, deletePost, getPosts, getPostById, updatePost,
+  addPost, deletePost, getPosts, getPostsById, updatePost,
 } from '../db';
 
 const router = Router();
@@ -10,9 +10,9 @@ router.get('/', async (_, res) => {
   res.status(200).json(await getPosts());
 });
 
-// Get one post
+// Get posts for one user
 router.get('/:id', async (req, res) => {
-  res.status(200).json(await getPostById(req.params.id));
+  res.status(200).json(await getPostsById(req.params.id));
   // res.status(200).send(req.params);
 });
 

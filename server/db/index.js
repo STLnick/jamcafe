@@ -29,10 +29,10 @@ export const getUsers = async () => {
   }
 };
 
-export const getUserById = async (id) => {
+export const loginUser = async (userInfo) => {
   try {
     return await client.db('jamcafe').collection('users')
-      .findOne({ _id: ObjectId(id) });
+      .findOne(userInfo);
   } catch (err) {
     throw new Error(err);
   }
@@ -52,7 +52,7 @@ export const addPost = async (newPost) => {
   try {
     return await client.db('jamcafe').collection('posts')
       .insertOne({
-        userId: ObjectId(newPost.userId),
+        userId: newPost.userId,
         title: newPost.title,
         content: newPost.content,
         datePosted: new Date(newPost.datePosted),
@@ -80,10 +80,10 @@ export const getPosts = async () => {
   }
 };
 
-export const getPostById = async (id) => {
+export const getPostsById = async (userId) => {
   try {
     return await client.db('jamcafe').collection('posts')
-      .findOne({ _id: ObjectId(id) });
+      .find({ userId }).toArray();
   } catch (err) {
     throw new Error(err);
   }

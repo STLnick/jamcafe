@@ -1,6 +1,6 @@
 import { Router } from 'express';
 import {
-  addUser, deleteUser, getUsers, getUserById, updateUser,
+  addUser, deleteUser, getUsers, loginUser, updateUser,
 } from '../db';
 
 const router = Router();
@@ -10,10 +10,9 @@ router.get('/', async (_, res) => {
   res.status(200).json(await getUsers());
 });
 
-// Get one user
-router.get('/:id', async (req, res) => {
-  res.status(200).json(await getUserById(req.params.id));
-  // res.status(200).send(req.params);
+// Login a user
+router.post('/', async (req, res) => {
+  res.status(200).json(await loginUser(req.body));
 });
 
 // Add a user
