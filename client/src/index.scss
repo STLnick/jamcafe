@@ -202,7 +202,7 @@ textarea {
   width: 2rem;
 }
 
-.section--use {
+.my-section.section--use {
   background-color: #eee;
 }
 
@@ -232,7 +232,7 @@ textarea {
   width: 100%;
 }
 
-.section--help {
+.my-section.section--help {
   background-color: #eee;
 }
 
@@ -256,6 +256,7 @@ textarea {
 .register-container,
 .edit-profile-container,
 .view-profile-container {
+  background-color: #fff;
   height: 91vh;
   width: 100vw;
 }
@@ -492,7 +493,8 @@ textarea {
   list-style-type: none;
 }
 
-.section {
+.my-section {
+  background-color: #fff;
   padding: 4rem 2rem;
 }
 
@@ -504,7 +506,6 @@ textarea {
 
 .section-text {
   font-size: 2em;
-  line-height: 2rem;
 }
 
 .cta-btn,
@@ -543,7 +544,7 @@ textarea {
   color: white;
 }
 
-.input {
+.my-input {
   border: 1px solid var(--primary-color);
   border-radius: 5px;
   outline: none;

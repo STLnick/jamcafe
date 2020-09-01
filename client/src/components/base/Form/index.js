@@ -8,7 +8,7 @@ export const Form = ({ btn, formBtm, inputs }) => {
       return (
         <Fragment key={id}>
           <label htmlFor={htmlFor} className="screen-reader-text">{placeholder}</label>
-          <input type={type} className="input" id={id} placeholder={placeholder} />
+          <input type={type} className="my-input" id={id} placeholder={placeholder} />
         </Fragment>
       )
     })

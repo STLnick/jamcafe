@@ -44,7 +44,7 @@ export const Section = ({ section: { button, heading, images, list, listClass, l
   }
 
   return (
-    <section className={`section ${title ? 'section--' + title : null}`}>
+    <section className={`my-section ${title ? 'section--' + title : null}`}>
       {heading ? <h3 className="section-heading">{heading}</h3> : null}
       {list ? <ul className={`list section-text ${listClass}`}>{renderList()}</ul> : null}
       {text ? renderTexts() : null}

@@ -14,7 +14,7 @@ export const TestimonialsSection = ({ reviews }) => {
   }
 
   return (
-    <section className="section section--testimonials">
+    <section className="my-section section--testimonials">
       <h3 className="section-heading">Hear From Our Users</h3>
       {renderReviews()}
     </section>
