@@ -1,4 +1,9 @@
 :root {
+  --primary-color: #ec0000;
+  --primary-light: #fd3e3e;
+  --primary-dark: #a30202;
+  --basic-text: #616161;
+}
 
 body {
   color: var(--basic-text);
@@ -16,13 +21,6 @@ code {
 }
 
 /* TODO: Separate out specific pieces of CSS */
-
-:root {
-  --primary-color: #ec0000;
-  --primary-light: #fd3e3e;
-  --primary-dark: #a30202;
-  --basic-text: #616161;
-}
 
 * {
   margin: 0;
