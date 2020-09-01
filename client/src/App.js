@@ -1,26 +1,42 @@
-import React from "react"
-import logo from "./logo.svg"
-import "./App.css"
+import React from 'react';
+import {
+  BrowserRouter as Router,
+  Route
+} from 'react-router-dom'
 
-function App() {
+import { Footer, Header } from './components'
+import routes from './routes'
+
+import './App.scss';
+
+export const App = () => {
+
+  const toggleMobileMenu = () => {
+    document.querySelector('.mobile-menu').classList.toggle('active-mobile-menu')
+    document.querySelector('.overlay').classList.toggle('enabled')
+  }
+
+  const handleMenuBtnKeyDown = (e) => {
+    if (e.keyCode === 13 || e.keyCode === 32) {
+      e.preventDefault();
+      toggleMobileMenu()
+    }
+  }
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  )
+    <Router>
+      {/* onClick on div only there to close menu if overlay is present */}
+      <div className="overlay" onClick={toggleMobileMenu}></div>
+      <Header handleClick={toggleMobileMenu} handleKeyDown={handleMenuBtnKeyDown} />
+      {routes.map(({ Component, path }, i) => (
+        <Route
+          key={i}
+          exact
+          path={path}
+          component={Component}
+        />
+      ))}
+      <Footer />
+    </Router>
+  );
 }
-
-export default App
