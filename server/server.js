@@ -1,7 +1,7 @@
 import cors from 'cors';
 import express from 'express';
-import { posts } from './routes/posts';
-import { users } from './routes/users';
+import posts from './routes/posts';
+import users from './routes/users';
 
 const app = express();
 const PORT = 5000;
