@@ -23,7 +23,11 @@ router.post('/add', async (req, res) => {
 
 // Update a post
 router.patch('/update/:id', async (req, res) => {
-  res.status(204).json(await updatePost(req.params.id, req.body));
+  res.status(200).json(await updatePost(
+    req.params.id,
+    req.body,
+    { returnNewDocument: true },
+  ));
 });
 
 // Delete a post
