@@ -8,15 +8,15 @@ export const Register = () => {
 
   const inputs = [
     {
-      htmlFor: 'fname',
-      id: 'fname',
-      placeholder: 'First Name',
+      htmlFor: 'name',
+      id: 'name',
+      placeholder: 'Name',
       type: 'text'
     },
     {
-      htmlFor: 'lname',
-      id: 'lname',
-      placeholder: 'Last Name',
+      htmlFor: 'username',
+      id: 'username',
+      placeholder: 'User Name',
       type: 'text'
     },
     {
