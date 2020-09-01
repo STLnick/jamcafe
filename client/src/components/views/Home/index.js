@@ -1,7 +1,9 @@
 import React, { Fragment } from 'react'
 import { Link } from 'react-router-dom'
 
-import { Hero, Section, TestimonialsSection } from '../../components'
+import { Section } from '../../base'
+import { Hero } from './Hero'
+import { TestimonialsSection } from './TestimonialsSection'
 
 export const Home = () => {
 

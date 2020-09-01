@@ -1,7 +1,7 @@
 import React, { Fragment } from 'react'
 import { Link } from 'react-router-dom'
 
-import { Form } from '../../components'
+import { Form } from '../../base'
 
 export const Login = () => {
   const button = <button className="cta-btn" type="submit">Login</button>

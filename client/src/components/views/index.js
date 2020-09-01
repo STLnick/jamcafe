@@ -1,4 +1,5 @@
-// 'views' 📁 is for 'static pages'
-// If you don't have any, you may delete the folder.abs
-
-const x = 3
+export { About } from './About'
+export { Feed } from './Feed'
+export { Home } from './Home'
+export { Login } from './Login'
+export { Register } from './Register'

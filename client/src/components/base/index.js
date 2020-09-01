@@ -1,1 +1,5 @@
-// If you have some components that need to used from anywhere, you can put them here.
+export { Card } from './Card'
+export { Footer } from './Footer'
+export { Form } from './Form'
+export { Header } from './Header'
+export { Section } from './Section'
