@@ -10,7 +10,11 @@ export const Feed = () => {
 
   useEffect(() => {
     (async () => {
-      setPosts(await repo.getAllPosts())
+      const dbPosts = await repo.getAllPosts()
+      setPosts(() => dbPosts.map(post => {
+        post.date = post.datePosted.slice(0, 10)
+        return post
+      }))
     })()
   }, [])
 
@@ -49,7 +53,7 @@ export const Feed = () => {
   }
 
   return (
-    <div className="posts flex flex--column flex--align-center flex--justify-evenly">
+    <div className="posts flex flex--column flex--align-center flex--justify-start">
       <h3 className="section-heading">User Posts</h3>
       {renderPosts()}
     </div>
