@@ -2,7 +2,7 @@
   "name": "server",
   "version": "1.0.0",
   "description": "Express server with webpack mongodb built with webpack. Linting included!",
-  "main": "index.js",
+  "main": "server.js",
   "scripts": {
     "build": "webpack",
     "start-server": "nodemon dist/main.js",
