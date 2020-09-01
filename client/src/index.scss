@@ -16,7 +16,7 @@ body {
 }
 
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 }
 
@@ -28,14 +28,14 @@ code {
 }
 
 a {
-  text-decoration: none;
   color: inherit;
+  text-decoration: none;
 }
 
 blockquote {
   font-size: 1rem;
-  text-align: center;
   margin-top: 0.5rem;
+  text-align: center;
 }
 
 blockquote p {
@@ -65,11 +65,13 @@ blockquote footer::after {
 }
 
 textarea {
-  font-family: 'Roboto Condensed', sans-serif;
+  font-family: "Roboto Condensed", sans-serif;
 }
 
 /* ----------------- */
+
 /* * Classes & IDs * */
+
 /* ----------------- */
 
 .overlay {
@@ -160,7 +162,7 @@ textarea {
 }
 
 .mobile-menu--list li {
-  border-bottom: 1px solid #444444;
+  border-bottom: 1px solid #444;
   padding: 1rem;
 }
 
@@ -220,9 +222,9 @@ textarea {
 
 .testimonial-1,
 .testimonial-2 {
+  border-bottom: 4px solid #eee;
   margin-bottom: 2.5rem;
   padding-bottom: 2.5rem;
-  border-bottom: 4px solid #eee;
 }
 
 .testimonial-1-img,
@@ -381,8 +383,8 @@ textarea {
   color: var(--basic-text);
   font-size: 1.6em;
   font-weight: 700;
-  outline: none;
   margin: 0 0 0.5rem 0;
+  outline: none;
   transition: text-decoration, color 0.4s;
 }
 
@@ -425,8 +427,8 @@ textarea {
   border-radius: 50%;
   bottom: 2rem;
   outline: none;
-  right: 2rem;
   position: fixed;
+  right: 2rem;
   transition: box-shadow 0.4s;
   width: 5rem;
 }
@@ -486,7 +488,9 @@ textarea {
 }
 
 /* --------------------- */
+
 /* * Reuseable Classes * */
+
 /* --------------------- */
 
 .list {
@@ -499,9 +503,9 @@ textarea {
 }
 
 .section-heading {
+  border-bottom: 2px solid var(--primary-light);
   font-size: 3.6em;
   margin-bottom: 1rem;
-  border-bottom: 2px solid var(--primary-light);
 }
 
 .section-text {
@@ -561,6 +565,7 @@ textarea {
 }
 
 /* Change SVG color */
+
 /* Found at this CodePen: https://codepen.io/sosuke/pen/Pjoqqp */
 .filter-primary {
   filter: invert(11%) sepia(98%) saturate(7005%) hue-rotate(3deg) brightness(89%) contrast(113%);
@@ -613,4 +618,3 @@ textarea {
 .flex--wrap {
   flex-wrap: wrap;
 }
-
