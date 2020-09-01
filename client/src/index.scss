@@ -47,11 +47,11 @@ blockquote p {
 }
 
 blockquote p::before {
-  content: '\201C';
+  content: "\201C";
 }
 
 blockquote p::after {
-  content: '\201D';
+  content: "\201D";
 }
 
 blockquote footer {
@@ -61,7 +61,7 @@ blockquote footer {
 
 blockquote footer::before,
 blockquote footer::after {
-  content: '\2014';
+  content: "\2014";
 }
 
 textarea {
@@ -73,7 +73,7 @@ textarea {
 /* ----------------- */
 
 .overlay {
-  background-color: rgba(255, 255, 255,0.6);
+  background-color: rgba(255, 255, 255, 0.6);
   bottom: 0;
   display: none;
   left: 0;

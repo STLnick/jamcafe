@@ -14,7 +14,7 @@ $beige-light: #d0d1cd;
 $beige-lighter: #eff0eb;
 
 // Update Bulma's global variables
-$family-sans-serif: "Nunito", -apple-system, blinkmacsystemfont, "Segoe UI",
+$family-sans-serif: "Roboto Condensed", -apple-system, blinkmacsystemfont, "Segoe UI",
   "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans",
   "Helvetica Neue", sans-serif;
 $family-secondary: "Halant", serif;
@@ -27,6 +27,7 @@ $fullhd-enabled: false;
 
 // Update some of Bulma's component variables
 $body-background-color: $beige-lighter;
+$body-size: 10px;
 $control-border-width: 2px;
 $input-border-color: transparent;
 $input-shadow: none;
