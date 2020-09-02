@@ -7,22 +7,38 @@ const router = Router();
 
 // Get all users
 router.get('/', async (_, res) => {
-  res.status(200).json(await getUsers());
+  try {
+    res.status(201).json(await getUsers());
+  } catch (err) {
+    res.status(500).send((`${err}`));
+  }
 });
 
 // Login a user
 router.post('/', async (req, res) => {
-  res.status(200).json(await loginUser(req.body));
+  try {
+    res.status(201).json(await loginUser(req.body));
+  } catch (err) {
+    res.status(500).send((`${err}`));
+  }
 });
 
 // Add a user
 router.post('/add', async (req, res) => {
-  res.status(201).json(await addUser(req.body));
+  try {
+    res.status(201).json(await addUser(req.body));
+  } catch (err) {
+    res.status(500).send((`${err}`));
+  }
 });
 
 // Update a user
 router.patch('/update/:id', async (req, res) => {
-  res.status(204).json(await updateUser(req.params.id, req.body));
+  try {
+    res.status(204).json(await updateUser(req.params.id, req.body));
+  } catch (err) {
+    res.status(500).send((`${err}`));
+  }
 });
 
 // Delete a user

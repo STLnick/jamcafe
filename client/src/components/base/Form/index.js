@@ -1,7 +1,7 @@
 import React, { Fragment } from 'react'
 import PropTypes from 'prop-types'
 
-export const Form = ({ btn, formBtm, handler, inputs }) => {
+export const Form = ({ btn, errorMsg, formBtm, handler, inputs }) => {
   const renderLabeledInputs = () => {
     return inputs.map(({ htmlFor, id, placeholder, type }) => {
       return (
@@ -20,6 +20,9 @@ export const Form = ({ btn, formBtm, handler, inputs }) => {
     >
       {renderLabeledInputs()}
       {btn}
+      {errorMsg
+        ? (<p className="is-size-4 has-text-danger">{errorMsg}</p>)
+        : null}
       {formBtm}
     </form>
   )
@@ -27,6 +30,7 @@ export const Form = ({ btn, formBtm, handler, inputs }) => {
 
 Form.propTypes = {
   btn: PropTypes.object,
+  errorMsg: PropTypes.string,
   formBtm: PropTypes.object,
   handler: PropTypes.func,
   inputs: PropTypes.array
