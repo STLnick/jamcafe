@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useHistory } from 'react-router-dom'
 import api from 'api'
 import utils from 'utils'
 
@@ -8,6 +8,7 @@ import { Form } from '../../base'
 const repo = api()
 
 export const Login = () => {
+  const history = useHistory()
   const [loginError, setLoginError] = useState('')
 
   const determineErrorMessage = (res) => {
@@ -25,12 +26,13 @@ export const Login = () => {
     const response = await repo.loginUser(userInfo)
 
     // Success if response is an object - Error if type is string
-    response
-      ? setLoginError('')
-      // TODO: redirect the user to login?home?editProfile?
+    if (response) {
       // TODO: need to do something with the returned userObject?
-      : setLoginError(() => determineErrorMessage(response))
-
+      setLoginError('')
+      history.push('/feed')
+    } else {
+      setLoginError(() => determineErrorMessage(response))
+    }
   }
 
   const button = <button className="cta-btn" type="submit">Login</button>
