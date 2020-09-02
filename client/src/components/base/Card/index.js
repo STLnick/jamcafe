@@ -3,9 +3,6 @@ import PropTypes from 'prop-types'
 import { Link } from 'react-router-dom'
 
 export const Card = ({ post: { content, date, title, user } }) => {
-
-  console.log(content)
-
   return (
     <div className="post flex flex--column flex--align-center">
       <h4 className="post--title">{title}</h4>
