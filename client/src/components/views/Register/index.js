@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 import api from 'api'
+import utils from 'utils'
 
 import { Form } from '../../base'
 
@@ -9,26 +10,30 @@ const repo = api()
 export const Register = () => {
   const [registerError, setRegisterError] = useState('')
 
+  const determineErrorMessage = (text) => {
+    if (text.includes('email')) {
+      return 'Account exists with that email already'
+    } else if (text.includes('username')) {
+      return 'Username is taken'
+    } else {
+      return 'Error occurred interacting with database. Try again.'
+    }
+  }
+
   const handleSubmit = async (e) => {
     e.preventDefault()
 
     const userInfo = utils.createObjectFromFields(e.target.elements)
 
     // Make POST request to server to create new user
-    const responseText = await repo.registerUser(userInfo)
+    const response = await repo.registerUser(userInfo)
 
-    // Check for error and display appropriate message
-    if (responseText.includes('Error')) {
-      if (responseText.includes('email')) {
-        setRegisterError('Account exists with that email already')
-      } else if (responseText.includes('username')) {
-        setRegisterError('Username is taken')
-      } else {
-        setRegisterError('Error occurred interacting with database. Try again.')
-      }
-    }
-
-    // TODO: redirect the user to login?home?editProfile?
+    // Success if response is an object - Error if type is string
+    typeof response === 'object'
+      ? setRegisterError('')
+      // TODO: redirect the user to login?home?editProfile?
+      // TODO: need to do something with the returned userObject?
+      : setRegisterError(() => determineErrorMessage(response))
   }
 
   const button = <button className="cta-btn" type="submit">Sign Up</button>

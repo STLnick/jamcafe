@@ -14,6 +14,22 @@ export default (baseUrl = 'http://localhost:5000') => ({
     return await postsRes.json()
   },
 
+  async loginUser(userInfo) {
+    const loginRes = await fetch(`${baseUrl}/users/`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(userInfo)
+    })
+
+    if (loginRes.status > 200 && loginRes.status < 300) {
+      return await loginRes.json()
+    } else {
+      return await loginRes.text()
+    }
+  },
+
   async registerUser(userInfo) {
     const registerRes = await fetch(`${baseUrl}/users/add`, {
       method: 'POST',
@@ -22,6 +38,13 @@ export default (baseUrl = 'http://localhost:5000') => ({
       },
       body: JSON.stringify(userInfo)
     })
-    return await registerRes.text()
+
+    if (registerRes.status > 200 && registerRes.status < 300) {
+      const { ops } = await registerRes.json()
+      console.log(ops)
+      return await ops[0]
+    } else {
+      return await registerRes.text()
+    }
   }
 });
