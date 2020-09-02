@@ -17,7 +17,7 @@ export default (baseUrl = 'http://localhost:5000') => ({
   // TODO: and encryption of some sort for the password
   // TODO: will need to change the passwords in db to encrypted ones
   async loginUser(userInfo) {
-    const loginRes = await fetch(`${baseUrl}/users/`, {
+    const loginRes = await fetch(`${baseUrl}/users`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -30,6 +30,11 @@ export default (baseUrl = 'http://localhost:5000') => ({
     } else {
       return await loginRes.text()
     }
+  },
+
+  async getUserByUsername(username) {
+    const userRes = await fetch(`${baseUrl}/users/${username}`)
+    return await userRes.json()
   },
 
   async registerUser(userInfo) {
