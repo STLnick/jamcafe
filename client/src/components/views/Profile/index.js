@@ -22,7 +22,7 @@ export const Profile = () => {
     <div className="profile-container flex flex--column flex--align-center flex--justify-around">
       <h4 id="name" className="profile-title">{user.username}</h4>
       <h6 className="profile-field-heading">Bio</h6>
-      <p id="bio" className="profile-field">{user.about}</p>
+      <p id="bio" className="profile-field">{user.bio}</p>
       <h6 className="profile-field-heading">Location</h6>
       <p id="location" className="profile-field">{user.location ? user.location : ''}</p>
       <h6 className="profile-field-heading">Genres</h6>

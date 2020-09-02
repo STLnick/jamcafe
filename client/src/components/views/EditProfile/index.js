@@ -45,7 +45,7 @@ export const EditProfile = () => {
       <textarea id="bio" class="my-input" placeholder="About Me">
         {user.about ? user.about : ''}
       </textarea>
-      <label for="location" class="screen-reader-text">Location</label>
+        defaultValue={user.bio ? user.bio : ''}
       <input
         id="location"
         type="text"
