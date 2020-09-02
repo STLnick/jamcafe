@@ -1,12 +1,12 @@
 export default (baseUrl = 'http://localhost:5000') => ({
-  // Get posts and append the usernames to each
+  // Get all posts
   async getAllPosts() {
     const postsRes = await fetch(`${baseUrl}/posts`, {
       contentType: 'application/json'
     })
     return await postsRes.json()
   },
-
+  // Get posts for one user (viewing profile)
   async getUserPosts() {
     const postsRes = await fetch(`${baseUrl}/posts`, {
       contentType: 'application/json'
