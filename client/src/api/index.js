@@ -10,7 +10,9 @@ export default (baseUrl = 'http://localhost:5000') => ({
   async registerUser(userInfo) {
     const registerRes = await fetch(`${baseUrl}/users/add`, {
       method: 'POST',
-      contentType: 'application/json',
+      headers: {
+        'Content-Type': 'application/json',
+      },
       body: JSON.stringify(userInfo)
     })
   }
