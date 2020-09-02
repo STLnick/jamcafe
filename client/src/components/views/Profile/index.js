@@ -1,21 +1,33 @@
 import React from 'react'
+import { useLocation } from 'react-router-dom'
 
 export const Profile = () => {
-
+  const location = useLocation()
+  const user = location.state.userProp
+  console.log(user)
   // TODO: Remove hard code and receive a USER prop and then display accordingly
 
-  return (<main class="view-profile-container flex flex--column flex--align-center flex--justify-center">
-    <h3 class="section-heading">View Profile</h3>
-    <div class="profile-container flex flex--column flex--align-center flex--justify-around">
-      <h4 id="name" class="profile-title">Nick Ray</h4>
-      <h6 class="profile-field-heading">Bio</h6>
-      <p id="bio" class="profile-field">Just a guy that likes to make websites and play music</p>
-      <h6 class="profile-field-heading">Location</h6>
-      <p id="location" class="profile-field">STL, MO</p>
-      <h6 class="profile-field-heading">Genres</h6>
-      <p id="genres" class="profile-field">Rock, Blues, Metal</p>
-      <h6 class="profile-field-heading">Instruments</h6>
-      <p id="instruments" class="profile-field">Guitar, Bass, Drums</p>
+  return (<main className="view-profile-container flex flex--column flex--align-center flex--justify-center">
+    <h3 className="section-heading">View Profile</h3>
+    <div className="profile-container flex flex--column flex--align-center flex--justify-around">
+      <h4 id="name" className="profile-title">{user.username}</h4>
+      <h6 className="profile-field-heading">Bio</h6>
+      <p id="bio" className="profile-field">{user.about}</p>
+      <h6 className="profile-field-heading">Location</h6>
+      <p id="location" className="profile-field">{user.location ? user.location : ''}</p>
+      <h6 className="profile-field-heading">Genres</h6>
+      <p id="genres" className="profile-field">{user.genres ? user.genres.join(', ') : ''}</p>
+      <h6 className="profile-field-heading">Instruments</h6>
+      <p id="instruments" className="profile-field">{user.instruments ? user.instruments.join(', ') : ''}</p>
     </div>
   </main>)
 }
+
+// _id: "5f4928be3bd49107b08117b8"
+// about: "Just a STL guy that plays guitar and loves playing with others."
+// email: "stlnick@gmail.com"
+// genres: Array(3) [ "rock", "blues", "metal" ]
+// instruments: Array [ "guitar", "bass" ]
+// name: "Nick Ray"
+// password: "password"
+// username: "STLnick"

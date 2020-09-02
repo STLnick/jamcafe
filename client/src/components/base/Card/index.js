@@ -1,13 +1,32 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { Link } from 'react-router-dom'
+import { Link, useHistory } from 'react-router-dom'
+import api from 'api'
+
+const repo = api()
 
 export const Card = ({ post: { content, date, title, user } }) => {
+  const history = useHistory()
+
+  const handleUsernameClick = async () => {
+    // fetch user from database based on username
+    const userObj = await repo.getUserByUsername(user)
+    history.push(`/profile/${user}`, { userProp: userObj })
+  }
+
+  // <Link className='post--username' to={{
+  //   pathname: `/profile/${user}`,
+  //   userProp: userObj
+  // }}>
+
+  // </Link>
+
   return (
     <div className="post flex flex--column flex--align-center">
       <h4 className="post--title">{title}</h4>
       {/* TODO: Need to configure actual paths to user profile */}
-      <Link className='post--username' to=''>{user}</Link>
+      <button onClick={() => handleUsernameClick()}>{user}</button>
+
       <div className="post--content">
         <p>{content}</p>
       </div>
