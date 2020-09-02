@@ -35,3 +35,7 @@ Form.propTypes = {
   handler: PropTypes.func,
   inputs: PropTypes.array
 }
+
+Form.defaultProps = {
+  errorMsg: ''
+}
