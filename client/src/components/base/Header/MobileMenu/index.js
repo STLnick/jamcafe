@@ -4,37 +4,39 @@ import PropTypes from 'prop-types'
 
 export const MobileMenu = ({ handleClick }) => {
 
+  const links = [
+    {
+      path: '/',
+      text: 'Home'
+    },
+    {
+      path: '/register',
+      text: 'Sign Up'
+    },
+    {
+      path: '/login',
+      text: 'Login'
+    },
+    {
+      path: '/about',
+      text: 'About'
+    }
+  ]
+
+  const renderLinks = () => links.map(({ path, text }) => (<li>
+    <Link
+      className="mobile-menu--list-link"
+      onClick={handleClick}
+      to={path}
+    >
+      {text}
+    </Link>
+  </li>))
+
   return (
     <div className="mobile-menu">
       <ul className="mobile-menu--list">
-        <li>
-          <Link
-            onClick={handleClick}
-            to='/'
-          >Home
-          </Link>
-        </li>
-        <li>
-          <Link
-            onClick={handleClick}
-            to='/register'
-          >Sign Up
-          </Link>
-        </li>
-        <li>
-          <Link
-            onClick={handleClick}
-            to='/login'
-          >Login
-          </Link>
-        </li>
-        <li>
-          <Link
-            onClick={handleClick}
-            to='/about'
-          >About
-          </Link>
-        </li>
+        {renderLinks()}
       </ul>
     </div>
   )
