@@ -1,5 +1,6 @@
 export { About } from './About'
 export { Feed } from './Feed'
+export { Forgot } from './Forgot'
 export { Home } from './Home'
 export { Login } from './Login'
 export { Register } from './Register'

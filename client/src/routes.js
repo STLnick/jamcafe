@@ -1,4 +1,4 @@
-import { About, Feed, Home, Login, Register } from './components'
+import { About, Feed, Forgot, Home, Login, Register } from './components'
 
 export default [
   {
@@ -16,6 +16,10 @@ export default [
   {
     Component: Register,
     path: '/register'
+  },
+  {
+    Component: Forgot,
+    path: '/forgot'
   },
   {
     Component: Feed,
