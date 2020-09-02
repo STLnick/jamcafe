@@ -2,9 +2,6 @@ import React, { Fragment } from 'react'
 import PropTypes from 'prop-types'
 
 export const Form = ({ btn, formBtm, handler, inputs }) => {
-
-
-
   const renderLabeledInputs = () => {
     return inputs.map(({ htmlFor, id, placeholder, type }) => {
       return (
