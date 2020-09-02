@@ -55,6 +55,7 @@ export const Login = () => {
   const formBottom = <div className="register-form-bottom">
     <p>Not registered yet?</p>
     <Link className="login-link" to='/register' >Register</Link>
+    <Link className="login-link" to='/forgot' >Forgot Password?</Link>
   </div>
 
   return (
