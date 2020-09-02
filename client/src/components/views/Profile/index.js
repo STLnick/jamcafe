@@ -22,12 +22,3 @@ export const Profile = () => {
     </div>
   </main>)
 }
-
-// _id: "5f4928be3bd49107b08117b8"
-// about: "Just a STL guy that plays guitar and loves playing with others."
-// email: "stlnick@gmail.com"
-// genres: Array(3) [ "rock", "blues", "metal" ]
-// instruments: Array [ "guitar", "bass" ]
-// name: "Nick Ray"
-// password: "password"
-// username: "STLnick"
