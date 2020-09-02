@@ -145,13 +145,14 @@ textarea {
   right: 0;
 }
 
-.mobile-menu--list a {
+.mobile-menu--list-link {
+  color: var(--basic-text);
   outline: none;
   transition: text-decoration, text-shadow 0.7s;
 }
 
-.mobile-menu--list a:focus,
-.mobile-menu--list a:hover {
+.mobile-menu--list-link:focus,
+.mobile-menu--list-link:hover {
   font-weight: 700;
   text-decoration: underline var(--primary-color);
   text-shadow: 0 0 1px var(--primary-color);
