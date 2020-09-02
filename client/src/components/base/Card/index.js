@@ -14,13 +14,6 @@ export const Card = ({ post: { content, date, title, user } }) => {
     history.push(`/profile/${user}`, { userProp: userObj })
   }
 
-  // <Link className='post--username' to={{
-  //   pathname: `/profile/${user}`,
-  //   userProp: userObj
-  // }}>
-
-  // </Link>
-
   return (
     <div className="post flex flex--column flex--align-center">
       <h4 className="post--title">{title}</h4>
