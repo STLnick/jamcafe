@@ -1,9 +1,17 @@
-import { About, Feed, Forgot, Home, Login, Register } from './components'
+import { About, Feed, Forgot, Home, Login, Profile, Register } from './components'
 
 export default [
   {
     Component: About,
     path: '/about'
+  },
+  {
+    Component: Forgot,
+    path: '/forgot'
+  },
+  {
+    Component: Feed,
+    path: '/feed'
   },
   {
     Component: Home,
@@ -14,16 +22,12 @@ export default [
     path: '/login'
   },
   {
+    Component: Profile,
+    path: '/profile'
+  },
+  {
     Component: Register,
     path: '/register'
-  },
-  {
-    Component: Forgot,
-    path: '/forgot'
-  },
-  {
-    Component: Feed,
-    path: '/feed'
   }
 ]
 // TODO: About, Home, Login, Register are Pages for NOT LOGGED IN
