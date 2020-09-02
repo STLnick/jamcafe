@@ -304,6 +304,8 @@ textarea {
 
 .login-link {
   color: var(--primary-light);
+  display: block;
+  margin-bottom: 1.6rem;
   outline: none;
   transition: color, font-weight, text-decoration 0.4s;
 }
