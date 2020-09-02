@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom'
 import { Form } from '../../base'
 
 export const Login = () => {
+    const userInfo = utils.createObjectFromFields(e.target.elements)
   const button = <button className="cta-btn" type="submit">Login</button>
 
   const inputs = [

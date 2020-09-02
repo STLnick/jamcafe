@@ -12,12 +12,7 @@ export const Register = () => {
   const handleSubmit = async (e) => {
     e.preventDefault()
 
-    const userInfo = Array.from(e.target.elements)
-      .filter(el => el.id)
-      .reduce((info, el) => {
-        info[el.id] = el.value
-        return info
-      }, {})
+    const userInfo = utils.createObjectFromFields(e.target.elements)
 
     // Make POST request to server to create new user
     const responseText = await repo.registerUser(userInfo)
