@@ -1,9 +1,13 @@
-import { About, Feed, Forgot, Home, Login, Profile, Register } from './components'
+import { About, EditProfile, Feed, Forgot, Home, Login, Profile, Register } from './components'
 
 export default [
   {
     Component: About,
     path: '/about'
+  },
+  {
+    Component: EditProfile,
+    path: '/profile/edit' // Should only go to Editing Profile of the Logged In User
   },
   {
     Component: Forgot,

@@ -1,4 +1,5 @@
 export { About } from './About'
+export { EditProfile } from './EditProfile'
 export { Feed } from './Feed'
 export { Forgot } from './Forgot'
 export { Home } from './Home'
