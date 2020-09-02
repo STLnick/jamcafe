@@ -27,7 +27,7 @@ export default [
   },
   {
     Component: Profile,
-    path: '/profile'
+    path: '/profile/:username'
   },
   {
     Component: Register,
