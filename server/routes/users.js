@@ -1,6 +1,11 @@
 import { Router } from 'express';
 import {
-  addUser, deleteUser, getUserByUsername, getUsers, loginUser, updateUser,
+  addUser,
+  deleteUser,
+  getUserByUsername,
+  getUserByUid,
+  getUsers,
+  updateUser,
 } from '../db';
 
 const router = Router();
@@ -9,6 +14,15 @@ const router = Router();
 router.get('/', async (_, res) => {
   try {
     res.status(201).json(await getUsers());
+  } catch (err) {
+    res.status(500).send((`${err}`));
+  }
+});
+
+// 'Login' a user - fetch data of user authenticated by firebase
+router.post('/', async (req, res) => {
+  try {
+    res.status(201).json(await getUserByUid(req.body));
   } catch (err) {
     res.status(500).send((`${err}`));
   }

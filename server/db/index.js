@@ -22,6 +22,15 @@ export const deleteUser = async (id) => {
   }
 };
 
+export const getUserByUid = async ({ uid }) => {
+  try {
+    return await client.db('jamcafe').collection('users')
+      .findOne({ uid });
+  } catch (err) {
+    throw new Error(err);
+  }
+};
+
 export const getUserByUsername = async (username) => {
   try {
     return await client.db('jamcafe').collection('users')
