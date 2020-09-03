@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { Link, useHistory } from 'react-router-dom'
 import api from 'api'
+import auth from 'auth'
 import utils from 'utils'
 
 import { Form } from '../../base'
@@ -22,17 +23,17 @@ export const Login = () => {
 
     const userInfo = utils.createObjectFromFields(e.target.elements)
 
-    // Make POST request to server to create new user
-    const response = await repo.loginUser(userInfo)
-
-    // Success if response is an object - Error if type is string
-    if (response) {
-      // TODO: need to do something with the returned userObject?
-      setLoginError('')
-      history.push('/feed')
-    } else {
-      setLoginError(() => determineErrorMessage(response))
-    }
+    auth.signInWithEmailAndPassword(userInfo.email, userInfo.password)
+      .then(async (res) => {
+        const loggedInUser = await repo.loginUser({ uid: auth.currentUser.uid })
+        console.log('uid: ', auth.currentUser.uid)
+        console.log(loggedInUser)
+        setUser(loggedInUser)
+        setLoginError('')
+      })
+      .catch(err => {
+        setLoginError(err.message)
+      })
   }
 
   const button = <button className="cta-btn" type="submit">Login</button>
