@@ -23,7 +23,7 @@ export const MobileMenu = ({ handleClick }) => {
     }
   ]
 
-  const renderLinks = () => links.map(({ path, text }) => (<li>
+  const renderLinks = () => links.map(({ path, text }, i) => (<li key={i}>
     <Link
       className="mobile-menu--list-link"
       onClick={handleClick}
