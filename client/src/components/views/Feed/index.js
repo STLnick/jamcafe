@@ -1,12 +1,14 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 
 import { Card } from '../../base'
 import api from 'api'
+import { UserContext } from 'UserContext'
 
 const repo = api()
 
 export const Feed = () => {
   const [posts, setPosts] = useState([])
+  const { user } = useContext(UserContext)
 
   useEffect(() => {
     (async () => {
@@ -20,7 +22,7 @@ export const Feed = () => {
 
   const renderPosts = () => {
     return posts.map((post, i) => {
-      return <Card key={i} post={post} />
+      return <Card key={i} post={post} userLoggedIn={user} />
     })
   }
 
