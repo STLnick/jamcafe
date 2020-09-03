@@ -13,9 +13,7 @@ export default (baseUrl = 'http://localhost:5000') => ({
     })
     return await postsRes.json()
   },
-  // TODO: Actually implement some sort of authorization in state
-  // TODO: and encryption of some sort for the password
-  // TODO: will need to change the passwords in db to encrypted ones
+
   async loginUser(userInfo) {
     const loginRes = await fetch(`${baseUrl}/users`, {
       method: 'POST',
