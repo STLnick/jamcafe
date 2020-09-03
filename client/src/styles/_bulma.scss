@@ -7,26 +7,22 @@
 @import url("https://fonts.googleapis.com/css2?family=Halant:wght@700&display=swap");
 
 // Set your brand colors
-$purple: #8a4d76;
-$pink: #fa7c91;
-$brown: #757763;
-$beige-light: #d0d1cd;
-$beige-lighter: #eff0eb;
+$red: #ec0000;
+$light-red: #fd3e3e;
+$dark-red: #a30202;
 
 // Update Bulma's global variables
 $family-sans-serif: "Roboto Condensed", -apple-system, blinkmacsystemfont, "Segoe UI",
   "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans",
   "Helvetica Neue", sans-serif;
 $family-secondary: "Halant", serif;
-$grey-dark: $brown;
-$grey-light: $beige-light;
-$primary: $purple;
-$link: $pink;
+
+$danger: $red;
+$primary: $red;
 $widescreen-enabled: false;
 $fullhd-enabled: false;
 
 // Update some of Bulma's component variables
-$body-background-color: $beige-lighter;
 $body-size: 10px;
 $control-border-width: 2px;
 $input-border-color: transparent;
