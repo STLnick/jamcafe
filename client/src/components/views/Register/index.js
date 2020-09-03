@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import { Link, useHistory } from 'react-router-dom'
 
 import api from 'api'
@@ -6,12 +6,14 @@ import auth from 'auth'
 import utils from 'utils'
 
 import { Form } from '../../base'
+import { UserContext } from 'UserContext'
 
 const repo = api()
 
 export const Register = () => {
   const history = useHistory()
   const [registerError, setRegisterError] = useState('')
+  const { user, setUser } = useContext(UserContext)
 
   const handleSubmit = async (e) => {
     e.preventDefault()
@@ -25,14 +27,13 @@ export const Register = () => {
       auth.createUserWithEmailAndPassword(userInfo.email, userInfo.password)
         .then(async () => {
           // get the uid then make request to add user to database
-          const response = await repo.registerUser({
+          const userResponse = await repo.registerUser({
             uid: auth.currentUser.uid,
             name: userInfo.name,
             username: userInfo.username
           })
-
+          setUser(userResponse)
           setRegisterError('')
-          // TODO: Create a UserContext and setUser here...
           history.push('/feed')
         })
         .catch((err) => {

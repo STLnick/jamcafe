@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useMemo, useState } from 'react';
 import {
   BrowserRouter as Router,
   Route
@@ -6,10 +6,13 @@ import {
 
 import { Footer, Header } from './components'
 import routes from './routes'
+import { UserContext } from './UserContext'
 
 import './App.scss';
 
 export const App = () => {
+  const [user, setUser] = useState(null)
+  const providerValue = useMemo(() => ({ user, setUser }), [user, setUser])
 
   const toggleMobileMenu = () => {
     document.querySelector('.mobile-menu').classList.toggle('active-mobile-menu')
@@ -25,17 +28,18 @@ export const App = () => {
 
   return (
     <Router>
-      {/* onClick on div only there to close menu if overlay is present */}
       <div className="overlay" onClick={toggleMobileMenu}></div>
-      <Header handleClick={toggleMobileMenu} handleKeyDown={handleMenuBtnKeyDown} />
-      {routes.map(({ Component, path }, i) => (
-        <Route
-          key={i}
-          exact
-          path={path}
-          component={Component}
-        />
-      ))}
+      <UserContext.Provider value={providerValue}>
+        <Header handleClick={toggleMobileMenu} handleKeyDown={handleMenuBtnKeyDown} />
+        {routes.map(({ Component, path }, i) => (
+          <Route
+            key={i}
+            exact
+            path={path}
+            component={Component}
+          />
+        ))}
+      </UserContext.Provider>
       <Footer />
     </Router>
   );

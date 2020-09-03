@@ -1,16 +1,18 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import { Link, useHistory } from 'react-router-dom'
 import api from 'api'
 import auth from 'auth'
 import utils from 'utils'
 
 import { Form } from '../../base'
+import { UserContext } from 'UserContext'
 
 const repo = api()
 
 export const Login = () => {
   const history = useHistory()
   const [loginError, setLoginError] = useState('')
+  const { user, setUser } = useContext(UserContext)
 
   const determineErrorMessage = (res) => {
     return res === null
