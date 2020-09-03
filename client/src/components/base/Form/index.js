@@ -21,7 +21,7 @@ export const Form = ({ btn, errorMsg, formBtm, handler, inputs }) => {
       {renderLabeledInputs()}
       {btn}
       {errorMsg
-        ? (<p className="is-size-4 has-text-danger">{errorMsg}</p>)
+        ? (<p className="is-size-4 has-text-danger has-text-centered">{errorMsg}</p>)
         : null}
       {formBtm}
     </form>
