@@ -14,15 +14,6 @@ router.get('/', async (_, res) => {
   }
 });
 
-// Login a user
-router.post('/', async (req, res) => {
-  try {
-    res.status(201).json(await loginUser(req.body));
-  } catch (err) {
-    res.status(500).send((`${err}`));
-  }
-});
-
 // Get a user by username
 router.get('/:username', async (req, res) => {
   try {

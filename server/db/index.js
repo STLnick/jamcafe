@@ -38,15 +38,6 @@ export const getUsers = async () => {
   }
 };
 
-export const loginUser = async (userInfo) => {
-  try {
-    return await client.db('jamcafe').collection('users')
-      .findOne(userInfo);
-  } catch (err) {
-    throw new Error(err);
-  }
-};
-
 export const updateUser = async (id, propsToUpdate) => {
   try {
     return await client.db('jamcafe').collection('users')
