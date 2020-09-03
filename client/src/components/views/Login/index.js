@@ -28,10 +28,9 @@ export const Login = () => {
     auth.signInWithEmailAndPassword(userInfo.email, userInfo.password)
       .then(async (res) => {
         const loggedInUser = await repo.loginUser({ uid: auth.currentUser.uid })
-        console.log('uid: ', auth.currentUser.uid)
-        console.log(loggedInUser)
         setUser(loggedInUser)
         setLoginError('')
+        history.push('/feed')
       })
       .catch(err => {
         setLoginError(err.message)
