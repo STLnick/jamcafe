@@ -77,23 +77,23 @@ export const EditProfile = () => {
         <h3 className="is-size-4 has-text-weight-bold">Genres</h3>
         <div className="genres flex flex--wrap flex--justify-center">
           <label className="flex flex--align-center is-size-4" htmlFor="rock">
-            <input type="checkbox" name="rock" id="rock" value="Rock" />
+            <input type="checkbox" defaultChecked={profileToEdit.genres?.includes('Rock')} name="rock" id="rock" value="Rock" />
             Rock
           </label>
           <label className="flex flex--align-center is-size-4" htmlFor="blues">
-            <input type="checkbox" name="blues" id="blues" value="Blues" />
+            <input type="checkbox" defaultChecked={profileToEdit.genres?.includes('Blues')} name="blues" id="blues" value="Blues" />
             Blues
           </label>
           <label className="flex flex--align-center is-size-4" htmlFor="metal">
-            <input type="checkbox" name="metal" id="metal" value="Metal" />
+            <input type="checkbox" defaultChecked={profileToEdit.genres?.includes('Metal')} name="metal" id="metal" value="Metal" />
             Metal
           </label>
           <label className="flex flex--align-center is-size-4" htmlFor="classicRock">
-            <input type="checkbox" name="classicRock" id="classicRock" value="Classic Rock" />
+            <input type="checkbox" defaultChecked={profileToEdit.genres?.includes('Classic Rock')} name="classicRock" id="classicRock" value="Classic Rock" />
             Classic Rock
           </label>
           <label className="flex flex--align-center is-size-4" htmlFor="country">
-            <input type="checkbox" name="country" id="country" value="Country" />
+            <input type="checkbox" defaultChecked={profileToEdit.genres?.includes('Country')} name="country" id="country" value="Country" />
             Country
           </label>
         </div>
@@ -108,23 +108,23 @@ export const EditProfile = () => {
         <h3 className="is-size-4 has-text-weight-bold">Instruments</h3>
         <div className="instruments flex flex--wrap flex--justify-center">
           <label className="flex flex--align-center is-size-4" htmlFor="guitar">
-            <input type="checkbox" name="guitar" id="guitar" value="Guitar" />
+            <input type="checkbox" defaultChecked={profileToEdit.instruments?.includes('Guitar')} name="guitar" id="guitar" value="Guitar" />
             Guitar
           </label>
           <label className="flex flex--align-center is-size-4" htmlFor="bass">
-            <input type="checkbox" name="bass" id="bass" value="Bass" />
+            <input type="checkbox" defaultChecked={profileToEdit.instruments?.includes('Bass')} name="bass" id="bass" value="Bass" />
             Bass
           </label>
           <label className="flex flex--align-center is-size-4" htmlFor="drums">
-            <input type="checkbox" name="drums" id="drums" value="Drums" />
+            <input type="checkbox" defaultChecked={profileToEdit.instruments?.includes('Drums')} name="drums" id="drums" value="Drums" />
             Drums
           </label>
           <label className="flex flex--align-center is-size-4" htmlFor="vocals">
-            <input type="checkbox" name="vocals" id="vocals" value="Vocals" />
+            <input type="checkbox" defaultChecked={profileToEdit.instruments?.includes('Vocals')} name="vocals" id="vocals" value="Vocals" />
             Vocals
           </label>
           <label className="flex flex--align-center is-size-4" htmlFor="keys">
-            <input type="checkbox" name="keys" id="keys" value="Keyboard / Piano" />
+            <input type="checkbox" defaultChecked={profileToEdit.instruments?.includes('Keyboard / Piano')} name="keys" id="keys" value="Keyboard / Piano" />
             Keyboard / Piano
           </label>
         </div>
