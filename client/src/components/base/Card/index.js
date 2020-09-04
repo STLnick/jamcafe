@@ -9,9 +9,7 @@ export const Card = ({ post: { content, date, title, user }, userLoggedIn }) => 
   const history = useHistory()
 
   const handleUsernameClick = async () => {
-    // fetch user from database based on username
-    const userObj = await repo.getUserByUsername(user)
-    history.push(`/profile/${user}`, { userProp: userObj, userLoggedIn })
+    history.push(`/profile/${user}`)
   }
 
   return (
