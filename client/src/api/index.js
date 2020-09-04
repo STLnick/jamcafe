@@ -46,7 +46,6 @@ export default (baseUrl = 'http://localhost:5000') => ({
 
     if (registerRes.status > 200 && registerRes.status < 300) {
       const { ops } = await registerRes.json()
-      console.log(ops)
       return await ops[0]
     } else {
       return await registerRes.text()
@@ -55,8 +54,6 @@ export default (baseUrl = 'http://localhost:5000') => ({
 
   async updateUser(payload) {
     const { _id, username, uid, ...propsToUpdate } = payload
-    console.log('uid: ', uid)
-    console.log('propsToUpdate: ', propsToUpdate)
     const updateRes = await fetch(`${baseUrl}/users/update/${uid}`, {
       method: 'PATCH',
       headers: {
