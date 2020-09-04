@@ -26,6 +26,7 @@ export const Profile = () => {
         <h6 className="profile-field-heading">Location</h6>
         <p id="location" className="profile-field">{profile.location ? profile.location : ''}</p>
         <h6 className="profile-field-heading">Genres</h6>
+        {/* TODO: Refactor Genres/Instruments to be checkboxes? Could just display as string */}
         <p id="genres" className="profile-field">{profile.genres ? profile.genres.join(', ') : ''}</p>
         <h6 className="profile-field-heading">Instruments</h6>
         <p id="instruments" className="profile-field">{profile.instruments ? profile.instruments.join(', ') : ''}</p>
