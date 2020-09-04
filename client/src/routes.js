@@ -7,7 +7,7 @@ export default [
   },
   {
     Component: EditProfile,
-    path: '/profile/edit' // Should only go to Editing Profile of the Logged In User
+    path: '/profile/edit/:username' // Should only go to Editing Profile of the Logged In User
   },
   {
     Component: Forgot,
