@@ -406,13 +406,17 @@ textarea {
   text-decoration: underline double var(--primary-light);
 }
 
-.post--content {
+.post--content,
+.post--content-create {
   color: var(--basic-text);
   font-size: 1.6em;
-  height: 40vh;
   margin: 0.5rem 0 3rem;
   padding: 0 1rem;
   text-align: center;
+}
+
+.post--content-create {
+  height: 40vh;
   width: 90%;
 }
 
