@@ -1,9 +1,13 @@
-import { About, EditProfile, Feed, Forgot, Home, Login, Profile, Register } from './components'
+import { About, CreatePost, EditProfile, Feed, Forgot, Home, Login, Profile, Register } from './components'
 
 export default [
   {
     Component: About,
     path: '/about'
+  },
+  {
+    Component: CreatePost,
+    path: '/post'
   },
   {
     Component: EditProfile,
