@@ -10,6 +10,10 @@ export const MobileMenu = ({ handleClick }) => {
   const links = user
     ? [
       {
+        path: '/feed',
+        text: 'Post Feed'
+      },
+      {
         path: '/post',
         text: 'Create A Post'
       },
