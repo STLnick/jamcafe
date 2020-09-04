@@ -1,10 +1,22 @@
-import React from 'react'
-import { useLocation } from 'react-router-dom'
+import React, { useContext, useEffect, useState } from 'react'
+import { useHistory, useLocation } from 'react-router-dom'
+
+import api from 'api'
 import utils from 'utils'
+import { UserContext } from 'UserContext'
+
+const repo = api()
 
 export const EditProfile = () => {
+  const history = useHistory()
   const location = useLocation()
   const [profileToEdit, setProfileToEdit] = useState(null)
+  const { user } = useContext(UserContext)
+
+  if (!user) {
+    history.push('/login')
+  }
+
   useEffect(() => {
     (async () => {
       const profileRes = await repo.getUserByUsername(location.pathname.slice(14))
