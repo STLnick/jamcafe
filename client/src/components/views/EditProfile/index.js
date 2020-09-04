@@ -106,14 +106,6 @@ export const EditProfile = () => {
             Country
           </label>
         </div>
-        {/* <label className="is-size-4" htmlFor="genres" className="screen-reader-text">Genres</label>
-        <input
-          id="genres"
-          type="text"
-          className="my-input"
-          placeholder="Genres you play (Rock, Blues, Metal)"
-          defaultValue={profileToEdit.genres ? profileToEdit.genres.join(', ') : ''}
-        /> */}
         <h3 className="is-size-4 has-text-weight-bold">Instruments</h3>
         <div className="instruments flex flex--wrap flex--justify-center">
           {/* TODO: Create a renderGenres & renderInstruments fxn */}
@@ -138,15 +130,6 @@ export const EditProfile = () => {
             Keyboard / Piano
           </label>
         </div>
-        {/* <label htmlFor="instruments" className="screen-reader-text">Instruments</label>
-        <input
-          id="instruments"
-          type="text"
-          className="my-input"
-          placeholder="Instruments (Guitar, Bass, Drums)"
-          defaultValue={profileToEdit.instruments ? profileToEdit.instruments.join(', ') : ''}
-        /> */}
-        {/* TODO: Implement cancel logic: clear fields? reset to original values? redirect to view profile? */}
         <button className="cancel-btn">Cancel</button>
         <button className="cta-btn" type="submit">Confirm</button>
       </form>
