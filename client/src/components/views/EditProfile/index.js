@@ -74,22 +74,68 @@ export const EditProfile = () => {
           placeholder="Location (St Louis, MO)"
           defaultValue={profileToEdit.location ? profileToEdit.location : ''}
         />
-        <label htmlFor="genres" className="screen-reader-text">Genres</label>
+        <h3 className="is-size-4 has-text-weight-bold">Genres</h3>
+        <div className="genres flex flex--wrap flex--justify-center">
+          <label className="flex flex--align-center is-size-4" htmlFor="rock">
+            <input type="checkbox" name="rock" id="rock" value="Rock" />
+            Rock
+          </label>
+          <label className="flex flex--align-center is-size-4" htmlFor="blues">
+            <input type="checkbox" name="blues" id="blues" value="Blues" />
+            Blues
+          </label>
+          <label className="flex flex--align-center is-size-4" htmlFor="metal">
+            <input type="checkbox" name="metal" id="metal" value="Metal" />
+            Metal
+          </label>
+          <label className="flex flex--align-center is-size-4" htmlFor="classicRock">
+            <input type="checkbox" name="classicRock" id="classicRock" value="Classic Rock" />
+            Classic Rock
+          </label>
+          <label className="flex flex--align-center is-size-4" htmlFor="country">
+            <input type="checkbox" name="country" id="country" value="Country" />
+            Country
+          </label>
+        </div>
+        {/* <label className="is-size-4" htmlFor="genres" className="screen-reader-text">Genres</label>
         <input
           id="genres"
           type="text"
           className="my-input"
           placeholder="Genres you play (Rock, Blues, Metal)"
           defaultValue={profileToEdit.genres ? profileToEdit.genres.join(', ') : ''}
-        />
-        <label htmlFor="instruments" className="screen-reader-text">Instruments</label>
+        /> */}
+        <h3 className="is-size-4 has-text-weight-bold">Instruments</h3>
+        <div className="instruments flex flex--wrap flex--justify-center">
+          <label className="flex flex--align-center is-size-4" htmlFor="guitar">
+            <input type="checkbox" name="guitar" id="guitar" value="Guitar" />
+            Guitar
+          </label>
+          <label className="flex flex--align-center is-size-4" htmlFor="bass">
+            <input type="checkbox" name="bass" id="bass" value="Bass" />
+            Bass
+          </label>
+          <label className="flex flex--align-center is-size-4" htmlFor="drums">
+            <input type="checkbox" name="drums" id="drums" value="Drums" />
+            Drums
+          </label>
+          <label className="flex flex--align-center is-size-4" htmlFor="vocals">
+            <input type="checkbox" name="vocals" id="vocals" value="Vocals" />
+            Vocals
+          </label>
+          <label className="flex flex--align-center is-size-4" htmlFor="keys">
+            <input type="checkbox" name="keys" id="keys" value="Keyboard / Piano" />
+            Keyboard / Piano
+          </label>
+        </div>
+        {/* <label htmlFor="instruments" className="screen-reader-text">Instruments</label>
         <input
           id="instruments"
           type="text"
           className="my-input"
           placeholder="Instruments (Guitar, Bass, Drums)"
           defaultValue={profileToEdit.instruments ? profileToEdit.instruments.join(', ') : ''}
-        />
+        /> */}
         {/* TODO: Implement cancel logic: clear fields? reset to original values? redirect to view profile? */}
         <button className="cancel-btn">Cancel</button>
         <button className="cta-btn" type="submit">Confirm</button>
