@@ -11,7 +11,7 @@ export const EditProfile = () => {
   const history = useHistory()
   const location = useLocation()
   const [profileToEdit, setProfileToEdit] = useState(null)
-  const { user } = useContext(UserContext)
+  const { user, setUser } = useContext(UserContext)
 
   if (!user) {
     history.push('/login')
@@ -29,20 +29,20 @@ export const EditProfile = () => {
 
     const editedUserInfo = utils.createObjectFromFields(e.target.elements)
     const updatedUserInfo = { ...profileToEdit, ...editedUserInfo }
-    console.log(updatedUserInfo)
 
-    // TODO: Make PATCH request to server to update user
-    // const response = await repo.registerUser(userInfo)
+    try {
+      // Make PATCH request to server to update user
+      await repo.updateUser(updatedUserInfo)
+      // Update the user context name if successful
+      setUser(prevUser => ({ ...prevUser, name: updatedUserInfo.name }))
+      // Redirect user to their own profile view (not editing) if successful
+      history.push(`/profile/${user.username}`)
+    } catch (err) {
+      // TODO: Show a message in UI if there was an error updating
+      console.log(err)
+    }
 
-    // Success if response is an object - Error if type is string
-    // typeof response === 'object'
-    //   ? setRegisterError('')
-    //   // TODO: redirect the user to login?home?editProfile?
-    //   // TODO: need to do something with the returned userObject?
-    //   : setRegisterError(() => determineErrorMessage(response))
 
-
-    // TODO: Redirect user to their own profile view (not editing) if successful
   }
 
   return (<main className="edit-profile-container flex flex--column flex--align-center flex--justify-center">

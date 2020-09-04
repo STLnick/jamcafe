@@ -51,5 +51,18 @@ export default (baseUrl = 'http://localhost:5000') => ({
     } else {
       return await registerRes.text()
     }
+  },
+
+  async updateUser(payload) {
+    const { _id, username, uid, ...propsToUpdate } = payload
+    console.log('uid: ', uid)
+    console.log('propsToUpdate: ', propsToUpdate)
+    const updateRes = await fetch(`${baseUrl}/users/update/${uid}`, {
+      method: 'PATCH',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(propsToUpdate)
+    })
   }
 });

@@ -47,9 +47,9 @@ router.post('/add', async (req, res) => {
 });
 
 // Update a user
-router.patch('/update/:id', async (req, res) => {
+router.patch('/update/:uid', async (req, res) => {
   try {
-    res.status(204).json(await updateUser(req.params.id, req.body));
+    res.status(204).json(await updateUser(req.params.uid, req.body));
   } catch (err) {
     res.status(500).send((`${err}`));
   }
