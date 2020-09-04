@@ -297,6 +297,11 @@ textarea {
   width: 80%;
 }
 
+.edit-profile-form > .genres > label,
+.edit-profile-form > .instruments > label {
+  margin-right: 1rem;
+}
+
 .register-form-bottom {
   font-size: 1.5em;
   text-align: center;
