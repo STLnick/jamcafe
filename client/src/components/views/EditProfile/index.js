@@ -10,6 +10,7 @@ const repo = api()
 export const EditProfile = () => {
   const history = useHistory()
   const location = useLocation()
+  const [editError, setEditError] = useState('')
   const [profileToEdit, setProfileToEdit] = useState(null)
   const { user, setUser } = useContext(UserContext)
 
@@ -43,18 +44,18 @@ export const EditProfile = () => {
       await repo.updateUser(updatedUserInfo)
       // Update the user context name if successful
       setUser(prevUser => ({ ...prevUser, name: updatedUserInfo.name }))
+      // Reset Error message
+      setEditError('')
       // Redirect user to their own profile view (not editing) if successful
       history.push(`/profile/${user.username}`)
     } catch (err) {
-      // TODO: Show a message in UI if there was an error updating
-      console.log(err)
+      setEditError(err.message)
     }
-
-
   }
 
   return (<main className="edit-profile-container flex flex--column flex--align-center flex--justify-center">
     <h3 className="section-heading">Edit Profile</h3>
+    {editError ? <p className="help has-text-danger is-size-3">{editError}</p> : null}
     {profileToEdit
       ? <form
         className="edit-profile-form flex flex--column flex--align-center flex--justify-around"
@@ -115,6 +116,7 @@ export const EditProfile = () => {
         /> */}
         <h3 className="is-size-4 has-text-weight-bold">Instruments</h3>
         <div className="instruments flex flex--wrap flex--justify-center">
+          {/* TODO: Create a renderGenres & renderInstruments fxn */}
           <label className="flex flex--align-center is-size-4" htmlFor="guitar">
             <input type="checkbox" defaultChecked={profileToEdit.instruments?.includes('Guitar')} name="guitar" id="guitar" value="Guitar" />
             Guitar
