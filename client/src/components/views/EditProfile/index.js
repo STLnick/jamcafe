@@ -28,7 +28,15 @@ export const EditProfile = () => {
     e.preventDefault()
 
     const editedUserInfo = utils.createObjectFromFields(e.target.elements)
-    const updatedUserInfo = { ...profileToEdit, ...editedUserInfo }
+
+    const combineUserInfo = () => {
+      let updatedInfo = { ...profileToEdit, ...editedUserInfo }
+      updatedInfo.genres = editedUserInfo.genres || []
+      updatedInfo.instruments = editedUserInfo.instruments || []
+      return updatedInfo
+    }
+
+    const updatedUserInfo = combineUserInfo()
 
     try {
       // Make PATCH request to server to update user
