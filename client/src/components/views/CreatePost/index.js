@@ -65,7 +65,7 @@ export const CreatePost = () => {
               <textarea name="content" id="content" placeholder="Post content here..."></textarea>
             </div>
             <div className="post-footer flex flex--align-center flex--justify-between">
-              <p className="post--date">{new Date().toDateString()}</p>
+              <p className="post--date">{new Date().toISOString().slice(0, 10)}</p>
               <img tabIndex="0" className="post--message-icon filter-primary" src="img/icons/chatbox-ellipses.svg" alt="" />
             </div>
             <button className="button" type="submit">Create Post</button>
