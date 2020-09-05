@@ -420,7 +420,7 @@ textarea {
   width: 90%;
 }
 
-#post--content-input {
+#content {
   border: 1px solid var(--basic-text);
   border-radius: 5px;
   height: 100%;
@@ -431,8 +431,8 @@ textarea {
   width: 100%;
 }
 
-#post--content-input:focus,
-#post--content-input:hover {
+#content:focus,
+#content:hover {
   box-shadow: 0 0 3px 3px var(--primary-dark);
 }
 

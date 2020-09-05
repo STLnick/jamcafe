@@ -27,17 +27,17 @@ export const CreatePost = () => {
             className="post flex flex--column flex--align-center"
             onSubmit={(e) => handleSubmit(e)}
           >
-            <label for="title-input" className="screen-reader-text">Title</label>
+            <label htmlFor="title" className="screen-reader-text">Title</label>
             <input
               type="text"
-              id="title-input"
+              id="title"
               className="my-input title-input" placeholder="Title here..."
             />
             <Link className="post--username" to={`/profile/${user.username}`}>
               <p>{user.username}</p>
             </Link>
             <div className="post--content-create">
-              <label htmlFor="post--content-input" className="screen-reader-text">Post Content</label>
+              <label htmlFor="content" className="screen-reader-text">Post Content</label>
               <textarea name="post--content-input" id="post--content-input" placeholder="Post content here..."></textarea>
             </div>
             <div className="post-footer flex flex--align-center flex--justify-between">
