@@ -600,6 +600,21 @@ textarea {
   color: white;
 }
 
+.username-btn {
+  background-color: transparent;
+  border: none;
+  border-bottom: 2px solid transparent;
+  font-size: 1.4em;
+  transition: all 0.4s;
+}
+
+.username-btn:focus,
+.username-btn:hover {
+  border-color: var(--primary-color);
+  color: var(--primary-color);
+  cursor: pointer;
+}
+
 .my-input {
   border: 1px solid var(--primary-color);
   border-radius: 5px;
