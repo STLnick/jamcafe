@@ -507,7 +507,7 @@ textarea {
   margin-top: 0.5rem;
 }
 
-#message-input {
+.message-input {
   max-height: 250px;
   max-width: 300px;
   min-height: 100px;
@@ -521,11 +521,21 @@ textarea {
   margin: 0.5rem 0;
 }
 
+.send-msg-btn {
+  background: none;
+  border: none;
+  padding: 0;
+}
+
 .send-message-icon {
-  margin: 0 1rem 0 0;
   outline: none;
-  transition: box-shadow 0.4s;
+  transition: all 0.4s;
   width: 3rem;
+}
+
+.send-message-icon:focus,
+.send-message-icon:hover {
+  transform: scale(1.25);
 }
 
 /* --------------------- */

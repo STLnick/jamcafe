@@ -46,6 +46,10 @@ export const MobileMenu = ({ handleClick }) => {
       {
         path: '/about',
         text: 'About'
+      },
+      {
+        path: '/message',
+        text: 'TESTING MSG'
       }
     ]
 

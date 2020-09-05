@@ -1,4 +1,15 @@
-import { About, CreatePost, EditProfile, Feed, Forgot, Home, Login, Profile, Register } from './components'
+import {
+  About,
+  CreatePost,
+  EditProfile,
+  Feed,
+  Forgot,
+  Home,
+  Login,
+  Message,
+  Profile,
+  Register
+} from './components'
 
 export default [
   {
@@ -11,7 +22,7 @@ export default [
   },
   {
     Component: EditProfile,
-    path: '/profile/edit/:username' // Should only go to Editing Profile of the Logged In User
+    path: '/profile/edit/:username'
   },
   {
     Component: Forgot,
@@ -30,6 +41,10 @@ export default [
     path: '/login'
   },
   {
+    Component: Message,
+    path: '/message'
+  },
+  {
     Component: Profile,
     path: '/profile/:username'
   },
@@ -38,5 +53,3 @@ export default [
     path: '/register'
   }
 ]
-// TODO: About, Home, Login, Register are Pages for NOT LOGGED IN
-// TODO: Feed, EditProfile, ViewProfile, Message, and WritePost etc. are Pages for LOGGED IN
