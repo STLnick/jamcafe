@@ -10,6 +10,7 @@ const repo = api()
 export const CreatePost = () => {
   const history = useHistory()
   const [feedbackMessage, setFeedbackMessage] = useState({})
+  const [submitted, setSubmitted] = useState(false)
   const { user } = useContext(UserContext)
 
 
@@ -33,6 +34,7 @@ export const CreatePost = () => {
       await repo.addPost(postInfo)
       // TODO: Display message on success
       setFeedbackMessage({ text: 'Post Successful!', textClass: 'success' })
+      setSubmitted(prevSubmitted => !prevSubmitted)
     } catch (err) {
       // TODO: Add spot in UI to display err
       console.log(err)
