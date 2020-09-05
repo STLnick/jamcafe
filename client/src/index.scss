@@ -420,6 +420,7 @@ textarea {
   width: 90%;
 }
 
+// Post content and Message content
 #content {
   border: 1px solid var(--basic-text);
   border-radius: 5px;
@@ -474,16 +475,11 @@ textarea {
   box-shadow: 0 0 3px 3px var(--primary-color);
 }
 
-.write-heading {
-  font-size: 1rem;
-  font-weight: 700;
-  margin-bottom: 0.5rem;
-}
-
 .my-input.title-input {
   border: 1px solid var(--basic-text);
   border-radius: 5px;
   margin-top: 2rem;
+  max-width: 500px;
   outline: none;
   padding: 1rem;
   width: 60%;
@@ -503,16 +499,43 @@ textarea {
   margin: 2rem 0;
 }
 
-#message-recipient {
-  margin-top: 0.5rem;
+.message-recipient {
+  color: var(--basic-text);
+  font-size: 1.6em;
+  margin: 1rem 0 2rem;
+  outline: none;
+  transition: text-decoration, color 0.4s;
 }
 
-.message-input {
+.message-title {
+  font-size: 1.6rem;
+}
+
+.message-content {
+  color: var(--basic-text);
+  font-size: 1.6em;
+  margin: 1.5rem 0 3rem;
+  padding: 0 1rem;
+  text-align: center;
+  width: 100%;
+}
+
+#message {
+  border: 1px solid var(--basic-text);
+  border-radius: 5px;
+  height: 100%;
+  margin-top: 2rem;
   max-height: 250px;
-  max-width: 300px;
-  min-height: 100px;
-  min-width: 150px;
-  width: 85%;
+  max-width: 500px;
+  outline: none;
+  padding: 0.5rem;
+  resize: none;
+  transition: box-shadow 0.4s;
+  width: 90%
+}
+
+#message::placeholder {
+  color: var(--basic-text);
 }
 
 .message-date {
@@ -530,11 +553,12 @@ textarea {
 .send-message-icon {
   outline: none;
   transition: all 0.4s;
-  width: 3rem;
+  width: 5rem;
 }
 
 .send-message-icon:focus,
 .send-message-icon:hover {
+  cursor: pointer;
   transform: scale(1.25);
 }
 
