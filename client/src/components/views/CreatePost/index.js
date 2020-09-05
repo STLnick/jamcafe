@@ -68,7 +68,7 @@ export const CreatePost = () => {
               <p className="post--date">{new Date().toISOString().slice(0, 10)}</p>
               <img tabIndex="0" className="post--message-icon filter-primary" src="img/icons/chatbox-ellipses.svg" alt="" />
             </div>
-            <button className="button" type="submit">Create Post</button>
+            <button className="cta-btn my-3" disabled={submitted} type="submit">Create Post</button>
           </form>
         </>
     }
