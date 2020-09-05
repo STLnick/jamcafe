@@ -1,4 +1,4 @@
-import React, { useContext } from 'react'
+import React, { useContext, useState } from 'react'
 import { Link, useHistory } from 'react-router-dom'
 
 import api from 'api'
@@ -9,6 +9,7 @@ const repo = api()
 
 export const CreatePost = () => {
   const history = useHistory()
+  const [feedbackMessage, setFeedbackMessage] = useState({})
   const { user } = useContext(UserContext)
 
 
@@ -31,9 +32,11 @@ export const CreatePost = () => {
     try {
       await repo.addPost(postInfo)
       // TODO: Display message on success
+      setFeedbackMessage({ text: 'Post Successful!', textClass: 'success' })
     } catch (err) {
       // TODO: Add spot in UI to display err
       console.log(err)
+      setFeedbackMessage({ text: 'Error occurred trying to post', textClass: 'danger' })
     }
   }
 
@@ -43,6 +46,7 @@ export const CreatePost = () => {
         ? <h3 className="section-heading">Redirecting to Login</h3>
         : <>
           <h3 id="write-post-heading" className="section-heading"> Write A Post</h3>
+          <p className={`help has-text-${feedbackMessage.textClass} is-size-3`}>{feedbackMessage.text}</p>
           <form
             className="post flex flex--column flex--align-center"
             onSubmit={(e) => handleSubmit(e)}
