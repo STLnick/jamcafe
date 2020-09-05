@@ -1,10 +1,15 @@
 import React from 'react';
+import { useLocation } from 'react-router-dom'
 
 export const Message = () => {
+  const location = useLocation()
+
+  const recipient = location.search.slice(1)
+
   return (<main className="write-post-container flex flex--column flex--align-center">
     <h3 id="message-heading" className="section-heading">Send A Message</h3>
     <div className="post flex flex--column flex--align-center">
-      <label for="title" className="write-heading">Message Title</label>
+      <p className="message-recipient">Sending to: <strong>{recipient}</strong></p>
       <input
         type="text"
         id="title"

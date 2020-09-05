@@ -8,7 +8,7 @@ const repo = api()
 export const Card = ({ post: { content, date, title, user }, userLoggedIn }) => {
   const history = useHistory()
 
-  const handleUsernameClick = async () => {
+  const handleUsernameClick = () => {
     history.push(`/profile/${user}`)
   }
 
@@ -23,7 +23,7 @@ export const Card = ({ post: { content, date, title, user }, userLoggedIn }) => 
       </div>
       <div className="post-footer flex flex--align-center flex--justify-between">
         <p className="post--date">{date}</p>
-        <Link to='/message'>
+        <Link to={`/message?${user}`}>
           <button className="message-icon-container">
             <img src="img/icons/chatbox-ellipses.svg" alt="" className="post--message-icon filter-primary" />
           </button>
