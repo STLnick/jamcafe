@@ -1,4 +1,15 @@
 export default (baseUrl = 'http://localhost:5000') => ({
+  async addPost(payload) {
+    const postsRes = await fetch(`${baseUrl}/posts/add`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(payload)
+    })
+    return await postsRes.json()
+  },
+
   // Get all posts
   async getAllPosts() {
     const postsRes = await fetch(`${baseUrl}/posts`, {

@@ -63,7 +63,8 @@ export const addPost = async (newPost) => {
   try {
     return await client.db('jamcafe').collection('posts')
       .insertOne({
-        userId: newPost.userId,
+        uid: newPost.uid,
+        user: newPost.user,
         title: newPost.title,
         content: newPost.content,
         datePosted: new Date(newPost.datePosted),

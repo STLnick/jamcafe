@@ -1,7 +1,11 @@
 import React, { useContext } from 'react'
 import { Link, useHistory } from 'react-router-dom'
 
+import api from 'api'
+
 import { UserContext } from 'UserContext'
+
+const repo = api()
 
 export const CreatePost = () => {
   const history = useHistory()
@@ -12,9 +16,25 @@ export const CreatePost = () => {
     history.push('/login')
   }
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault()
 
+    const inputs = Array.from(e.target.elements).filter(el => el.id)
+    const postInfo = {
+      uid: user.uid,
+      user: user.username,
+      title: inputs[0].value,
+      content: inputs[0].value,
+      datePosted: new Date(Date.now()).toISOString()
+    }
+
+    try {
+      await repo.addPost(postInfo)
+      // TODO: Display message on success
+    } catch (err) {
+      // TODO: Add spot in UI to display err
+      console.log(err)
+    }
   }
 
   return (<main className="write-post-container flex flex--column flex--align-center">
@@ -38,7 +58,7 @@ export const CreatePost = () => {
             </Link>
             <div className="post--content-create">
               <label htmlFor="content" className="screen-reader-text">Post Content</label>
-              <textarea name="post--content-input" id="post--content-input" placeholder="Post content here..."></textarea>
+              <textarea name="content" id="content" placeholder="Post content here..."></textarea>
             </div>
             <div className="post-footer flex flex--align-center flex--justify-between">
               <p className="post--date">{new Date().toDateString()}</p>
