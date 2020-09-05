@@ -582,6 +582,12 @@ textarea {
   box-shadow: 0 0 3px 3px var(--primary-light);
 }
 
+.cta-btn:disabled {
+  background-color: #eee;
+  border-color: var(--basic-text);
+  color: var(--basic-text);
+}
+
 .cancel-btn {
   background-color: white;
   color: var(--primary-color);
