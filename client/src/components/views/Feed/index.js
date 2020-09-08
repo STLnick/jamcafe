@@ -14,10 +14,7 @@ export const Feed = () => {
   useEffect(() => {
     (async () => {
       const dbPosts = await repo.getAllPosts()
-      setPosts(() => dbPosts.map(post => {
-        post.date = post.datePosted.slice(0, 10)
-        return post
-      }))
+      setPosts(() => dbPosts.map(post => post))
     })()
   }, [])
 
@@ -31,7 +28,7 @@ export const Feed = () => {
       {renderPosts()}
       <Link to="/post" className="write-post-link">
         <img
-          tabindex="0"
+          tabIndex="0"
           src="img/icons/add-circle-sharp.svg"
           className="write-post-icon filter-primary"
           alt="Plus icon to write a post" />

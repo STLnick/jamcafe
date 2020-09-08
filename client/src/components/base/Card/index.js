@@ -20,7 +20,7 @@ export const Card = ({ post: { content, date, title, user }, userLoggedIn }) => 
         <p>{content}</p>
       </div>
       <div className="post-footer flex flex--align-center flex--justify-between">
-        <p className="post--date">{date}</p>
+        <p className="post--date">{datePosted.slice(0, 10)}</p>
         <Link to={`/message?${user}`}>
           <button className="message-icon-container">
             <img src="img/icons/chatbox-ellipses.svg" alt="" className="post--message-icon filter-primary" />
