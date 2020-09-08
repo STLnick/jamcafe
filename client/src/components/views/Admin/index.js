@@ -6,6 +6,7 @@ import './Admin.scss'
 
 const repo = api()
 
+// TODO: Add some way to identify a User as Admin, if they aren't redirect them away from this page
 export const Admin = () => {
   const [posts, setPosts] = useState(null)
   const [users, setUsers] = useState(null)
@@ -20,6 +21,10 @@ export const Admin = () => {
 
   const handleChangeViewClick = () => setSelectedView(prevView => prevView === 'users' ? 'posts' : 'users')
 
+  // TODO: Add a way to manually Add or Update a User or Post for the Admin
+
+  // TODO: Wire up the delete to remove a User or Post from MongoDB
+  // TODO: Figure out how to remove a user from Firebase
   const handleDeleteClick = () => {
     console.log('Trying to delete this item!')
   }
