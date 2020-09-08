@@ -1,9 +1,15 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 
-export const SearchBar = () => {
+export const SearchBar = ({ handleSearchTextChange, searchText }) => {
   return (<div className="search-bar flex">
     <form action="" className="search-form flex flex--align-center flex--justify-between">
-      <input type="text" className="search-input" placeholder="Search..." />
+      <input
+        type="text"
+        className="search-input"
+        onChange={(e) => handleSearchTextChange(e)}
+        placeholder="Search..."
+        value={searchText} />
       {/* <!-- TODO: Configure Submit to only display Posts matching Search Text --> */}
       {/* <!-- TODO: Could maybe just have it dynamically filter and not have to press btn --> */}
       <button type="submit" className="search-button flex flex--align-center">
@@ -11,4 +17,9 @@ export const SearchBar = () => {
       </button>
     </form>
   </div>)
+}
+
+SearchBar.propTypes = {
+  handleSearchTextChange: PropTypes.func,
+  searchText: PropTypes.string
 }

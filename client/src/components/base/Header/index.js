@@ -6,7 +6,7 @@ import { MobileMenu } from './MobileMenu'
 import { SearchBar } from './SearchBar'
 import { UserContext } from 'UserContext'
 
-export const Header = ({ handleClick, handleKeyDown }) => {
+export const Header = ({ handleClick, handleKeyDown, handleSearchTextChange, searchText }) => {
   const location = useLocation()
   const { user } = useContext(UserContext)
 
@@ -17,7 +17,11 @@ export const Header = ({ handleClick, handleKeyDown }) => {
           <img className="logo" src="img/logo.svg" alt="Jam Cafe logo" />
         </Link>
       </div>
-      {user && location.pathname === '/feed' ? <SearchBar /> : null}
+      {user && location.pathname === '/feed'
+        ? <SearchBar
+          handleSearchTextChange={handleSearchTextChange}
+          searchText={searchText} />
+        : null}
       <div className="top-nav-right flex flex--justify-around">
         <button
           className="menu-btn-container"
@@ -38,5 +42,7 @@ export const Header = ({ handleClick, handleKeyDown }) => {
 
 Header.propTypes = {
   handleClick: PropTypes.func,
-  handleKeyDown: PropTypes.func
+  handleKeyDown: PropTypes.func,
+  handleSearchTextChange: PropTypes.func,
+  searchText: PropTypes.string
 }

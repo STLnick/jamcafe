@@ -24,6 +24,7 @@ import { UserContext } from './UserContext'
 import './App.scss';
 
 export const App = () => {
+  const [searchText, setSearchText] = useState('')
   const [user, setUser] = useState(null)
   const providerValue = useMemo(() => ({ user, setUser }), [user, setUser])
 
@@ -39,11 +40,19 @@ export const App = () => {
     }
   }
 
+  const handleSearchTextChange = (e) => {
+    setSearchText(e.target.value)
+  }
+
   return (
     <Router>
       <div className="overlay" onClick={toggleMobileMenu}></div>
       <UserContext.Provider value={providerValue}>
-        <Header handleClick={toggleMobileMenu} handleKeyDown={handleMenuBtnKeyDown} />
+        <Header
+          handleClick={toggleMobileMenu}
+          handleKeyDown={handleMenuBtnKeyDown}
+          handleSearchTextChange={handleSearchTextChange}
+          searchText={searchText} />
         <Route exact path='/about'>
           <About />
         </Route>
@@ -57,7 +66,7 @@ export const App = () => {
           <EditProfile />
         </Route>
         <Route exact path='/feed'>
-          <Feed />
+          <Feed searchText={searchText} />
         </Route>
         <Route exact path='/forgot'>
           <Forgot />
