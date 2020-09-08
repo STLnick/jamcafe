@@ -9,6 +9,7 @@ import { Footer, Header } from './components'
 // views
 import {
   About,
+  Admin,
   CreatePost,
   EditProfile,
   Feed,
@@ -58,6 +59,9 @@ export const App = () => {
         </Route>
         <Route exact path='/about'>
           <About />
+        </Route>
+        <Route exact path='/admin'>
+          <Admin />
         </Route>
         <Route exact path='/post'>
           <CreatePost />

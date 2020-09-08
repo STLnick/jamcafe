@@ -1,4 +1,5 @@
 export { About } from './About'
+export { Admin } from './Admin'
 export { CreatePost } from './CreatePost'
 export { EditProfile } from './EditProfile'
 export { Feed } from './Feed'

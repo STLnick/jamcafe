@@ -1,6 +1,7 @@
 export { Card, Footer, Form, Header, Section } from './base'
 export {
   About,
+  Admin,
   CreatePost,
   EditProfile,
   Feed,
