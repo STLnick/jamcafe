@@ -33,19 +33,19 @@ tbody td {
   font-size: 1em;
 }
 
-.delete-icon {
+.admin-icon {
   background: none;
   border: none;
   outline: none;
   transition: transform 0.4s;
 }
 
-.delete-icon:focus,
-.delete-icon:hover {
+.admin-icon:focus,
+.admin-icon:hover {
   cursor: pointer;
   transform: scale(1.15);
 }
 
-.delete-icon img {
+.admin-icon img {
   width: 2rem;
 }
