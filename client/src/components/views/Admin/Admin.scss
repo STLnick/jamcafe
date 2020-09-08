@@ -2,3 +2,31 @@
   min-height: 91vh;
   text-align: center;
 }
+
+table, tr, td {
+  border: 1px solid #616161;
+  border-collapse: collapse;
+}
+
+table {
+  margin: 2rem;
+  width: 80%;
+}
+
+caption {
+  font-size: 2em;
+}
+
+table th,
+table td {
+  padding: 0.5rem;
+}
+
+thead td {
+  background-color: #eee;
+  font-size: 1.6em;
+}
+
+tbody td {
+  font-size: 1em;
+}
