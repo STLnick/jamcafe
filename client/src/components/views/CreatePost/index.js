@@ -26,7 +26,7 @@ export const CreatePost = () => {
       uid: user.uid,
       user: user.username,
       title: inputs[0].value,
-      content: inputs[0].value,
+      content: inputs[1].value,
       datePosted: new Date().toISOString()
     }
 
