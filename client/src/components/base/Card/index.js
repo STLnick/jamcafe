@@ -33,7 +33,7 @@ export const Card = ({ post: { content, datePosted, title, user }, userLoggedIn 
         return 'img/icons/snare-drum.svg'
       case 'Vocals':
         return 'img/icons/microphone.svg'
-      case 'Keys':
+      case 'Keyboard / Piano':
         return 'img/icons/piano.svg'
       default:
         return 'img/icons/note.svg'
@@ -51,7 +51,7 @@ export const Card = ({ post: { content, datePosted, title, user }, userLoggedIn 
         <img className="avatar" src={avatar || 'img/avatar.jpg'} alt="User avatar" />
         <button className="has-text-weight-bold username-btn" onClick={() => handleUsernameClick()}>{user}</button>
       </div>
-      <div className=" flex flex--align-center user-instruments">
+      <div className="flex flex--align-center user-instruments">
         <span className="is-size-5 has-text-weight-semibold">Plays:</span>
         {instruments ? renderInstrumentIcons() : null}
       </div>
