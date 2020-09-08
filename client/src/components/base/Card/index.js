@@ -1,21 +1,61 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import PropTypes from 'prop-types'
 import { Link, useHistory } from 'react-router-dom'
 import api from 'api'
 
 const repo = api()
 
-export const Card = ({ post: { content, date, title, user }, userLoggedIn }) => {
+export const Card = ({ post: { content, datePosted, title, user }, userLoggedIn }) => {
   const history = useHistory()
+  const [avatar, setAvatar] = useState(null)
+  const [instruments, setInstruments] = useState([])
 
   const handleUsernameClick = () => {
     history.push(`/profile/${user}`)
   }
 
+  (async () => {
+    const postUser = await repo.getUserByUsername(user)
+    setAvatar(postUser.picUrl)
+    setInstruments(postUser.instruments)
+  })()
+
+  const determineInstrumentIcon = (instrument) => {
+    switch (instrument) {
+      case 'Guitar':
+        return 'img/icons/electric-guitar.svg'
+        break
+      case 'Bass':
+        return 'img/icons/bass-guitar.svg'
+        break
+      case 'Drums':
+        return 'img/icons/snare-drum.svg'
+        break
+      case 'Vocals':
+        return 'img/icons/microphone.svg'
+        break
+      case 'Keys':
+        return 'img/icons/piano.svg'
+        break
+      default:
+        return
+    }
+  }
+
+  const renderInstrumentIcons = () => instruments.map(instrument => {
+    return <img key={instrument} className="instrument-icon" src={determineInstrumentIcon(instrument)} alt={`${instrument} icon`} />
+  })
+
   return (
     <div className="post flex flex--column flex--align-center">
       <h4 className="post--title">{title}</h4>
-      <button className="username-btn" onClick={() => handleUsernameClick()}>{user}</button>
+      <div className="flex flex--align-center">
+        <img className="avatar" src={avatar || 'img/avatar.jpg'} alt="User avatar" />
+        <button className="username-btn" onClick={() => handleUsernameClick()}>{user}</button>
+        <div className="user-instruments">
+          {instruments ? renderInstrumentIcons() : null}
+        </div>
+      </div>
       <div className="post--content">
         <p>{content}</p>
       </div>
