@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { useLocation } from 'react-router-dom'
+import { Link, useLocation } from 'react-router-dom'
 
 import api from 'api'
 
@@ -72,6 +72,11 @@ export const Profile = () => {
           <h6 className="profile-field-heading">Instruments</h6>
           <div id="instruments">{profile.instruments ? renderInstrumentIcons() : ''}</div>
         </div>
+        <Link
+          className="cta-btn mt-6"
+          to={`/message?${profile.username}`}>
+          Send A Message
+        </Link>
         <h3 className="section-heading profile-posts-heading">Posts By {profile.username}</h3>
         <div className="profile-posts-container">
           {userPosts ? renderUserPosts() : null}
