@@ -111,21 +111,25 @@ textarea {
   margin: 0;
   outline: none;
   padding: 0;
+  transition: transform 0.4s;
   z-index: 2;
 }
 
 .menu-btn {
   height: auto;
   outline: none;
-  width: 2.25rem;
+  width: 3rem;
   z-index: 2;
 }
 
 .menu-btn-container:focus,
-.menu-btn-container:hover,
+.menu-btn-container:hover {
+  transform: scale(1.15);
+}
+
 .message-icon-container:focus,
-.message-icon-container:hover  {
-  box-shadow: 0 0 2px 2px var(--primary-light);
+.message-icon-container:hover {
+  transform: scale(1.25);
 }
 
 .mobile-menu {
@@ -343,10 +347,11 @@ textarea {
 .search-input {
   border: 1px solid var(--primary-color);
   border-radius: 5px;
+  font-size: 14px;
   outline: none;
   padding: 0.75rem;
   transition: box-shadow 0.4s;
-  width: 70%;
+  width: 100%;
 }
 
 .search-button {
@@ -356,18 +361,18 @@ textarea {
   height: 2rem;
   outline: none;
   padding: 0;
-  transition: box-shadow 0.4s;
-  width: 2rem;
+  transition: transform 0.4s;
+  width: 5rem;
 }
 
 .search-button:focus,
 .search-button:hover {
-  box-shadow: 0 0 2px 2px var(--primary-dark);
+  transform: scale(1.15);
 }
 
 .search-icon {
   transition: box-shadow 0.4s;
-  width: 2rem;
+  width: 100%;
 }
 
 .posts {
@@ -451,13 +456,8 @@ textarea {
 .post--message-icon {
   margin: 0 1rem 0 0;
   outline: none;
-  transition: box-shadow 0.4s;
+  transition: transform 0.4s;
   width: 2rem;
-}
-
-.post--message-icon:focus,
-.post--message-icon:hover {
-  box-shadow: 0 0 2px 2px var(--primary-light);
 }
 
 .write-post-icon {
