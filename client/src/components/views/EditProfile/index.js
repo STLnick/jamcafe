@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react'
-import { useHistory, useLocation } from 'react-router-dom'
+import { Link, useHistory, useLocation } from 'react-router-dom'
 
 import api from 'api'
 import utils from 'utils'
@@ -130,7 +130,7 @@ export const EditProfile = () => {
             Keyboard / Piano
           </label>
         </div>
-        <button className="cancel-btn">Cancel</button>
+        <Link to={`/profile/${user.username}`} className="cancel-btn">Cancel</Link>
         <button className="cta-btn" type="submit">Confirm</button>
       </form>
       : <h3>Loading...</h3>}
