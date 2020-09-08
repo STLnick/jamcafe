@@ -1,5 +1,5 @@
 import React, { useContext } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useLocation } from 'react-router-dom'
 import PropTypes from 'prop-types'
 
 import { MobileMenu } from './MobileMenu'
@@ -7,6 +7,7 @@ import { SearchBar } from './SearchBar'
 import { UserContext } from 'UserContext'
 
 export const Header = ({ handleClick, handleKeyDown }) => {
+  const location = useLocation()
   const { user } = useContext(UserContext)
 
   return (
@@ -16,7 +17,7 @@ export const Header = ({ handleClick, handleKeyDown }) => {
           <img className="logo" src="img/logo.svg" alt="Jam Cafe logo" />
         </Link>
       </div>
-      {user ? <SearchBar /> : null}
+      {user && location.pathname === '/feed' ? <SearchBar /> : null}
       <div className="top-nav-right flex flex--justify-around">
         <button
           className="menu-btn-container"
