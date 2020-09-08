@@ -8,7 +8,7 @@ export const SearchBar = ({ handleSearchTextChange, searchText }) => {
         type="text"
         className="search-input"
         onChange={(e) => handleSearchTextChange(e)}
-        placeholder="Search..."
+        placeholder="Search Posts By Title"
         value={searchText} />
       {/* <!-- TODO: Configure Submit to only display Posts matching Search Text --> */}
       {/* <!-- TODO: Could maybe just have it dynamically filter and not have to press btn --> */}
