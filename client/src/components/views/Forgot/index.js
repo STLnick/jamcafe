@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { Link, useHistory } from 'react-router-dom'
 import api from 'api'
+import auth from 'auth'
 import utils from 'utils'
 
 import { Form } from '../../base'
@@ -8,16 +9,21 @@ import { Form } from '../../base'
 const repo = api()
 
 export const Forgot = () => {
+  const [forgotError, setForgotError] = useState('')
+  const [successMessage, setSuccessMessage] = useState('')
 
   const handleSubmit = async (e) => {
     e.preventDefault()
 
     const userInfo = utils.createObjectFromFields(e.target.elements)
 
-    console.log(`We'll send you an email to ${userInfo.email}`)
-
-    // TODO: Try to find a user in DB with the email
-    // TODO: (?) Send a link to reset the password
+    auth.sendPasswordResetEmail(userInfo.email)
+      .then(() => {
+        setSuccessMessage(() => 'Reset email sent!')
+      })
+      .catch(err => {
+        setForgotError(() => err)
+      })
   }
 
   const button = <button className="cta-btn" type="submit">Reset Password</button>
@@ -41,8 +47,12 @@ export const Forgot = () => {
   return (
     <main className="register-container flex flex--column flex--align-center flex--justify-center">
       <h3 className="section-heading">We All Forget Sometimes</h3>
+      {successMessage
+        ? <p className="help has-text-success is-size-3">{successMessage}</p>
+        : null}
       <Form
         btn={button}
+        errorMsg={forgotError}
         formBtm={formBottom}
         handler={handleSubmit}
         inputs={inputs}
