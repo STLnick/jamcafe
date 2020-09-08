@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types'
 import React, { useContext, useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 
@@ -7,25 +8,32 @@ import { UserContext } from 'UserContext'
 
 const repo = api()
 
-export const Feed = () => {
+export const Feed = ({ searchText }) => {
+  const [filteredPosts, setFilteredPosts] = useState([])
   const [posts, setPosts] = useState([])
   const { user } = useContext(UserContext)
 
   useEffect(() => {
     (async () => {
       const dbPosts = await repo.getAllPosts()
+      setFilteredPosts(() => dbPosts.map(post => post))
       setPosts(() => dbPosts.map(post => post))
     })()
   }, [])
 
-  const renderPosts = () => posts
+  useEffect(() => {
+    setFilteredPosts(() => posts
+      .filter(({ title }) => title.toLowerCase().includes(searchText.toLowerCase())))
+  }, [posts, searchText])
+
+  const renderFilteredPosts = () => filteredPosts
     .sort((a, b) => new Date(b.datePosted) - new Date(a.datePosted))
     .map((post, i) => <Card key={i} post={post} userLoggedIn={user} />)
 
   return (
     <div className="posts flex flex--column flex--align-center flex--justify-start">
       <h3 className="section-heading">User Posts</h3>
-      {renderPosts()}
+      {renderFilteredPosts()}
       <Link to="/post" className="write-post-link">
         <img
           tabIndex="0"
@@ -35,4 +43,8 @@ export const Feed = () => {
       </Link>
     </div>
   )
+}
+
+Feed.propTypes = {
+  searchText: PropTypes.string
 }
