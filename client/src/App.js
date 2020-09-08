@@ -4,8 +4,21 @@ import {
   Route
 } from 'react-router-dom'
 
+// components
 import { Footer, Header } from './components'
-import routes from './routes'
+// views
+import {
+  About,
+  CreatePost,
+  EditProfile,
+  Feed,
+  Forgot,
+  Home,
+  Login,
+  Message,
+  Profile,
+  Register
+} from './components'
 import { UserContext } from './UserContext'
 
 import './App.scss';
@@ -31,14 +44,39 @@ export const App = () => {
       <div className="overlay" onClick={toggleMobileMenu}></div>
       <UserContext.Provider value={providerValue}>
         <Header handleClick={toggleMobileMenu} handleKeyDown={handleMenuBtnKeyDown} />
-        {routes.map(({ Component, path }, i) => (
-          <Route
-            key={i}
-            exact
-            path={path}
-            component={Component}
-          />
-        ))}
+        <Route exact path='/about'>
+          <About />
+        </Route>
+        <Route exact path='/about'>
+          <About />
+        </Route>
+        <Route exact path='/post'>
+          <CreatePost />
+        </Route>
+        <Route exact path='/profile/edit/:username'>
+          <EditProfile />
+        </Route>
+        <Route exact path='/feed'>
+          <Feed />
+        </Route>
+        <Route exact path='/forgot'>
+          <Forgot />
+        </Route>
+        <Route exact path='/'>
+          <Home />
+        </Route>
+        <Route exact path='/login'>
+          <Login />
+        </Route>
+        <Route exact path='/message'>
+          <Message />
+        </Route>
+        <Route exact path='/profile/:username'>
+          <Profile />
+        </Route>
+        <Route exact path='/register'>
+          <Register />
+        </Route>
       </UserContext.Provider>
       <Footer />
     </Router>
