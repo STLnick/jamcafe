@@ -466,13 +466,13 @@ textarea {
   outline: none;
   position: fixed;
   right: 2rem;
-  transition: box-shadow 0.4s;
+  transition: transform 0.4s;
   width: 5rem;
 }
 
 .write-post-icon:focus,
 .write-post-icon:hover {
-  box-shadow: 0 0 3px 3px var(--primary-color);
+  transform: scale(1.35);
 }
 
 .my-input.title-input {
