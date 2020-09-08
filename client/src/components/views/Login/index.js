@@ -12,13 +12,7 @@ const repo = api()
 export const Login = () => {
   const history = useHistory()
   const [loginError, setLoginError] = useState('')
-  const { user, setUser } = useContext(UserContext)
-
-  const determineErrorMessage = (res) => {
-    return res === null
-      ? 'Incorrect user credentials'
-      : 'Error occurred interacting with database. Try again.'
-  }
+  const { setUser } = useContext(UserContext)
 
   const handleSubmit = async (e) => {
     e.preventDefault()

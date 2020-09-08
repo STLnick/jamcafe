@@ -65,7 +65,7 @@ export default (baseUrl = 'http://localhost:5000') => ({
 
   async updateUser(payload) {
     const { _id, username, uid, ...propsToUpdate } = payload
-    const updateRes = await fetch(`${baseUrl}/users/update/${uid}`, {
+    await fetch(`${baseUrl}/users/update/${uid}`, {
       method: 'PATCH',
       headers: {
         'Content-Type': 'application/json'

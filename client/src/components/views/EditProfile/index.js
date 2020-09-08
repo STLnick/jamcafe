@@ -23,7 +23,7 @@ export const EditProfile = () => {
       const profileRes = await repo.getUserByUsername(location.pathname.slice(14))
       setProfileToEdit(profileRes)
     })()
-  }, [])
+  }, [location.pathname])
 
   const handleSubmit = async (e) => {
     e.preventDefault()

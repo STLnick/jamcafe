@@ -20,28 +20,23 @@ export const Card = ({ post: { content, datePosted, title, user }, userLoggedIn 
       setAvatar(postUser.picUrl)
       setInstruments(postUser.instruments)
     })()
-  }, [])
+  }, [user])
 
 
   const determineInstrumentIcon = (instrument) => {
     switch (instrument) {
       case 'Guitar':
         return 'img/icons/electric-guitar.svg'
-        break
       case 'Bass':
         return 'img/icons/bass-guitar.svg'
-        break
       case 'Drums':
         return 'img/icons/snare-drum.svg'
-        break
       case 'Vocals':
         return 'img/icons/microphone.svg'
-        break
       case 'Keys':
         return 'img/icons/piano.svg'
-        break
       default:
-        return
+        return 'img/icons/note.svg'
     }
   }
 

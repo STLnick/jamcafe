@@ -14,7 +14,7 @@ export const Profile = () => {
       const profileRes = await repo.getUserByUsername(location.pathname.slice(9))
       setProfile(profileRes)
     })()
-  }, [])
+  }, [location.pathname])
 
   return (<main className="view-profile-container flex flex--column flex--align-center flex--justify-center">
     <h3 className="section-heading">View Profile</h3>

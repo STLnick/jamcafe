@@ -13,7 +13,7 @@ const repo = api()
 export const Register = () => {
   const history = useHistory()
   const [registerError, setRegisterError] = useState('')
-  const { user, setUser } = useContext(UserContext)
+  const { setUser } = useContext(UserContext)
 
   const handleSubmit = async (e) => {
     e.preventDefault()

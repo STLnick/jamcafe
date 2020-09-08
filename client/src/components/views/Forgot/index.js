@@ -1,12 +1,9 @@
 import React, { useState } from 'react'
-import { Link, useHistory } from 'react-router-dom'
-import api from 'api'
+import { Link } from 'react-router-dom'
 import auth from 'auth'
 import utils from 'utils'
 
 import { Form } from '../../base'
-
-const repo = api()
 
 export const Forgot = () => {
   const [forgotError, setForgotError] = useState('')
