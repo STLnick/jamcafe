@@ -20,12 +20,18 @@ export const Admin = () => {
 
   const handleChangeViewClick = () => setSelectedView(prevView => prevView === 'users' ? 'posts' : 'users')
 
-  const renderTableHeadings = (resource) => Object.keys(resource[0]).map(key => <td key={key}>{key}</td>)
+  const handleDeleteClick = () => {
+    console.log('Trying to delete this item!')
+  }
+
+  const renderTableHeadings = (resource) => Object.keys(resource[0]).map((key, i) => <td key={i}>{key}</td>).concat(<td></td>)
 
   const renderTableBodyRows = (resource) => {
     const keys = Object.keys(resource[0])
     return resource.map(el => <tr>
-      {keys.map(key => <td>{el[key]}</td>)}
+      {keys.map((key, i) => <td key={i}>{el[key]}</td>).concat(<button onClick={handleDeleteClick}>
+        <img className="delete-icon filter-primary" src="img/icons/trash.svg" />
+      </button>)}
     </tr>)
   }
 
