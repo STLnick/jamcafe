@@ -19,6 +19,8 @@ caption {
 
 table th,
 table td {
+  max-width: 200px;
+  overflow: scroll;
   padding: 0.5rem;
 }
 
@@ -32,5 +34,18 @@ tbody td {
 }
 
 .delete-icon {
+  background: none;
+  border: none;
+  outline: none;
+  transition: transform 0.4s;
+}
+
+.delete-icon:focus,
+.delete-icon:hover {
+  cursor: pointer;
+  transform: scale(1.15);
+}
+
+.delete-icon img {
   width: 2rem;
 }

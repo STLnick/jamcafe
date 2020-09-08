@@ -29,9 +29,9 @@ export const Admin = () => {
   const renderTableBodyRows = (resource) => {
     const keys = Object.keys(resource[0])
     return resource.map(el => <tr>
-      {keys.map((key, i) => <td key={i}>{el[key]}</td>).concat(<button onClick={handleDeleteClick}>
-        <img className="delete-icon filter-primary" src="img/icons/trash.svg" />
-      </button>)}
+      {keys.map((key, i) => <td key={i}>{el[key]}</td>).concat(<td><button className="delete-icon flex flex--align-center flex--justify-center" onClick={handleDeleteClick}>
+        <img className="filter-primary" src="img/icons/trash.svg" />
+      </button></td>)}
     </tr>)
   }
 
