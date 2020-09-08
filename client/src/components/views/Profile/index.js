@@ -47,22 +47,34 @@ export const Profile = () => {
     return <img key={instrument} className="instrument-icon-lg" src={determineInstrumentIcon(instrument)} alt={`${instrument} icon`} />
   })
 
-  return (<main className="view-profile-container flex flex--column flex--align-center flex--justify-center">
+  const renderUserPosts = () => userPosts.sort((a, b) => new Date(b.datePosted) - new Date(a.datePosted))
+    .map(({ content, datePosted, title }) => (<div className="profile-post">
+      <h4 className="post--title is-size-4">{title}</h4>
+      <p className="is-size-5">{content}</p>
+      <p className="post--date">{datePosted.slice(0, 10)}</p>
+    </div>))
+
+  return <main
+    className="view-profile-container flex flex--column flex--align-center flex--justify-center">
     <h3 className="section-heading">View Profile</h3>
     {profile
-      ? <div className="profile-container flex flex--column flex--align-center flex--justify-around">
-        <h4 id="name" className="profile-title">{profile.username}</h4>
-        <h6 className="profile-field-heading">Bio</h6>
-        <p id="bio" className="profile-field">{profile.bio}</p>
-        <h6 className="profile-field-heading">Location</h6>
-        <p id="location" className="profile-field">{profile.location ? profile.location : ''}</p>
-        <h6 className="profile-field-heading">Genres</h6>
-        {/* TODO: Refactor Genres/Instruments to be checkboxes? Could just display as string */}
-        <p id="genres" className="profile-field">{profile.genres ? profile.genres.join(', ') : ''}</p>
-        <h6 className="profile-field-heading">Instruments</h6>
-        <div id="instruments">{profile.instruments ? renderInstrumentIcons() : ''}</div>
-      </div>
+      ? <>
+        <div className="profile-container flex flex--column flex--align-center flex--justify-around">
+          <h4 id="name" className="profile-title">{profile.username}</h4>
+          <h6 className="profile-field-heading">Bio</h6>
+          <p id="bio" className="profile-field">{profile.bio}</p>
+          <h6 className="profile-field-heading">Location</h6>
+          <p id="location" className="profile-field">{profile.location ? profile.location : ''}</p>
+          <h6 className="profile-field-heading">Genres</h6>
+          <p id="genres" className="profile-field">{profile.genres ? profile.genres.join(', ') : ''}</p>
+          <h6 className="profile-field-heading">Instruments</h6>
+          <div id="instruments">{profile.instruments ? renderInstrumentIcons() : ''}</div>
+        </div>
+        <h3 className="section-heading profile-posts-heading">Posts By {profile.username}</h3>
+        <div className="profile-posts-container">
+          {userPosts ? renderUserPosts() : null}
+        </div>
+      </>
       : <h3>Loading...</h3>}
-
-  </main>)
+  </main>
 }
