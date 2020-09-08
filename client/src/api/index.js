@@ -46,6 +46,11 @@ export default (baseUrl = 'http://localhost:5000') => ({
     }
   },
 
+  async getAllUsers() {
+    const userRes = await fetch(`${baseUrl}/users`)
+    return await userRes.json()
+  },
+
   async getUserByUsername(username) {
     const userRes = await fetch(`${baseUrl}/users/${username}`)
     return await userRes.json()
