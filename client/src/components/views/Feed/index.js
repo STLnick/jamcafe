@@ -1,4 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react'
+import { Link } from 'react-router-dom'
 
 import { Card } from '../../base'
 import api from 'api'
@@ -28,6 +29,13 @@ export const Feed = () => {
     <div className="posts flex flex--column flex--align-center flex--justify-start">
       <h3 className="section-heading">User Posts</h3>
       {renderPosts()}
+      <Link to="/post" className="write-post-link">
+        <img
+          tabindex="0"
+          src="img/icons/add-circle-sharp.svg"
+          className="write-post-icon filter-primary"
+          alt="Plus icon to write a post" />
+      </Link>
     </div>
   )
 }
