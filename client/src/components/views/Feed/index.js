@@ -22,7 +22,7 @@ export const Feed = () => {
   }, [])
 
   const renderPosts = () => posts
-    .sort((a, b) => new Date(b.date) - new Date(a.date))
+    .sort((a, b) => new Date(b.datePosted) - new Date(a.datePosted))
     .map((post, i) => <Card key={i} post={post} userLoggedIn={user} />)
 
   return (
