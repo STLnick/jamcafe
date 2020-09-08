@@ -16,6 +16,27 @@ export const Profile = () => {
     })()
   }, [location.pathname])
 
+  const determineInstrumentIcon = (instrument) => {
+    switch (instrument) {
+      case 'Guitar':
+        return '../img/icons/electric-guitar.svg'
+      case 'Bass':
+        return '../img/icons/bass-guitar.svg'
+      case 'Drums':
+        return '../img/icons/snare-drum.svg'
+      case 'Vocals':
+        return '../img/icons/microphone.svg'
+      case 'Keyboard / Piano':
+        return '../img/icons/piano.svg'
+      default:
+        return '../img/icons/note.svg'
+    }
+  }
+
+  const renderInstrumentIcons = () => profile.instruments.map(instrument => {
+    return <img key={instrument} className="instrument-icon-lg" src={determineInstrumentIcon(instrument)} alt={`${instrument} icon`} />
+  })
+
   return (<main className="view-profile-container flex flex--column flex--align-center flex--justify-center">
     <h3 className="section-heading">View Profile</h3>
     {profile
@@ -29,7 +50,7 @@ export const Profile = () => {
         {/* TODO: Refactor Genres/Instruments to be checkboxes? Could just display as string */}
         <p id="genres" className="profile-field">{profile.genres ? profile.genres.join(', ') : ''}</p>
         <h6 className="profile-field-heading">Instruments</h6>
-        <p id="instruments" className="profile-field">{profile.instruments ? profile.instruments.join(', ') : ''}</p>
+        <div id="instruments">{profile.instruments ? renderInstrumentIcons() : ''}</div>
       </div>
       : <h3>Loading...</h3>}
 
