@@ -14,11 +14,14 @@ export const Card = ({ post: { content, datePosted, title, user }, userLoggedIn 
     history.push(`/profile/${user}`)
   }
 
-  (async () => {
-    const postUser = await repo.getUserByUsername(user)
-    setAvatar(postUser.picUrl)
-    setInstruments(postUser.instruments)
-  })()
+  useEffect(() => {
+    (async () => {
+      const postUser = await repo.getUserByUsername(user)
+      setAvatar(postUser.picUrl)
+      setInstruments(postUser.instruments)
+    })()
+  }, [])
+
 
   const determineInstrumentIcon = (instrument) => {
     switch (instrument) {
@@ -51,10 +54,11 @@ export const Card = ({ post: { content, datePosted, title, user }, userLoggedIn 
       <h4 className="post--title">{title}</h4>
       <div className="flex flex--align-center">
         <img className="avatar" src={avatar || 'img/avatar.jpg'} alt="User avatar" />
-        <button className="username-btn" onClick={() => handleUsernameClick()}>{user}</button>
-        <div className="user-instruments">
-          {instruments ? renderInstrumentIcons() : null}
-        </div>
+        <button className="has-text-weight-bold username-btn" onClick={() => handleUsernameClick()}>{user}</button>
+      </div>
+      <div className=" flex flex--align-center user-instruments">
+        <span className="is-size-5 has-text-weight-semibold">Plays:</span>
+        {instruments ? renderInstrumentIcons() : null}
       </div>
       <div className="post--content">
         <p>{content}</p>
