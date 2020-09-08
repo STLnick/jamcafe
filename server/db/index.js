@@ -92,10 +92,10 @@ export const getPosts = async () => {
   }
 };
 
-export const getPostsById = async (userId) => {
+export const getPostsById = async (uid) => {
   try {
     return await client.db('jamcafe').collection('posts')
-      .find({ userId }).toArray();
+      .find(uid).toArray();
   } catch (err) {
     throw new Error(err);
   }

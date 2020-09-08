@@ -11,8 +11,8 @@ router.get('/', async (_, res) => {
 });
 
 // Get posts for one user
-router.get('/:id', async (req, res) => {
-  res.status(200).json(await getPostsById(req.params.id));
+router.post('/', async (req, res) => {
+  res.status(200).json(await getPostsById(req.body));
   // res.status(200).send(req.params);
 });
 

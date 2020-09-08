@@ -8,13 +8,23 @@ const repo = api()
 export const Profile = () => {
   const location = useLocation()
   const [profile, setProfile] = useState(null)
+  const [userPosts, setUserPosts] = useState([])
 
   useEffect(() => {
     (async () => {
       const profileRes = await repo.getUserByUsername(location.pathname.slice(9))
-      setProfile(profileRes)
+      setProfile(() => profileRes)
     })()
   }, [location.pathname])
+
+  useEffect(() => {
+    (async () => {
+      console.log('Profile: ', profile)
+      if (profile) {
+        setUserPosts(await repo.getUserPosts(profile.uid))
+      }
+    })()
+  }, [profile])
 
   const determineInstrumentIcon = (instrument) => {
     switch (instrument) {

@@ -17,10 +17,15 @@ export default (baseUrl = 'http://localhost:5000') => ({
     })
     return await postsRes.json()
   },
+
   // Get posts for one user (viewing profile)
-  async getUserPosts() {
+  async getUserPosts(uid) {
     const postsRes = await fetch(`${baseUrl}/posts`, {
-      contentType: 'application/json'
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ uid })
     })
     return await postsRes.json()
   },
