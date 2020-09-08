@@ -20,11 +20,9 @@ export const Feed = () => {
     })()
   }, [])
 
-  const renderPosts = () => {
-    return posts.map((post, i) => {
-      return <Card key={i} post={post} userLoggedIn={user} />
-    })
-  }
+  const renderPosts = () => posts
+    .sort((a, b) => new Date(b.date) - new Date(a.date))
+    .map((post, i) => <Card key={i} post={post} userLoggedIn={user} />)
 
   return (
     <div className="posts flex flex--column flex--align-center flex--justify-start">
