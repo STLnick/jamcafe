@@ -3,6 +3,8 @@ import { useLocation } from 'react-router-dom'
 
 import api from 'api'
 
+import './Profile.scss'
+
 const repo = api()
 
 export const Profile = () => {
