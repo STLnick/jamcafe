@@ -15,9 +15,7 @@ export const Card = ({ post: { content, date, title, user }, userLoggedIn }) => 
   return (
     <div className="post flex flex--column flex--align-center">
       <h4 className="post--title">{title}</h4>
-      {/* TODO: Need to configure actual paths to user profile */}
       <button className="username-btn" onClick={() => handleUsernameClick()}>{user}</button>
-
       <div className="post--content">
         <p>{content}</p>
       </div>
