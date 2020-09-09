@@ -63,6 +63,7 @@ export const Profile = () => {
       ? <>
         <div className="profile-container flex flex--column flex--align-center flex--justify-around">
           <h4 id="name" className="profile-title">{profile.username}</h4>
+          <img alt="User avatar" className="avatar" src={profile.avatar || 'img/avatar.jpg'} />
           <h6 className="profile-field-heading">Bio</h6>
           <p id="bio" className="profile-field">{profile.bio}</p>
           <h6 className="profile-field-heading">Location</h6>
