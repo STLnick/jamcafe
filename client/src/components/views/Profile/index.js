@@ -59,6 +59,12 @@ export const Profile = () => {
       <h4 className="post--title is-size-4">{title}</h4>
       <p className="is-size-5">{content}</p>
       <p className="post--date">{datePosted.slice(0, 10)}</p>
+      {isLoggedInUsersProfile
+        ? <button className="cancel-btn">
+          <img className="filter-primary" src="img/icons/pencil.svg" alt="Edit icon" />
+          Edit Post
+        </button>
+        : null}
     </div>))
 
   return <main
