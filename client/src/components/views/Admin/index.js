@@ -32,10 +32,13 @@ export const Admin = () => {
     console.log('Trying to DELETE this item!')
     console.log(e.target.closest('button').dataset.id)
     try {
-      selectedView === 'posts'
-        ? await repo.deletePost({ _id: e.target.closest('button').dataset.id })
-        : await repo.deleteUser()
+      if (selectedView === 'posts') {
+        await repo.deletePost({ _id: e.target.closest('button').dataset.id })
+        setPosts(await repo.getAllPosts())
+      } else {
         await repo.deleteUser({ _id: e.target.closest('button').dataset.id })
+        setUsers(await repo.getAllUsers())
+      }
       console.log('Success!')
     } catch (err) {
       console.log('Fail: ', err)
