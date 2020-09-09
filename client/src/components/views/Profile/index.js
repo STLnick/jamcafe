@@ -5,6 +5,7 @@ import api from 'api'
 import { UserContext } from 'UserContext'
 
 import './Profile.scss'
+import { ReactComponent as EditIcon } from '../../../assets/pencil.svg'
 
 const postsAPI = api('posts')
 const usersAPI = api('users')
@@ -60,8 +61,9 @@ export const Profile = () => {
       <p className="is-size-5">{content}</p>
       <p className="post--date">{datePosted.slice(0, 10)}</p>
       {isLoggedInUsersProfile
-        ? <button className="cancel-btn">
-          <img className="filter-primary" src="img/icons/pencil.svg" alt="Edit icon" />
+        ? <button className="cancel-btn small-btn mt-4 flex flex--align-center">
+          {/* <img className="filter-primary" src="img/icons/pencil.svg" alt="Edit icon" /> */}
+          <EditIcon className="filter-primary small-icon" />
           Edit Post
         </button>
         : null}

@@ -257,6 +257,7 @@ textarea {
 }
 
 .social-icon {
+  height: 2rem;
   width: 2rem;
 }
 
@@ -592,6 +593,11 @@ textarea {
 
 /* --------------------- */
 
+.small-icon {
+  height: 1.5rem;
+  width: 1.5rem;
+}
+
 .button {
   transition: all 0.4s;
 }
@@ -657,6 +663,11 @@ textarea {
   background-color: var(--primary-dark);
   box-shadow: 0 0 3px 3px var(--primary-light);
   color: white;
+}
+
+.small-btn {
+  font-size: 12px;
+  padding: 4px 8px;
 }
 
 .username-btn {
