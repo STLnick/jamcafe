@@ -49,6 +49,7 @@ export const EditProfile = () => {
       method: 'POST',
       body: fd
     })
+
     const { secure_url } = await res.json()
 
     updatedUserInfo.avatar = secure_url
