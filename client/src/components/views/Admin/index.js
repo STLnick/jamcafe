@@ -8,6 +8,7 @@ const repo = api()
 
 // TODO: Add some way to identify a User as Admin, if they aren't redirect them away from this page
 export const Admin = () => {
+  const [error, setError] = useState('')
   const [posts, setPosts] = useState(null)
   const [users, setUsers] = useState(null)
   const [selectedView, setSelectedView] = useState('users')
@@ -24,6 +25,18 @@ export const Admin = () => {
   // TODO: Add a way to manually Add a User or Post for the Admin
   const handleAddClick = async (e) => {
     console.log('Trying to ADD a new item!')
+    try {
+      if (selectedView === 'posts') {
+        await repo.deletePost({ _id: e.target.closest('button').dataset.id })
+        setPosts(await repo.getAllPosts())
+      } else {
+        await repo.deleteUser({ _id: e.target.closest('button').dataset.id })
+        setUsers(await repo.getAllUsers())
+      }
+      setError('')
+    } catch (err) {
+      setError(err.message)
+    }
   }
 
   // TODO: Wire up the delete to remove a User or Post from MongoDB
@@ -37,9 +50,9 @@ export const Admin = () => {
         await repo.deleteUser({ _id: e.target.closest('button').dataset.id })
         setUsers(await repo.getAllUsers())
       }
+      setError('')
     } catch (err) {
-      // TODO: Display an error on UI for user
-      console.log('Fail: ', err)
+      setError(err.message)
     }
   }
 
@@ -62,7 +75,7 @@ export const Admin = () => {
             data-id={el._id}
             onClick={(e) => handleEditClick(e)}
           >
-            <img className="filter-primary" src="img/icons/pencil.svg" />
+            <img className="filter-primary" alt="Edit icon" src="img/icons/pencil.svg" />
           </button>
         </td>)
         .concat(<td key="delete" className="flex flex--align-center flex--justify-center">
@@ -71,7 +84,7 @@ export const Admin = () => {
             data-id={el._id}
             onClick={(e) => handleDeleteClick(e)}
           >
-            <img className="filter-primary" src="img/icons/trash.svg" />
+            <img className="filter-primary" alt="Delete icon" src="img/icons/trash.svg" />
           </button>
         </td>)}
     </tr>)
@@ -92,6 +105,7 @@ export const Admin = () => {
     >
       Add A New {selectedView === 'users' ? 'User' : 'Post'}
     </button>
+    {error ? <p className="help has-text-danger is-size-4">{error}</p> : null}
     {users
       ? <table>
         <caption className="post--title">{selectedView === 'users' ? 'Users' : 'Posts'}</caption>
