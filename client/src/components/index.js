@@ -9,6 +9,7 @@ export {
   Home,
   Login,
   Message,
+  NotFound,
   Profile,
   Register
 } from './views'
