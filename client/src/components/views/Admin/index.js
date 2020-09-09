@@ -35,6 +35,7 @@ export const Admin = () => {
       selectedView === 'posts'
         ? await repo.deletePost({ _id: e.target.closest('button').dataset.id })
         : await repo.deleteUser()
+        await repo.deleteUser({ _id: e.target.closest('button').dataset.id })
       console.log('Success!')
     } catch (err) {
       console.log('Fail: ', err)

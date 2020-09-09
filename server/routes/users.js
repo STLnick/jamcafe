@@ -56,8 +56,12 @@ router.patch('/update/:uid', async (req, res) => {
 });
 
 // Delete a user
-router.delete('/delete/:id', async (req, res) => {
-  res.status(204).json(await deleteUser(req.params.id));
+router.delete('/', async (req, res) => {
+  try {
+    res.status(204).json(await deleteUser(req.body));
+  } catch (err) {
+    res.status(500).send((`${err}`));
+  }
 });
 
 export default router;

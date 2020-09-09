@@ -13,10 +13,10 @@ export const addUser = async (newUser) => {
 
 // TODO: Implement firebase-admin to allow deletion of users
 // TODO: Will need to implement on server-side mainly from reading
-export const deleteUser = async (id) => {
+export const deleteUser = async ({ _id }) => {
   try {
     return await client.db('jamcafe').collection('users')
-      .deleteOne({ _id: ObjectId(id) });
+      .deleteOne({ _id: ObjectId(_id) });
   } catch (err) {
     throw new Error(err);
   }

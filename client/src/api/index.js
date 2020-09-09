@@ -42,6 +42,18 @@ export default (baseUrl = 'http://localhost:5000') => ({
     return await postsRes.json()
   },
 
+  // Delete a user
+  async deleteUser(payload) {
+    console.log('In API: ', payload)
+    await fetch(`${baseUrl}/users`, {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(payload)
+    })
+  },
+
   async loginUser(userInfo) {
     const loginRes = await fetch(`${baseUrl}/users`, {
       method: 'POST',
