@@ -22,35 +22,56 @@ export const Admin = () => {
   const handleChangeViewClick = () => setSelectedView(prevView => prevView === 'users' ? 'posts' : 'users')
 
   // TODO: Add a way to manually Add a User or Post for the Admin
-  const handleAddClick = () => {
+  const handleAddClick = async (e) => {
     console.log('Trying to ADD a new item!')
   }
 
   // TODO: Wire up the delete to remove a User or Post from MongoDB
   // TODO: Figure out how to remove a user from Firebase
-  const handleDeleteClick = () => {
+  const handleDeleteClick = async (e) => {
     console.log('Trying to DELETE this item!')
+    console.log(e.target.closest('button').dataset.id)
+    try {
+      selectedView === 'posts'
+        ? await repo.deletePost({ _id: e.target.closest('button').dataset.id })
+        : await repo.deleteUser()
+      console.log('Success!')
+    } catch (err) {
+      console.log('Fail: ', err)
+    }
   }
 
   // TODO: Add a way to manually Add or Update a User or Post for the Admin
   // May need to develop a separate view to edit a specific item like /admin/edit?_id
   // then we can access all data there and send a PATCH to Mongo
-  const handleEditClick = () => {
+  const handleEditClick = async (e) => {
     console.log('Attempting to EDIT this item!')
   }
 
-  const renderTableHeadings = (resource) => Object.keys(resource[0]).map((key, i) => <td key={i}>{key}</td>).concat(<td></td>)
+  const renderTableHeadings = (resource) => Object.keys(resource[0]).map((key, i) => <td key={i}>{key}</td>).concat(<td key="blank"></td>)
 
   const renderTableBodyRows = (resource) => {
     const keys = Object.keys(resource[0])
-    return resource.map(el => <tr>
+    return resource.map((el, i) => <tr key={i}>
       {keys.map((key, i) => <td key={i}>{el[key]}</td>)
-        .concat(<td className="flex flex--align-center flex--justify-center"><button className="admin-icon" onClick={handleEditClick}>
-          <img className="filter-primary" src="img/icons/pencil.svg" />
-        </button></td>)
-        .concat(<td className="flex flex--align-center flex--justify-center"><button className="admin-icon" onClick={handleDeleteClick}>
-          <img className="filter-primary" src="img/icons/trash.svg" />
-        </button></td>)}
+        .concat(<td key="edit" className="flex flex--align-center flex--justify-center">
+          <button
+            className="admin-icon"
+            data-id={el._id}
+            onClick={(e) => handleEditClick(e)}
+          >
+            <img className="filter-primary" src="img/icons/pencil.svg" />
+          </button>
+        </td>)
+        .concat(<td key="delete" className="flex flex--align-center flex--justify-center">
+          <button
+            className="admin-icon"
+            data-id={el._id}
+            onClick={(e) => handleDeleteClick(e)}
+          >
+            <img className="filter-primary" src="img/icons/trash.svg" />
+          </button>
+        </td>)}
     </tr>)
   }
 

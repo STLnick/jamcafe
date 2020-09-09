@@ -74,10 +74,11 @@ export const addPost = async (newPost) => {
   }
 };
 
-export const deletePost = async (id) => {
+export const deletePost = async ({ _id }) => {
+  console.log('ID to delete: ', _id);
   try {
     return await client.db('jamcafe').collection('posts')
-      .deleteOne({ _id: ObjectId(id) });
+      .deleteOne({ _id: ObjectId(_id) });
   } catch (err) {
     throw new Error(err);
   }

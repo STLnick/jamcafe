@@ -10,6 +10,19 @@ export default (baseUrl = 'http://localhost:5000') => ({
     return await postsRes.json()
   },
 
+  // Delete a post
+  async deletePost(payload) {
+    console.log('In API: ', payload)
+    const postsRes = await fetch(`${baseUrl}/posts`, {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(payload)
+    })
+    return await postsRes.json()
+  },
+
   // Get all posts
   async getAllPosts() {
     const postsRes = await fetch(`${baseUrl}/posts`, {
