@@ -1,7 +1,8 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { Link, useLocation } from 'react-router-dom'
 
 import api from 'api'
+import { UserContext } from 'UserContext'
 
 import './Profile.scss'
 
@@ -10,8 +11,10 @@ const usersAPI = api('users')
 
 export const Profile = () => {
   const location = useLocation()
+  const [isLoggedInUsersProfile, setIsLoggedInUsersProfile] = useState(false)
   const [profile, setProfile] = useState(null)
   const [userPosts, setUserPosts] = useState([])
+  const { user } = useContext(UserContext)
 
   useEffect(() => {
     (async () => {
@@ -24,6 +27,8 @@ export const Profile = () => {
     (async () => {
       if (profile) {
         setUserPosts(await postsAPI.showOne(profile.username))
+        setIsLoggedInUsersProfile(user?.username === profile.username)
+        console.log('Testing Context: ', user?.username === profile.username)
       }
     })()
   }, [profile])
@@ -73,11 +78,17 @@ export const Profile = () => {
           <h6 className="profile-field-heading">Instruments</h6>
           <div id="instruments">{profile.instruments ? renderInstrumentIcons() : ''}</div>
         </div>
-        <Link
-          className="cta-btn mt-6"
-          to={`/message?${profile.username}`}>
-          Send A Message
+        {isLoggedInUsersProfile
+          ? <Link
+            className="cancel-btn mt-6"
+            to={`/profile/edit/${user.username}`}>
+            Edit Profile
         </Link>
+          : <Link
+            className="cta-btn mt-6"
+            to={`/message?${profile.username}`}>
+            Send A Message
+        </Link>}
         <h3 className="section-heading profile-posts-heading">Posts By {profile.username}</h3>
         <div className="profile-posts-container">
           {userPosts ? renderUserPosts() : null}
