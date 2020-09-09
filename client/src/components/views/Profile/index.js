@@ -5,7 +5,8 @@ import api from 'api'
 
 import './Profile.scss'
 
-const repo = api()
+const postsAPI = api('posts')
+const usersAPI = api('users')
 
 export const Profile = () => {
   const location = useLocation()
@@ -14,16 +15,15 @@ export const Profile = () => {
 
   useEffect(() => {
     (async () => {
-      const profileRes = await repo.getUserByUsername(location.pathname.slice(9))
+      const profileRes = await usersAPI.showOne(location.pathname.slice(9))
       setProfile(() => profileRes)
     })()
   }, [location.pathname])
 
   useEffect(() => {
     (async () => {
-      console.log('Profile: ', profile)
       if (profile) {
-        setUserPosts(await repo.getUserPosts(profile.uid))
+        setUserPosts(await postsAPI.showOne(profile.username))
       }
     })()
   }, [profile])

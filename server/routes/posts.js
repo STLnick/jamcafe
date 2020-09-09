@@ -1,6 +1,6 @@
 import { Router } from 'express';
 import {
-  addPost, deletePost, getPosts, getPostsById, updatePost,
+  addPost, deletePost, getPosts, getPostsByName, updatePost,
 } from '../db';
 
 const router = Router();
@@ -11,8 +11,8 @@ router.get('/', async (_, res) => {
 });
 
 // Get posts for one user
-router.post('/', async (req, res) => {
-  res.status(200).json(await getPostsById(req.body));
+router.get('/:username', async (req, res) => {
+  res.status(200).json(await getPostsByName(req.params.username));
   // res.status(200).send(req.params);
 });
 
@@ -22,18 +22,14 @@ router.delete('/', async (req, res) => {
   // res.status(200).send(req.params);
 });
 
+// Update a post
+router.patch('/:_id', async (req, res) => {
+  res.status(200).json(await updatePost(req.params._id, req.body));
+});
+
 // Add a post
 router.post('/add', async (req, res) => {
   res.status(201).json(await addPost(req.body));
-});
-
-// Update a post
-router.patch('/update/:id', async (req, res) => {
-  res.status(200).json(await updatePost(
-    req.params.id,
-    req.body,
-    { returnNewDocument: true },
-  ));
 });
 
 export default router;

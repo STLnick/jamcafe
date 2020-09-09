@@ -7,12 +7,13 @@ import { UserContext } from 'UserContext'
 
 import './EditProfile.scss'
 
-const repo = api()
+const usersAPI = api('users')
 
 export const EditProfile = () => {
   const history = useHistory()
   const location = useLocation()
   const [editError, setEditError] = useState('')
+  const [fileText, setFileText] = useState('')
   const [profileToEdit, setProfileToEdit] = useState(null)
   const { user, setUser } = useContext(UserContext)
 
@@ -22,22 +23,22 @@ export const EditProfile = () => {
 
   useEffect(() => {
     (async () => {
-      const profileRes = await repo.getUserByUsername(location.pathname.slice(14))
+      const profileRes = await usersAPI.getUserByUsername(location.pathname.slice(14))
       setProfileToEdit(profileRes)
     })()
   }, [location.pathname])
 
-  const handleFileChange = (e) => {
-    document.querySelector('.file-name').textContent = e.target.files[0].name
-  }
+  const handleFileChange = (e) => setFileText(e.target.files[0].name)
 
   const handleSubmit = async (e) => {
     e.preventDefault()
-
     const editedUserInfo = utils.createObjectFromFields(e.target.elements)
 
     const combineUserInfo = () => {
       let updatedInfo = { ...profileToEdit, ...editedUserInfo }
+      if (!editedUserInfo.avatar) {
+        updatedInfo.avatar = profileToEdit.avatar
+      }
       updatedInfo.genres = editedUserInfo.genres || []
       updatedInfo.instruments = editedUserInfo.instruments || []
       return updatedInfo
@@ -45,20 +46,22 @@ export const EditProfile = () => {
 
     const updatedUserInfo = combineUserInfo()
 
-    const fd = new FormData()
-    fd.append('file', document.querySelector('#avatar').files[0])
-    fd.append('upload_preset', 'jamcafe')
+    if (fileText) {
+      const fd = new FormData()
+      fd.append('file', document.querySelector('#avatar').files[0])
+      fd.append('upload_preset', 'jamcafe')
 
-    const res = await fetch('https://api.cloudinary.com/v1_1/stlnick/upload', {
-      method: 'POST',
-      body: fd
-    })
-    const { secure_url } = await res.json()
+      const res = await fetch('https://api.cloudinary.com/v1_1/stlnick/upload', {
+        method: 'POST',
+        body: fd
+      })
+      const { secure_url } = await res.json()
 
-    updatedUserInfo.avatar = secure_url
+      updatedUserInfo.avatar = secure_url
+    }
 
     try {
-      await repo.updateUser(updatedUserInfo)
+      await usersAPI.update(updatedUserInfo)
       setUser(prevUser => ({ ...prevUser, name: updatedUserInfo.name }))
       setEditError('')
       history.push(`/profile/${user.username}`)
@@ -156,7 +159,7 @@ export const EditProfile = () => {
         </div>
         <div className="file">
           <label className="file-label" htmlFor="avatar">
-            <input onChange={((e) => handleFileChange(e))} className="file-input" type="file" name="avatar" id="avatar" />
+            <input onChange={(e) => handleFileChange(e)} className="file-input" type="file" name="avatar" id="avatar" />
             <span className="file-cta">
               <span className="file-icon">
                 {/* TODO: ADD an icon to the upload button */}
@@ -167,7 +170,7 @@ export const EditProfile = () => {
               </span>
             </span>
             {/* TODO: place chosen file name inside this span */}
-            <span className="file-name"></span>
+            <span className="file-name">{fileText}</span>
           </label>
         </div>
         <Link to={`/profile/${user.username}`} className="cancel-btn">Cancel</Link>

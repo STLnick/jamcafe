@@ -5,7 +5,7 @@ import api from 'api'
 
 import { UserContext } from 'UserContext'
 
-const repo = api()
+const postsAPI = api('posts')
 
 export const CreatePost = () => {
   const history = useHistory()
@@ -31,7 +31,7 @@ export const CreatePost = () => {
     }
 
     try {
-      await repo.addPost(postInfo)
+      await postsAPI.create(postInfo)
       // TODO: Display message on success
       setFeedbackMessage({ text: 'Post Successful!', textClass: 'success' })
       setSubmitted(prevSubmitted => !prevSubmitted)

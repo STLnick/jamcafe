@@ -8,7 +8,7 @@ import utils from 'utils'
 import { Form } from '../../base'
 import { UserContext } from 'UserContext'
 
-const repo = api()
+const usersAPI = api('users')
 
 export const Register = () => {
   const history = useHistory()
@@ -21,18 +21,18 @@ export const Register = () => {
     const userInfo = utils.createObjectFromFields(e.target.elements)
 
     // Check if username is taken before attempting to create firebase auth
-    if (await repo.getUserByUsername(userInfo.username)) {
+    if (await usersAPI.getUserByUsername(userInfo.username)) {
       setRegisterError('Username is taken')
     } else {
       auth.createUserWithEmailAndPassword(userInfo.email, userInfo.password)
         .then(async () => {
           // get the uid then make request to add user to database
-          const userResponse = await repo.registerUser({
+          const userResponse = await usersAPI.registerUser({
             uid: auth.currentUser.uid,
             name: userInfo.name,
             username: userInfo.username
           })
-          setUser(userResponse)
+          setUser(userResponse.ops[0])
           setRegisterError('')
           history.push('/feed')
         })

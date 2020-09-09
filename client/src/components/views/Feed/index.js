@@ -6,7 +6,7 @@ import { Card } from '../../base'
 import api from 'api'
 import { UserContext } from 'UserContext'
 
-const repo = api()
+const postsAPI = api('posts')
 
 export const Feed = ({ searchText }) => {
   const [filteredPosts, setFilteredPosts] = useState([])
@@ -15,7 +15,7 @@ export const Feed = ({ searchText }) => {
 
   useEffect(() => {
     (async () => {
-      const dbPosts = await repo.getAllPosts()
+      const dbPosts = await postsAPI.show()
       setFilteredPosts(() => dbPosts.map(post => post))
       setPosts(() => dbPosts.map(post => post))
     })()

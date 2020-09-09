@@ -1,18 +1,21 @@
-export default (baseUrl = 'http://localhost:5000') => ({
-  async addPost(payload) {
-    const postsRes = await fetch(`${baseUrl}/posts/add`, {
+const baseUrl = 'http://localhost:5000'
+
+export default (resource) => ({
+  // Add a new Post OR User
+  async create(payload) {
+    const res = await fetch(`${baseUrl}/${resource}/add`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify(payload)
     })
-    return await postsRes.json()
+    return await res.json()
   },
 
-  // Delete a post
-  async deletePost(payload) {
-    await fetch(`${baseUrl}/posts`, {
+  // Delete a Post OR User
+  async delete(payload) {
+    await fetch(`${baseUrl}/${resource}`, {
       method: 'DELETE',
       headers: {
         'Content-Type': 'application/json'
@@ -21,88 +24,40 @@ export default (baseUrl = 'http://localhost:5000') => ({
     })
   },
 
-  // Get all posts
-  async getAllPosts() {
-    const postsRes = await fetch(`${baseUrl}/posts`, {
-      contentType: 'application/json'
-    })
-    return await postsRes.json()
+  // Get all Posts OR Users
+  async show() {
+    const res = await fetch(`${baseUrl}/${resource}`)
+    return await res.json()
   },
 
-  // Get posts for one user (viewing profile)
-  async getUserPosts(uid) {
-    const postsRes = await fetch(`${baseUrl}/posts`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({ uid })
-    })
-    return await postsRes.json()
+  // Get one User OR Posts for one User
+  async showOne(username) {
+    const res = await fetch(`${baseUrl}/${resource}/${username}`)
+    return await res.json()
   },
 
-  // Delete a user
-  async deleteUser(payload) {
-    await fetch(`${baseUrl}/users`, {
-      method: 'DELETE',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(payload)
-    })
-  },
-
-  async loginUser(userInfo) {
-    const loginRes = await fetch(`${baseUrl}/users`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(userInfo)
-    })
-
-    if (loginRes.status > 200 && loginRes.status < 300) {
-      return await loginRes.json()
-    } else {
-      return await loginRes.text()
-    }
-  },
-
-  async getAllUsers() {
-    const userRes = await fetch(`${baseUrl}/users`)
-    return await userRes.json()
-  },
-
-  async getUserByUsername(username) {
-    const userRes = await fetch(`${baseUrl}/users/${username}`)
-    return await userRes.json()
-  },
-
-  async registerUser(userInfo) {
-    const registerRes = await fetch(`${baseUrl}/users/add`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(userInfo)
-    })
-
-    if (registerRes.status > 200 && registerRes.status < 300) {
-      const { ops } = await registerRes.json()
-      return await ops[0]
-    } else {
-      return await registerRes.text()
-    }
-  },
-
-  async updateUser(payload) {
-    const { _id, username, uid, ...propsToUpdate } = payload
-    await fetch(`${baseUrl}/users/update/${uid}`, {
+  // Update a User OR Post
+  async update(payload) {
+    const { _id, uid, ...propsToUpdate } = payload
+    await fetch(`${baseUrl}/${resource}/${_id}`, {
       method: 'PATCH',
       headers: {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify(propsToUpdate)
     })
-  }
+  },
+
+  // Get user info after Firebase authentication
+  async verify(payload) {
+    const loginRes = await fetch(`${baseUrl}/${resource}`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(payload)
+    })
+    return await loginRes.json()
+  },
+
 });

@@ -49,10 +49,10 @@ export const getUsers = async () => {
   }
 };
 
-export const updateUser = async (uid, propsToUpdate) => {
+export const updateUser = async (_id, propsToUpdate) => {
   try {
     return await client.db('jamcafe').collection('users')
-      .findOneAndUpdate({ uid }, { $set: { ...propsToUpdate } });
+      .findOneAndUpdate({ _id: ObjectId(_id) }, { $set: { ...propsToUpdate } });
   } catch (err) {
     throw new Error(err);
   }
@@ -92,10 +92,10 @@ export const getPosts = async () => {
   }
 };
 
-export const getPostsById = async (uid) => {
+export const getPostsByName = async (user) => {
   try {
     return await client.db('jamcafe').collection('posts')
-      .find(uid).toArray();
+      .find({ user }).toArray();
   } catch (err) {
     throw new Error(err);
   }

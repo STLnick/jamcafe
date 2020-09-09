@@ -1,5 +1,6 @@
 import React, { useContext, useState } from 'react'
 import { Link, useHistory } from 'react-router-dom'
+
 import api from 'api'
 import auth from 'auth'
 import utils from 'utils'
@@ -7,7 +8,7 @@ import utils from 'utils'
 import { Form } from '../../base'
 import { UserContext } from 'UserContext'
 
-const repo = api()
+const usersAPI = api('users')
 
 export const Login = () => {
   const history = useHistory()
@@ -21,7 +22,7 @@ export const Login = () => {
 
     auth.signInWithEmailAndPassword(userInfo.email, userInfo.password)
       .then(async (res) => {
-        const loggedInUser = await repo.loginUser({ uid: auth.currentUser.uid })
+        const loggedInUser = await usersAPI.verify({ uid: auth.currentUser.uid })
         setUser(loggedInUser)
         setLoginError('')
         history.push('/feed')

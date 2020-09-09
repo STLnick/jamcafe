@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import { Link, useHistory } from 'react-router-dom'
 import api from 'api'
 
-const repo = api()
+const usersAPI = api('users')
 
 export const Card = ({ post: { content, datePosted, title, user }, userLoggedIn }) => {
   const history = useHistory()
@@ -16,7 +16,7 @@ export const Card = ({ post: { content, datePosted, title, user }, userLoggedIn 
 
   useEffect(() => {
     (async () => {
-      const postUser = await repo.getUserByUsername(user)
+      const postUser = await usersAPI.showOne(user)
       setAvatar(postUser.avatar)
       setInstruments(postUser.instruments)
     })()

@@ -4,7 +4,8 @@ import api from 'api'
 
 import './Admin.scss'
 
-const repo = api()
+const postsAPI = api('posts')
+const usersAPI = api('users')
 
 // TODO: Add some way to identify a User as Admin, if they aren't redirect them away from this page
 export const Admin = () => {
@@ -15,8 +16,8 @@ export const Admin = () => {
 
   useEffect(() => {
     (async () => {
-      setPosts(await repo.getAllPosts())
-      setUsers(await repo.getAllUsers())
+      setPosts(await postsAPI.show())
+      setUsers(await usersAPI.show())
     })()
   }, [])
 
@@ -27,10 +28,11 @@ export const Admin = () => {
     console.log('Trying to ADD a new item!')
     try {
       if (selectedView === 'posts') {
-        await repo.addPost()
-        setPosts(await repo.getAllPosts())
+        await postsAPI.addPost()
+        setPosts(await postsAPI.show())
       } else {
-        setUsers(await repo.getAllUsers())
+        // TODO: Add logic to add a user... maybe...
+        setUsers(await usersAPI.show())
       }
       setError('')
     } catch (err) {
@@ -42,11 +44,11 @@ export const Admin = () => {
   const handleDeleteClick = async (e) => {
     try {
       if (selectedView === 'posts') {
-        await repo.deletePost({ _id: e.target.closest('button').dataset.id })
-        setPosts(await repo.getAllPosts())
+        await postsAPI.delete({ _id: e.target.closest('button').dataset.id })
+        setPosts(await postsAPI.show())
       } else {
-        await repo.deleteUser({ _id: e.target.closest('button').dataset.id })
-        setUsers(await repo.getAllUsers())
+        await usersAPI.delete({ _id: e.target.closest('button').dataset.id })
+        setUsers(await usersAPI.show())
       }
       setError('')
     } catch (err) {
