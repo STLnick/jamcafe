@@ -27,6 +27,10 @@ export const EditProfile = () => {
     })()
   }, [location.pathname])
 
+  const handleFileChange = (e) => {
+    document.querySelector('.file-name').textContent = e.target.files[0].name
+  }
+
   const handleSubmit = async (e) => {
     e.preventDefault()
 
@@ -49,19 +53,14 @@ export const EditProfile = () => {
       method: 'POST',
       body: fd
     })
-
     const { secure_url } = await res.json()
 
     updatedUserInfo.avatar = secure_url
 
     try {
-      // Make PATCH request to server to update user
       await repo.updateUser(updatedUserInfo)
-      // Update the user context name if successful
       setUser(prevUser => ({ ...prevUser, name: updatedUserInfo.name }))
-      // Reset Error message
       setEditError('')
-      // Redirect user to their own profile view (not editing) if successful
       history.push(`/profile/${user.username}`)
     } catch (err) {
       setEditError(err.message)
@@ -155,22 +154,20 @@ export const EditProfile = () => {
             <span className="checkmark"></span>
           </label>
         </div>
-        <div class="file">
-          <label class="file-label" htmlFor="avatar">
-            <input class="file-input" type="file" name="avatar" id="avatar" />
-            <span class="file-cta">
-              <span class="file-icon">
+        <div className="file">
+          <label className="file-label" htmlFor="avatar">
+            <input onChange={((e) => handleFileChange(e))} className="file-input" type="file" name="avatar" id="avatar" />
+            <span className="file-cta">
+              <span className="file-icon">
                 {/* TODO: ADD an icon to the upload button */}
-                <i class="fas fa-upload"></i>
+                <img className="upload-icon" src="img/icons/cloud-upload.svg" alt="Upload icon" />
               </span>
-              <span class="file-label">
+              <span className="file-label">
                 Choose a file…
               </span>
             </span>
             {/* TODO: place chosen file name inside this span */}
-            <span class="file-name">
-              Screen Shot 2017-07-29 at 15.54.25.png
-            </span>
+            <span className="file-name"></span>
           </label>
         </div>
         <Link to={`/profile/${user.username}`} className="cancel-btn">Cancel</Link>
