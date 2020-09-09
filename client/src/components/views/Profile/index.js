@@ -50,7 +50,7 @@ export const Profile = () => {
   })
 
   const renderUserPosts = () => userPosts.sort((a, b) => new Date(b.datePosted) - new Date(a.datePosted))
-    .map(({ content, datePosted, title }) => (<div className="profile-post">
+    .map(({ content, datePosted, title }, i) => (<div className="profile-post" key={i}>
       <h4 className="post--title is-size-4">{title}</h4>
       <p className="is-size-5">{content}</p>
       <p className="post--date">{datePosted.slice(0, 10)}</p>
