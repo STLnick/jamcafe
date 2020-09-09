@@ -12,7 +12,6 @@ export default (baseUrl = 'http://localhost:5000') => ({
 
   // Delete a post
   async deletePost(payload) {
-    console.log('In API: ', payload)
     await fetch(`${baseUrl}/posts`, {
       method: 'DELETE',
       headers: {
@@ -44,7 +43,6 @@ export default (baseUrl = 'http://localhost:5000') => ({
 
   // Delete a user
   async deleteUser(payload) {
-    console.log('In API: ', payload)
     await fetch(`${baseUrl}/users`, {
       method: 'DELETE',
       headers: {

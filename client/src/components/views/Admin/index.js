@@ -29,8 +29,6 @@ export const Admin = () => {
   // TODO: Wire up the delete to remove a User or Post from MongoDB
   // TODO: Figure out how to remove a user from Firebase
   const handleDeleteClick = async (e) => {
-    console.log('Trying to DELETE this item!')
-    console.log(e.target.closest('button').dataset.id)
     try {
       if (selectedView === 'posts') {
         await repo.deletePost({ _id: e.target.closest('button').dataset.id })
@@ -39,8 +37,8 @@ export const Admin = () => {
         await repo.deleteUser({ _id: e.target.closest('button').dataset.id })
         setUsers(await repo.getAllUsers())
       }
-      console.log('Success!')
     } catch (err) {
+      // TODO: Display an error on UI for user
       console.log('Fail: ', err)
     }
   }

@@ -18,7 +18,6 @@ router.post('/', async (req, res) => {
 
 // Delete a post
 router.delete('/', async (req, res) => {
-  console.log('Router req: ', req.body);
   res.status(200).json(await deletePost(req.body));
   // res.status(200).send(req.params);
 });
