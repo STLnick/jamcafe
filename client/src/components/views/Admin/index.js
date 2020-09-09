@@ -27,10 +27,9 @@ export const Admin = () => {
     console.log('Trying to ADD a new item!')
     try {
       if (selectedView === 'posts') {
-        await repo.deletePost({ _id: e.target.closest('button').dataset.id })
+        await repo.addPost()
         setPosts(await repo.getAllPosts())
       } else {
-        await repo.deleteUser({ _id: e.target.closest('button').dataset.id })
         setUsers(await repo.getAllUsers())
       }
       setError('')
@@ -39,7 +38,6 @@ export const Admin = () => {
     }
   }
 
-  // TODO: Wire up the delete to remove a User or Post from MongoDB
   // TODO: Figure out how to remove a user from Firebase
   const handleDeleteClick = async (e) => {
     try {
@@ -56,7 +54,7 @@ export const Admin = () => {
     }
   }
 
-  // TODO: Add a way to manually Add or Update a User or Post for the Admin
+  // TODO: Add a way to manually Update a User or Post for the Admin
   // May need to develop a separate view to edit a specific item like /admin/edit?_id
   // then we can access all data there and send a PATCH to Mongo
   const handleEditClick = async (e) => {
@@ -69,7 +67,7 @@ export const Admin = () => {
     const keys = Object.keys(resource[0])
     return resource.map((el, i) => <tr key={i}>
       {keys.map((key, i) => <td key={i}>{el[key]}</td>)
-        .concat(<td key="edit" className="flex flex--align-center flex--justify-center">
+        .concat(<td key="edit">
           <button
             className="admin-icon"
             data-id={el._id}
@@ -78,7 +76,7 @@ export const Admin = () => {
             <img className="filter-primary" alt="Edit icon" src="img/icons/pencil.svg" />
           </button>
         </td>)
-        .concat(<td key="delete" className="flex flex--align-center flex--justify-center">
+        .concat(<td key="delete">
           <button
             className="admin-icon"
             data-id={el._id}
