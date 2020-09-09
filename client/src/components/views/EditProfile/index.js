@@ -23,7 +23,7 @@ export const EditProfile = () => {
 
   useEffect(() => {
     (async () => {
-      const profileRes = await usersAPI.getUserByUsername(location.pathname.slice(14))
+      const profileRes = await usersAPI.showOne(location.pathname.slice(14))
       setProfileToEdit(profileRes)
     })()
   }, [location.pathname])
