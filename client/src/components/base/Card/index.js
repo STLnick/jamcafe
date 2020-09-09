@@ -17,7 +17,7 @@ export const Card = ({ post: { content, datePosted, title, user }, userLoggedIn 
   useEffect(() => {
     (async () => {
       const postUser = await repo.getUserByUsername(user)
-      setAvatar(postUser.picUrl)
+      setAvatar(postUser.avatar)
       setInstruments(postUser.instruments)
     })()
   }, [user])

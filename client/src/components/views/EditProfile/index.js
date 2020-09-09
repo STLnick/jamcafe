@@ -41,6 +41,18 @@ export const EditProfile = () => {
 
     const updatedUserInfo = combineUserInfo()
 
+    const fd = new FormData()
+    fd.append('file', document.querySelector('#avatar').files[0])
+    fd.append('upload_preset', 'jamcafe')
+
+    const res = await fetch('https://api.cloudinary.com/v1_1/stlnick/upload', {
+      method: 'POST',
+      body: fd
+    })
+    const { secure_url } = await res.json()
+
+    updatedUserInfo.avatar = secure_url
+
     try {
       // Make PATCH request to server to update user
       await repo.updateUser(updatedUserInfo)
@@ -140,6 +152,24 @@ export const EditProfile = () => {
             Keyboard / Piano
             <input type="checkbox" defaultChecked={profileToEdit.instruments?.includes('Keyboard / Piano')} name="keys" id="keys" value="Keyboard / Piano" />
             <span className="checkmark"></span>
+          </label>
+        </div>
+        <div class="file">
+          <label class="file-label" htmlFor="avatar">
+            <input class="file-input" type="file" name="avatar" id="avatar" />
+            <span class="file-cta">
+              <span class="file-icon">
+                {/* TODO: ADD an icon to the upload button */}
+                <i class="fas fa-upload"></i>
+              </span>
+              <span class="file-label">
+                Choose a file…
+              </span>
+            </span>
+            {/* TODO: place chosen file name inside this span */}
+            <span class="file-name">
+              Screen Shot 2017-07-29 at 15.54.25.png
+            </span>
           </label>
         </div>
         <Link to={`/profile/${user.username}`} className="cancel-btn">Cancel</Link>
