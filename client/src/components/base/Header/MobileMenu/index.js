@@ -52,10 +52,6 @@ export const MobileMenu = ({ handleClick }) => {
       {
         path: '/message',
         text: 'TESTING MSG'
-      },
-      {
-        path: '/admin',
-        text: 'TESTING ADMIN'
       }
     ]
 
@@ -79,6 +75,17 @@ export const MobileMenu = ({ handleClick }) => {
     <div className="mobile-menu">
       <ul className="mobile-menu--list">
         {renderLinks()}
+        {user?.admin
+          ? <li>
+            <Link
+              className="mobile-menu--list-link"
+              onClick={handleClick}
+              to='/admin'
+            >
+              Admin Dashboard
+            </Link>
+          </li>
+          : null}
         {user
           ? <button
             className="button mt-5 is-size-5 is-uppercase"

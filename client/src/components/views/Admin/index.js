@@ -1,6 +1,9 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
+import { useHistory } from 'react-router-dom'
 
 import api from 'api'
+import firebaseApi from 'firebaseApi'
+import { UserContext } from 'UserContext'
 
 import './Admin.scss'
 
@@ -9,10 +12,18 @@ const usersAPI = api('users')
 
 // TODO: Add some way to identify a User as Admin, if they aren't redirect them away from this page
 export const Admin = () => {
+  const history = useHistory()
   const [error, setError] = useState('')
   const [posts, setPosts] = useState(null)
   const [users, setUsers] = useState(null)
   const [selectedView, setSelectedView] = useState('users')
+  const { user } = useContext(UserContext)
+
+  if (user && !user.admin) {
+    history.push('/feed')
+  } else if (!user) {
+    history.push('/login')
+  }
 
   useEffect(() => {
     (async () => {
@@ -23,7 +34,16 @@ export const Admin = () => {
 
   const handleChangeViewClick = () => setSelectedView(prevView => prevView === 'users' ? 'posts' : 'users')
 
+  const handleAddAdmin = async (e) => {
+    e.preventDefault()
+    const adminEmail = e.target.elements[0].value.trim()
+    console.log(adminEmail)
+    const result = await firebaseApi.addAdminRole(adminEmail)
+    console.log('Add Admin Role result: ', result)
+  }
+
   // TODO: Add a way to manually Add a User or Post for the Admin
+  // TODO: Will need to also manually add an email/password to Firebase
   const handleAddClick = async (e) => {
     console.log('Trying to ADD a new item!')
     try {
@@ -40,15 +60,19 @@ export const Admin = () => {
     }
   }
 
-  // TODO: Figure out how to remove a user from Firebase
   const handleDeleteClick = async (e) => {
+    const id = e.target.closest('button').dataset.id // MongoDB identifier
+    const uid = e.target.closest('button').dataset.uid // Firebase identifier
+
     try {
       if (selectedView === 'posts') {
-        await postsAPI.delete({ _id: e.target.closest('button').dataset.id })
+        await postsAPI.delete({ _id: id })
         setPosts(await postsAPI.show())
       } else {
-        await usersAPI.delete({ _id: e.target.closest('button').dataset.id })
+        await usersAPI.delete({ _id: id })
         setUsers(await usersAPI.show())
+        const firebaseResult = await firebaseApi.deleteUser(uid)
+        console.log(firebaseResult)
       }
       setError('')
     } catch (err) {
@@ -82,6 +106,7 @@ export const Admin = () => {
           <button
             className="admin-icon"
             data-id={el._id}
+            data-uid={el.uid}
             onClick={(e) => handleDeleteClick(e)}
           >
             <img className="filter-primary" alt="Delete icon" src="img/icons/trash.svg" />
@@ -92,6 +117,11 @@ export const Admin = () => {
 
   return (<div className="admin-container flex flex--column flex--align-center">
     <h3 className="section-heading">Admin Dashboard</h3>
+    <form onSubmit={(e) => handleAddAdmin(e)}>
+      <label htmlFor="admin-email">Email to Make an Admin</label>
+      <input id="admin-email" type="text" />
+      <button type="submit">Add Admin</button>
+    </form>
     <button
       className="cancel-btn"
       onClick={handleChangeViewClick}

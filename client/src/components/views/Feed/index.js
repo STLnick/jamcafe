@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types'
 import React, { useContext, useEffect, useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useHistory } from 'react-router-dom'
 
 import { Card } from '../../base'
 import api from 'api'
@@ -9,9 +9,14 @@ import { UserContext } from 'UserContext'
 const postsAPI = api('posts')
 
 export const Feed = ({ searchText }) => {
+  const history = useHistory()
   const [filteredPosts, setFilteredPosts] = useState([])
   const [posts, setPosts] = useState([])
   const { user } = useContext(UserContext)
+
+  if (!user) {
+    history.push('/login')
+  }
 
   useEffect(() => {
     (async () => {

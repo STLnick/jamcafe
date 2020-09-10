@@ -23,7 +23,8 @@ export const Login = () => {
     auth.signInWithEmailAndPassword(userInfo.email, userInfo.password)
       .then(async (res) => {
         const loggedInUser = await usersAPI.verify({ uid: auth.currentUser.uid })
-        setUser(loggedInUser)
+        const userToken = await auth.currentUser.getIdTokenResult()
+        setUser({ ...loggedInUser, admin: userToken.claims.admin })
         setLoginError('')
         history.push('/feed')
       })
