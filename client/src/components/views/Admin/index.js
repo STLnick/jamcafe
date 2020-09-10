@@ -33,6 +33,7 @@ export const Admin = () => {
   }
 
   // TODO: Add a way to manually Add a User or Post for the Admin
+  // TODO: Will need to also manually add an email/password to Firebase
   const handleAddClick = async (e) => {
     console.log('Trying to ADD a new item!')
     try {
@@ -49,7 +50,6 @@ export const Admin = () => {
     }
   }
 
-  // TODO: Figure out how to remove a user from Firebase
   const handleDeleteClick = async (e) => {
     const id = e.target.closest('button').dataset.id // MongoDB identifier
     const uid = e.target.closest('button').dataset.uid // Firebase identifier
