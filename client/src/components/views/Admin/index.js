@@ -19,16 +19,16 @@ export const Admin = () => {
   const [selectedView, setSelectedView] = useState('users')
   const { user } = useContext(UserContext)
 
+  if (user && !user.admin) {
+    history.push('/feed')
+  } else if (!user) {
+    history.push('/login')
+  }
+
   useEffect(() => {
     (async () => {
-      if (user && user.admin) {
-        setPosts(await postsAPI.show())
-        setUsers(await usersAPI.show())
-      } else if (user) {
-        history.push('/feed')
-      } else {
-        history.push('/login')
-      }
+      setPosts(await postsAPI.show())
+      setUsers(await usersAPI.show())
     })()
   }, [])
 
