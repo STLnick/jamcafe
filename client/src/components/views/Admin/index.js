@@ -1,7 +1,9 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
+import { useHistory } from 'react-router-dom'
 
 import api from 'api'
 import firebaseApi from 'firebaseApi'
+import { UserContext } from 'UserContext'
 
 import './Admin.scss'
 
@@ -10,15 +12,23 @@ const usersAPI = api('users')
 
 // TODO: Add some way to identify a User as Admin, if they aren't redirect them away from this page
 export const Admin = () => {
+  const history = useHistory()
   const [error, setError] = useState('')
   const [posts, setPosts] = useState(null)
   const [users, setUsers] = useState(null)
   const [selectedView, setSelectedView] = useState('users')
+  const { user } = useContext(UserContext)
 
   useEffect(() => {
     (async () => {
-      setPosts(await postsAPI.show())
-      setUsers(await usersAPI.show())
+      if (user && user.admin) {
+        setPosts(await postsAPI.show())
+        setUsers(await usersAPI.show())
+      } else if (user) {
+        history.push('/feed')
+      } else {
+        history.push('/login')
+      }
     })()
   }, [])
 
