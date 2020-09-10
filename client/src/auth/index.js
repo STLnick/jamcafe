@@ -1,4 +1,4 @@
 import firebase from './client'
-import "firebase/auth"
+import 'firebase/auth'
 
 export default firebase.auth()
