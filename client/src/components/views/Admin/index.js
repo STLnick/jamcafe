@@ -51,13 +51,18 @@ export const Admin = () => {
 
   // TODO: Figure out how to remove a user from Firebase
   const handleDeleteClick = async (e) => {
+    const id = e.target.closest('button').dataset.id // MongoDB identifier
+    const uid = e.target.closest('button').dataset.uid // Firebase identifier
+
     try {
       if (selectedView === 'posts') {
-        await postsAPI.delete({ _id: e.target.closest('button').dataset.id })
+        await postsAPI.delete({ _id: id })
         setPosts(await postsAPI.show())
       } else {
-        await usersAPI.delete({ _id: e.target.closest('button').dataset.id })
+        await usersAPI.delete({ _id: id })
         setUsers(await usersAPI.show())
+        const firebaseResult = await firebaseApi.deleteUser(uid)
+        console.log(firebaseResult)
       }
       setError('')
     } catch (err) {
@@ -91,6 +96,7 @@ export const Admin = () => {
           <button
             className="admin-icon"
             data-id={el._id}
+            data-uid={el.uid}
             onClick={(e) => handleDeleteClick(e)}
           >
             <img className="filter-primary" alt="Delete icon" src="img/icons/trash.svg" />
