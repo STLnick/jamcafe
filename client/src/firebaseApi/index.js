@@ -13,5 +13,6 @@ export default {
       },
       body: JSON.stringify({ userEmail })
     })
+    return res.text()
   },
 }
