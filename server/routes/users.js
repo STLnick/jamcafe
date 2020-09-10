@@ -28,10 +28,28 @@ router.post('/', async (req, res) => {
   }
 });
 
+// Delete a user
+router.delete('/', async (req, res) => {
+  try {
+    res.status(204).json(await deleteUser(req.body));
+  } catch (err) {
+    res.status(500).send((`${err}`));
+  }
+});
+
 // Get a user by username
 router.get('/:username', async (req, res) => {
   try {
     res.status(200).json(await getUserByUsername(req.params.username));
+  } catch (err) {
+    res.status(500).send((`${err}`));
+  }
+});
+
+// Update a user
+router.patch('/:_id', async (req, res) => {
+  try {
+    res.status(204).json(await updateUser(req.params._id, req.body));
   } catch (err) {
     res.status(500).send((`${err}`));
   }
@@ -44,20 +62,6 @@ router.post('/add', async (req, res) => {
   } catch (err) {
     res.status(500).send((`${err}`));
   }
-});
-
-// Update a user
-router.patch('/update/:uid', async (req, res) => {
-  try {
-    res.status(204).json(await updateUser(req.params.uid, req.body));
-  } catch (err) {
-    res.status(500).send((`${err}`));
-  }
-});
-
-// Delete a user
-router.delete('/delete/:id', async (req, res) => {
-  res.status(204).json(await deleteUser(req.params.id));
 });
 
 export default router;

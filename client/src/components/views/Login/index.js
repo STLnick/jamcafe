@@ -1,5 +1,6 @@
 import React, { useContext, useState } from 'react'
 import { Link, useHistory } from 'react-router-dom'
+
 import api from 'api'
 import auth from 'auth'
 import utils from 'utils'
@@ -7,18 +8,12 @@ import utils from 'utils'
 import { Form } from '../../base'
 import { UserContext } from 'UserContext'
 
-const repo = api()
+const usersAPI = api('users')
 
 export const Login = () => {
   const history = useHistory()
   const [loginError, setLoginError] = useState('')
-  const { user, setUser } = useContext(UserContext)
-
-  const determineErrorMessage = (res) => {
-    return res === null
-      ? 'Incorrect user credentials'
-      : 'Error occurred interacting with database. Try again.'
-  }
+  const { setUser } = useContext(UserContext)
 
   const handleSubmit = async (e) => {
     e.preventDefault()
@@ -27,8 +22,9 @@ export const Login = () => {
 
     auth.signInWithEmailAndPassword(userInfo.email, userInfo.password)
       .then(async (res) => {
-        const loggedInUser = await repo.loginUser({ uid: auth.currentUser.uid })
-        setUser(loggedInUser)
+        const loggedInUser = await usersAPI.verify({ uid: auth.currentUser.uid })
+        const userToken = await auth.currentUser.getIdTokenResult()
+        setUser({ ...loggedInUser, admin: userToken.claims.admin })
         setLoginError('')
         history.push('/feed')
       })

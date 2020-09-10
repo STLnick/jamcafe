@@ -1,76 +1,63 @@
-export default (baseUrl = 'http://localhost:5000') => ({
-  async addPost(payload) {
-    const postsRes = await fetch(`${baseUrl}/posts/add`, {
+const baseUrl = 'http://localhost:5000'
+
+export default (resource) => ({
+  // Add a new Post OR User
+  async create(payload) {
+    const res = await fetch(`${baseUrl}/${resource}/add`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify(payload)
     })
-    return await postsRes.json()
+    return await res.json()
   },
 
-  // Get all posts
-  async getAllPosts() {
-    const postsRes = await fetch(`${baseUrl}/posts`, {
-      contentType: 'application/json'
-    })
-    return await postsRes.json()
-  },
-  // Get posts for one user (viewing profile)
-  async getUserPosts() {
-    const postsRes = await fetch(`${baseUrl}/posts`, {
-      contentType: 'application/json'
-    })
-    return await postsRes.json()
-  },
-
-  async loginUser(userInfo) {
-    const loginRes = await fetch(`${baseUrl}/users`, {
-      method: 'POST',
+  // Delete a Post OR User
+  async delete(payload) {
+    await fetch(`${baseUrl}/${resource}`, {
+      method: 'DELETE',
       headers: {
-        'Content-Type': 'application/json',
+        'Content-Type': 'application/json'
       },
-      body: JSON.stringify(userInfo)
+      body: JSON.stringify(payload)
     })
-
-    if (loginRes.status > 200 && loginRes.status < 300) {
-      return await loginRes.json()
-    } else {
-      return await loginRes.text()
-    }
   },
 
-  async getUserByUsername(username) {
-    const userRes = await fetch(`${baseUrl}/users/${username}`)
-    return await userRes.json()
+  // Get all Posts OR Users
+  async show() {
+    const res = await fetch(`${baseUrl}/${resource}`)
+    return await res.json()
   },
 
-  async registerUser(userInfo) {
-    const registerRes = await fetch(`${baseUrl}/users/add`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(userInfo)
-    })
-
-    if (registerRes.status > 200 && registerRes.status < 300) {
-      const { ops } = await registerRes.json()
-      return await ops[0]
-    } else {
-      return await registerRes.text()
-    }
+  // Get one User OR Posts for one User
+  async showOne(username) {
+    const res = await fetch(`${baseUrl}/${resource}/${username}`)
+    return await res.json()
   },
 
-  async updateUser(payload) {
-    const { _id, username, uid, ...propsToUpdate } = payload
-    const updateRes = await fetch(`${baseUrl}/users/update/${uid}`, {
+  // Update a User OR Post
+  async update(payload) {
+    const { _id, uid, ...propsToUpdate } = payload
+    await fetch(`${baseUrl}/${resource}/${_id}`, {
       method: 'PATCH',
       headers: {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify(propsToUpdate)
     })
-  }
+  },
+
+  // Get user info after Firebase authentication
+  async verify(payload) {
+    const loginRes = await fetch(`${baseUrl}/${resource}`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(payload)
+    })
+    return await loginRes.json()
+  },
+
 });

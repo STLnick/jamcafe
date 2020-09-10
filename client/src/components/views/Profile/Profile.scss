@@ -1,0 +1,27 @@
+.profile-container {
+  background-color: #eee;
+  border: none;
+  border-radius: 5px;
+  height: 80%;
+  padding: 2rem 0;
+  width: 80%;
+}
+
+.profile-container * {
+  margin-bottom: 1rem;
+}
+
+.profile-posts-heading {
+  margin: 5rem 0 2rem;
+}
+
+.profile-posts-container {
+  text-align: center;
+}
+
+.profile-post {
+  background-color: #eee;
+  border-radius: 5px;
+  padding: 1rem 2rem;
+  margin: 2rem;
+}

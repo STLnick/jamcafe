@@ -1,16 +1,33 @@
 import React, { useMemo, useState } from 'react';
 import {
   BrowserRouter as Router,
-  Route
+  Route,
+  Switch
 } from 'react-router-dom'
 
+// components
 import { Footer, Header } from './components'
-import routes from './routes'
+// views
+import {
+  About,
+  Admin,
+  CreatePost,
+  EditProfile,
+  Feed,
+  Forgot,
+  Home,
+  Login,
+  Message,
+  NotFound,
+  Profile,
+  Register
+} from './components'
 import { UserContext } from './UserContext'
 
 import './App.scss';
 
 export const App = () => {
+  const [searchText, setSearchText] = useState('')
   const [user, setUser] = useState(null)
   const providerValue = useMemo(() => ({ user, setUser }), [user, setUser])
 
@@ -26,19 +43,60 @@ export const App = () => {
     }
   }
 
+  const handleSearchTextChange = (e) => {
+    setSearchText(e.target.value)
+  }
+
   return (
     <Router>
       <div className="overlay" onClick={toggleMobileMenu}></div>
       <UserContext.Provider value={providerValue}>
-        <Header handleClick={toggleMobileMenu} handleKeyDown={handleMenuBtnKeyDown} />
-        {routes.map(({ Component, path }, i) => (
-          <Route
-            key={i}
-            exact
-            path={path}
-            component={Component}
-          />
-        ))}
+        <Header
+          handleClick={toggleMobileMenu}
+          handleKeyDown={handleMenuBtnKeyDown}
+          handleSearchTextChange={handleSearchTextChange}
+          searchText={searchText} />
+        <Switch>
+          <Route exact path='/about'>
+            <About />
+          </Route>
+          <Route exact path='/about'>
+            <About />
+          </Route>
+          <Route exact path='/admin'>
+            <Admin />
+          </Route>
+          <Route exact path='/post'>
+            <CreatePost />
+          </Route>
+          <Route exact path='/profile/edit/:username'>
+            <EditProfile />
+          </Route>
+          <Route exact path='/feed'>
+            <Feed searchText={searchText} />
+          </Route>
+          <Route exact path='/forgot'>
+            <Forgot />
+          </Route>
+          <Route exact path='/'>
+            <Home />
+          </Route>
+          <Route exact path='/login'>
+            <Login />
+          </Route>
+          <Route exact path='/message'>
+            <Message />
+          </Route>
+          <Route exact path='/profile/:username'>
+            <Profile />
+          </Route>
+          <Route exact path='/register'>
+            <Register />
+          </Route>
+          <Route>
+            <NotFound />
+          </Route>
+        </Switch>
       </UserContext.Provider>
       <Footer />
     </Router>

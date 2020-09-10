@@ -111,21 +111,25 @@ textarea {
   margin: 0;
   outline: none;
   padding: 0;
+  transition: transform 0.4s;
   z-index: 2;
 }
 
 .menu-btn {
   height: auto;
   outline: none;
-  width: 2.25rem;
+  width: 3rem;
   z-index: 2;
 }
 
 .menu-btn-container:focus,
-.menu-btn-container:hover,
+.menu-btn-container:hover {
+  transform: scale(1.15);
+}
+
 .message-icon-container:focus,
-.message-icon-container:hover  {
-  box-shadow: 0 0 2px 2px var(--primary-light);
+.message-icon-container:hover {
+  transform: scale(1.25);
 }
 
 .mobile-menu {
@@ -257,16 +261,14 @@ textarea {
 }
 
 .register-container,
-.edit-profile-container,
-.view-profile-container {
+.edit-profile-container {
   background-color: #fff;
   height: 91vh;
   width: 100vw;
 }
 
 .register-form,
-.edit-profile-form,
-.profile-container {
+.edit-profile-form {
   background-color: #eee;
   border: none;
   border-radius: 5px;
@@ -284,6 +286,7 @@ textarea {
 .post--title {
   color: var(--primary-dark);
   font-size: 2.8em;
+  text-align: center;
 }
 
 .profile-field-heading {
@@ -300,7 +303,7 @@ textarea {
 
 .edit-profile-form > .genres > label,
 .edit-profile-form > .instruments > label {
-  margin-right: 1rem;
+  margin-right: 1.5rem;
 }
 
 .register-form-bottom {
@@ -343,10 +346,11 @@ textarea {
 .search-input {
   border: 1px solid var(--primary-color);
   border-radius: 5px;
+  font-size: 14px;
   outline: none;
   padding: 0.75rem;
   transition: box-shadow 0.4s;
-  width: 70%;
+  width: 100%;
 }
 
 .search-button {
@@ -356,18 +360,18 @@ textarea {
   height: 2rem;
   outline: none;
   padding: 0;
-  transition: box-shadow 0.4s;
-  width: 2rem;
+  transition: transform 0.4s;
+  width: 5rem;
 }
 
 .search-button:focus,
 .search-button:hover {
-  box-shadow: 0 0 2px 2px var(--primary-dark);
+  transform: scale(1.15);
 }
 
 .search-icon {
   transition: box-shadow 0.4s;
-  width: 2rem;
+  width: 100%;
 }
 
 .posts {
@@ -391,6 +395,18 @@ textarea {
   margin: 0.25rem 0 0 0;
 }
 
+.avatar {
+  border-radius: 50%;
+  height: 5rem;
+  width: 5rem;
+  object-fit: cover;
+}
+
+.avatar.big {
+  height: 8rem;
+  width: 8rem;
+}
+
 .post--username {
   color: var(--basic-text);
   font-size: 1.6em;
@@ -398,6 +414,20 @@ textarea {
   margin: 0 0 0.5rem 0;
   outline: none;
   transition: text-decoration, color 0.4s;
+}
+
+.user-instruments {
+  margin: 0.5rem 1rem 1.5rem;
+}
+
+.instrument-icon {
+  margin: 0 0.25rem;
+  width: 3rem;
+}
+
+.instrument-icon-lg {
+  margin: 0 0.25rem;
+  width: 4rem;
 }
 
 .post--username:focus,
@@ -444,20 +474,15 @@ textarea {
 
 .post--date {
   color: var(--primary-light);
-  font-size: 1em;
+  font-size: 1.2em;
   margin: 0 0 0 1rem;
 }
 
 .post--message-icon {
   margin: 0 1rem 0 0;
   outline: none;
-  transition: box-shadow 0.4s;
-  width: 2rem;
-}
-
-.post--message-icon:focus,
-.post--message-icon:hover {
-  box-shadow: 0 0 2px 2px var(--primary-light);
+  transition: transform 0.4s;
+  width: 3rem;
 }
 
 .write-post-icon {
@@ -466,13 +491,13 @@ textarea {
   outline: none;
   position: fixed;
   right: 2rem;
-  transition: box-shadow 0.4s;
+  transition: transform 0.4s;
   width: 5rem;
 }
 
 .write-post-icon:focus,
 .write-post-icon:hover {
-  box-shadow: 0 0 3px 3px var(--primary-color);
+  transform: scale(1.35);
 }
 
 .my-input.title-input {
@@ -623,6 +648,7 @@ textarea {
 }
 
 .cancel-btn {
+  border: 1px solid var(--primary-color);
   background-color: white;
   color: var(--primary-color);
 }
@@ -638,7 +664,8 @@ textarea {
   background-color: transparent;
   border: none;
   border-bottom: 2px solid transparent;
-  font-size: 1.4em;
+  font-size: 1.6em;
+  margin-left: 1rem;
   transition: all 0.4s;
 }
 

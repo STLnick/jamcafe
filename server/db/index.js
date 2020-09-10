@@ -13,10 +13,10 @@ export const addUser = async (newUser) => {
 
 // TODO: Implement firebase-admin to allow deletion of users
 // TODO: Will need to implement on server-side mainly from reading
-export const deleteUser = async (id) => {
+export const deleteUser = async ({ _id }) => {
   try {
     return await client.db('jamcafe').collection('users')
-      .deleteOne({ _id: ObjectId(id) });
+      .deleteOne({ _id: ObjectId(_id) });
   } catch (err) {
     throw new Error(err);
   }
@@ -49,10 +49,10 @@ export const getUsers = async () => {
   }
 };
 
-export const updateUser = async (uid, propsToUpdate) => {
+export const updateUser = async (_id, propsToUpdate) => {
   try {
     return await client.db('jamcafe').collection('users')
-      .findOneAndUpdate({ uid }, { $set: { ...propsToUpdate } });
+      .findOneAndUpdate({ _id: ObjectId(_id) }, { $set: { ...propsToUpdate } });
   } catch (err) {
     throw new Error(err);
   }
@@ -74,10 +74,10 @@ export const addPost = async (newPost) => {
   }
 };
 
-export const deletePost = async (id) => {
+export const deletePost = async ({ _id }) => {
   try {
     return await client.db('jamcafe').collection('posts')
-      .deleteOne({ _id: ObjectId(id) });
+      .deleteOne({ _id: ObjectId(_id) });
   } catch (err) {
     throw new Error(err);
   }
@@ -92,10 +92,10 @@ export const getPosts = async () => {
   }
 };
 
-export const getPostsById = async (userId) => {
+export const getPostsByName = async (user) => {
   try {
     return await client.db('jamcafe').collection('posts')
-      .find({ userId }).toArray();
+      .find({ user }).toArray();
   } catch (err) {
     throw new Error(err);
   }
