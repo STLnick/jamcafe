@@ -32,7 +32,7 @@ export const Profile = () => {
         console.log('Testing Context: ', user?.username === profile.username)
       }
     })()
-  }, [profile])
+  }, [profile, user.username])
 
   const determineInstrumentIcon = (instrument) => {
     switch (instrument) {
