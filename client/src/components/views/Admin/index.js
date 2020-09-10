@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 
 import api from 'api'
+import firebaseApi from 'firebaseApi'
 
 import './Admin.scss'
 
@@ -22,6 +23,14 @@ export const Admin = () => {
   }, [])
 
   const handleChangeViewClick = () => setSelectedView(prevView => prevView === 'users' ? 'posts' : 'users')
+
+  const handleAddAdmin = async (e) => {
+    e.preventDefault()
+    const adminEmail = e.target.elements[0].value.trim()
+    console.log(adminEmail)
+    const result = await firebaseApi.addAdminRole(adminEmail)
+    console.log('Add Admin Role result: ', result)
+  }
 
   // TODO: Add a way to manually Add a User or Post for the Admin
   const handleAddClick = async (e) => {
@@ -92,6 +101,11 @@ export const Admin = () => {
 
   return (<div className="admin-container flex flex--column flex--align-center">
     <h3 className="section-heading">Admin Dashboard</h3>
+    <form onSubmit={(e) => handleAddAdmin(e)}>
+      <label htmlFor="admin-email">Email to Make an Admin</label>
+      <input id="admin-email" type="text" />
+      <button type="submit">Add Admin</button>
+    </form>
     <button
       className="cancel-btn"
       onClick={handleChangeViewClick}
