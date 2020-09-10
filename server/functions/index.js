@@ -21,3 +21,18 @@ exports.addAdminRole = functions.https.onRequest(async (req, res) => {
       });
   });
 });
+
+exports.deleteUserByUid = functions.https.onRequest(async (req, res) => {
+  cors(req, res, () => {
+    const { uid } = req.body;
+    admin.auth().deleteUser(uid)
+      .then(() => {
+        console.log('Successfully deleted user.');
+        res.status(200).send(`Deleted user with uid: ${uid}`);
+      })
+      .catch((err) => {
+        console.log('Error deleting user: ', err);
+        res.status(500).send('Error deleting user');
+      });
+  });
+});
