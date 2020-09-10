@@ -21,13 +21,13 @@ export const Register = () => {
     const userInfo = utils.createObjectFromFields(e.target.elements)
 
     // Check if username is taken before attempting to create firebase auth
-    if (await usersAPI.getUserByUsername(userInfo.username)) {
+    if (await usersAPI.showOne(userInfo.username)) {
       setRegisterError('Username is taken')
     } else {
       auth.createUserWithEmailAndPassword(userInfo.email, userInfo.password)
         .then(async () => {
           // get the uid then make request to add user to database
-          const userResponse = await usersAPI.registerUser({
+          const userResponse = await usersAPI.create({
             uid: auth.currentUser.uid,
             name: userInfo.name,
             username: userInfo.username
