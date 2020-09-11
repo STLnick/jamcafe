@@ -16,7 +16,7 @@ Modal.setAppElement('#root')
 export const Admin = () => {
   const history = useHistory()
   const [error, setError] = useState('')
-  const [modalIsOpen, setModalIsOpen] = useState(false)
+  const [modal, setModal] = useState({ isOpen: false, currentItemToEdit: {} })
   const [posts, setPosts] = useState(null)
   const [users, setUsers] = useState(null)
   const [selectedView, setSelectedView] = useState('users')
@@ -87,8 +87,11 @@ export const Admin = () => {
   // May need to develop a separate view to edit a specific item like /admin/edit?_id
   // then we can access all data there and send a PATCH to Mongo
   const handleEditClick = async (e) => {
-    console.log('Attempting to EDIT this item!')
-    setModalIsOpen(true)
+    const rowId = e.target.closest('button').dataset.id
+    const clickedItemToEdit = selectedView === 'users'
+      ? users.find(user => user._id === rowId)
+      : posts.find(post => post._id === rowId)
+    setModal({ isOpen: true, currentItemToEdit: clickedItemToEdit })
   }
 
   const handleEditSubmit = () => {
@@ -158,8 +161,8 @@ export const Admin = () => {
       </table>
       : <p className="is-size-4">Loading Data...</p>}
     <Modal
-      isOpen={modalIsOpen}
-      onRequestClose={() => setModalIsOpen(false)}>
+      isOpen={modal.isOpen}
+      onRequestClose={() => setModal(prevModal => ({ ...prevModal, isOpen: false }))}>
       <form onSubmit={(e) => handleEditSubmit(e)}>
         {/* // TODO: Change the default values to actual values of <li> clicked on */}
         {selectedView === 'users'
@@ -189,11 +192,13 @@ export const Admin = () => {
           </>}
 
         <div className="flex">
-          <button onClick={() => setModalIsOpen(false)}>Close</button>
+          <button onClick={() => setModal(prevModal => ({ ...prevModal, isOpen: false }))}>
+            Close
+          </button>
           <button type="submit">Confirm Changes</button>
         </div>
       </form>
-    </Modal>
-  </div>
+    </Modal >
+  </div >
   )
 }
