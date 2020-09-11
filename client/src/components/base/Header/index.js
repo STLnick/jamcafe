@@ -6,6 +6,8 @@ import { MobileMenu } from './MobileMenu'
 import { SearchBar } from './SearchBar'
 import { UserContext } from 'UserContext'
 
+import { ReactComponent as MenuIcon } from '../../../assets/menu.svg'
+
 export const Header = ({ handleClick, handleKeyDown, handleSearchSelectionChange, handleSearchTextChange, searchSelection, searchText }) => {
   const location = useLocation()
   const { user } = useContext(UserContext)
@@ -31,11 +33,7 @@ export const Header = ({ handleClick, handleKeyDown, handleSearchSelectionChange
           onClick={handleClick}
           onKeyDown={handleKeyDown}
         >
-          <img
-            src="img/icons/menu.svg"
-            alt="Menu button"
-            className="menu-btn filter-primary"
-          />
+          <MenuIcon className="menu-btn filter-primary" />
         </button>
       </div>
       <MobileMenu handleClick={handleClick} />
