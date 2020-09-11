@@ -1,8 +1,10 @@
 import React, { useContext, useEffect, useState } from 'react'
+import Modal from 'react-modal'
 import { Link, useLocation } from 'react-router-dom'
 
 import api from 'api'
 import { UserContext } from 'UserContext'
+import utils from 'utils'
 
 import './Profile.scss'
 import { ReactComponent as EditIcon } from '../../../assets/pencil.svg'
@@ -16,9 +18,12 @@ import { ReactComponent as NoteIcon } from '../../../assets/note.svg'
 const postsAPI = api('posts')
 const usersAPI = api('users')
 
+Modal.setAppElement('#root')
+
 export const Profile = () => {
   const location = useLocation()
   const [isLoggedInUsersProfile, setIsLoggedInUsersProfile] = useState(false)
+  const [modal, setModal] = useState({ isOpen: false, clickedPostToEdit: {}, error: '' })
   const [profile, setProfile] = useState(null)
   const [userPosts, setUserPosts] = useState([])
   const { user } = useContext(UserContext)
@@ -39,7 +44,29 @@ export const Profile = () => {
     })()
   }, [profile, user?.username])
 
-  const determineInstrumentIcon = (instrument) => {
+  const handleEditClick = (e) => {
+    const targetPostId = e.target.closest('button').dataset.id
+    const postToEdit = userPosts.find(post => post._id === targetPostId)
+    setModal((prevModal) => ({ ...prevModal, isOpen: true, clickedPostToEdit: postToEdit }))
+  }
+
+  const handleEditSubmit = async (e) => {
+    e.preventDefault()
+    const editedPostInfo = utils.createObjectFromFields(e.target.elements)
+    editedPostInfo._id = modal.clickedPostToEdit._id
+    editedPostInfo.uid = modal.clickedPostToEdit.uid
+    editedPostInfo.datePosted = new Date(modal.clickedPostToEdit.datePosted).toISOString()
+
+    try {
+      await postsAPI.update(editedPostInfo)
+      setUserPosts(await postsAPI.showOne(profile.username))
+      setModal({ isOpen: false })
+    } catch (err) {
+      setModal({ error: err })
+    }
+  }
+
+  const renderInstrumentIcons = () => profile.instruments.map(instrument => {
     switch (instrument) {
       case 'Guitar':
         return <GuitarIcon className="instrument-icon-lg" />
@@ -54,20 +81,19 @@ export const Profile = () => {
       default:
         return <NoteIcon className="instrument-icon-lg" />
     }
-  }
-
-  const renderInstrumentIcons = () => profile.instruments.map(instrument => {
-    return determineInstrumentIcon(instrument)
   })
 
   const renderUserPosts = () => userPosts.sort((a, b) => new Date(b.datePosted) - new Date(a.datePosted))
-    .map(({ content, datePosted, title }, i) => (<div className="profile-post" key={i}>
+    .map(({ _id, uid, content, datePosted, title }, i) => (<div className="profile-post" key={i}>
       <h4 className="post--title is-size-4">{title}</h4>
       <p className="is-size-5">{content}</p>
       <p className="post--date">{datePosted.slice(0, 10)}</p>
       {isLoggedInUsersProfile
-        ? <button className="cancel-btn small-btn mt-4 flex flex--align-center">
-          {/* <img className="filter-primary" src="img/icons/pencil.svg" alt="Edit icon" /> */}
+        ? <button
+          className="cancel-btn small-btn mt-4 flex flex--align-center"
+          data-id={_id}
+          onClick={(e) => handleEditClick(e)}
+        >
           <EditIcon className="filter-primary small-icon" />
           Edit Post
         </button>
@@ -106,6 +132,24 @@ export const Profile = () => {
         <div className="profile-posts-container">
           {userPosts ? renderUserPosts() : null}
         </div>
+        <Modal
+          isOpen={modal.isOpen}
+          onRequestClose={() => setModal(prevModal => ({ ...prevModal, isOpen: false }))}
+        >
+          <form onSubmit={(e) => handleEditSubmit(e)}>
+            <label htmlFor="title">Title</label>
+            <input id="title" type="text" defaultValue={modal.clickedPostToEdit?.title} />
+            <label htmlFor="content">Content</label>
+            <input id="content" type="text" defaultValue={modal.clickedPostToEdit?.content} />
+            <button
+              className="cancel-btn"
+              onClick={() => setModal(prevModal => ({ ...prevModal, isOpen: false }))}
+            >
+              Cancel
+            </button>
+            <button className="cta-btn" type="submit">Confirm Changes</button>
+          </form>
+        </Modal>
       </>
       : <h3>Loading...</h3>}
   </main>
