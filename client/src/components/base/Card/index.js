@@ -4,6 +4,14 @@ import PropTypes from 'prop-types'
 import { Link, useHistory } from 'react-router-dom'
 import api from 'api'
 
+import { ReactComponent as EditIcon } from '../../../assets/pencil.svg'
+import { ReactComponent as GuitarIcon } from '../../../assets/electric-guitar.svg'
+import { ReactComponent as BassIcon } from '../../../assets/bass-guitar.svg'
+import { ReactComponent as DrumIcon } from '../../../assets/snare-drum.svg'
+import { ReactComponent as VocalsIcon } from '../../../assets/microphone.svg'
+import { ReactComponent as PianoIcon } from '../../../assets/piano.svg'
+import { ReactComponent as NoteIcon } from '../../../assets/note.svg'
+
 const usersAPI = api('users')
 
 const postVariants = {
@@ -52,32 +60,21 @@ export const Card = ({ post: { content, datePosted, title, user }, userLoggedIn 
     })()
   }, [user])
 
-
-  const determineInstrumentIcon = (instrument) => {
+  const renderInstrumentIcons = () => instruments.map(instrument => {
     switch (instrument) {
       case 'Guitar':
-        return 'img/icons/electric-guitar.svg'
+        return <GuitarIcon className="instrument-icon-lg" />
       case 'Bass':
-        return 'img/icons/bass-guitar.svg'
+        return <BassIcon className="instrument-icon-lg" />
       case 'Drums':
-        return 'img/icons/snare-drum.svg'
+        return <DrumIcon className="instrument-icon-lg" />
       case 'Vocals':
-        return 'img/icons/microphone.svg'
+        return <VocalsIcon className="instrument-icon-lg" />
       case 'Keyboard / Piano':
-        return 'img/icons/piano.svg'
+        return <PianoIcon className="instrument-icon-lg" />
       default:
-        return 'img/icons/note.svg'
+        return <NoteIcon className="instrument-icon-lg" />
     }
-  }
-
-  const renderInstrumentIcons = () => instruments.map(instrument => {
-    return <motion.img
-      key={instrument}
-      className="instrument-icon"
-      src={determineInstrumentIcon(instrument)}
-      alt={`${instrument} icon`}
-      variants={iconVariants}
-    />
   })
 
   return (
