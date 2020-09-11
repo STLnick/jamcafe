@@ -17,7 +17,7 @@ Modal.setAppElement('#root')
 export const Admin = () => {
   const history = useHistory()
   const [error, setError] = useState('')
-  const [modal, setModal] = useState({ isOpen: false, currentItemToEdit: {} })
+  const [modal, setModal] = useState({ isOpen: false, currentItemToEdit: {}, error: '' })
   const [posts, setPosts] = useState(null)
   const [users, setUsers] = useState(null)
   const [selectedView, setSelectedView] = useState('users')
@@ -96,13 +96,47 @@ export const Admin = () => {
     setModal({ isOpen: true, currentItemToEdit: clickedItemToEdit })
   }
 
-  const handleEditSubmit = (e) => {
+  const handleEditSubmit = async (e) => {
     e.preventDefault()
-    console.log(Array.from(e.target.elements).filter(el => el.id))
+
     const updatedObj = utils.createObjectFromFields(e.target.elements)
     updatedObj._id = modal.currentItemToEdit._id
     updatedObj.uid = modal.currentItemToEdit.uid
+    if (selectedView === 'posts') {
+      updatedObj.datePosted = new Date(modal.currentItemToEdit.datePosted).toISOString()
+    }
     console.log(updatedObj)
+
+    if (selectedView === 'users') { // Editing a User
+      if (await usersAPI.showOne(updatedObj.username)) {
+        setModal({ error: 'Username is taken' })
+      } else {
+        setModal({ error: '' })
+        try {
+          await usersAPI.update(updatedObj)
+          // Find ALL posts by user and change 'user' to new username
+          if (modal.currentItemToEdit.username !== updatedObj.username) {
+            const userPosts = await postsAPI.showOne(modal.currentItemToEdit.username)
+            userPosts.forEach(async (post) => {
+              await postsAPI.update({ ...post, user: updatedObj.username })
+            })
+          }
+          setUsers(await usersAPI.show())
+          setPosts(await postsAPI.show())
+          setModal({ isOpen: false })
+        } catch (err) {
+          setModal({ error: err })
+        }
+      }
+    } else { // Editing a Post
+      try {
+        await postsAPI.update(updatedObj)
+        setPosts(await postsAPI.show())
+        setModal({ isOpen: false })
+      } catch (err) {
+        setModal({ error: err })
+      }
+    }
   }
 
   const renderTableHeadings = (resource) => Object.keys(resource[0]).map((key, i) => <td key={i}>{key}</td>).concat(<td key="blank"></td>)
@@ -172,60 +206,55 @@ export const Admin = () => {
       isOpen={modal.isOpen}
       onRequestClose={() => setModal(prevModal => ({ ...prevModal, isOpen: false }))}>
       <form onSubmit={(e) => handleEditSubmit(e)}>
-        {/* // TODO: Change the default values to actual values of <li> clicked on */}
+        {modal.error ? <p className="help has-text-danger is-size-4">{modal.error}</p> : null}
         {selectedView === 'users'
           ? <>
             <label className="is-size-4" htmlFor="_id">_id</label>
-            <p className="is-size-5 has-text-weight-semibold">{modal.currentItemToEdit._id}</p>
+            <p className="is-size-5 has-text-weight-semibold">{modal.currentItemToEdit?._id}</p>
             <label className="is-size-4" htmlFor="uid">uid</label>
-            <p className="is-size-5 has-text-weight-semibold">{modal.currentItemToEdit.uid}</p>
+            <p className="is-size-5 has-text-weight-semibold">{modal.currentItemToEdit?.uid}</p>
             <label className="is-size-4" htmlFor="name">name</label>
             <input
               className="my-input"
               id="name"
               type="text"
-              defaultValue={modal.currentItemToEdit.name}
+              defaultValue={modal.currentItemToEdit?.name}
             />
             <label className="is-size-4" htmlFor="username">username</label>
             <input
               className="my-input"
               id="username"
               type="text"
-              defaultValue={modal.currentItemToEdit.username}
+              defaultValue={modal.currentItemToEdit?.username}
             />
           </>
           : <>
             <label className="is-size-4">_id</label>
-            <p className="is-size-5 has-text-weight-semibold">{modal.currentItemToEdit._id}</p>
+            <p className="is-size-5 has-text-weight-semibold">{modal.currentItemToEdit?._id}</p>
             <label className="is-size-4">uid</label>
-            <p className="is-size-5 has-text-weight-semibold">{modal.currentItemToEdit.uid}</p>
+            <p className="is-size-5 has-text-weight-semibold">{modal.currentItemToEdit?.uid}</p>
             <label className="is-size-4" htmlFor="user">user</label>
-            <input
-              className="my-input"
-              id="user"
-              type="text"
-              defaultValue={modal.currentItemToEdit.user}
-            />
+            <p className="is-size-5 has-text-weight-semibold">{modal.currentItemToEdit?.user}</p>
             <label className="is-size-4" htmlFor="title">title</label>
             <input
               className="my-input"
               id="title"
               type="text"
-              defaultValue={modal.currentItemToEdit.title}
+              defaultValue={modal.currentItemToEdit?.title}
             />
             <label className="is-size-4" htmlFor="content">content</label>
             <input
               className="my-input"
               id="content"
               type="text"
-              defaultValue={modal.currentItemToEdit.content}
+              defaultValue={modal.currentItemToEdit?.content}
             />
             <label className="is-size-4" htmlFor="datePosted">datePosted</label>
             <input
               className="my-input"
               id="datePosted"
               type="text"
-              defaultValue={modal.currentItemToEdit.datePosted}
+              defaultValue={modal.currentItemToEdit?.datePosted}
             />
           </>}
 
