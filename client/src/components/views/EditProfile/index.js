@@ -6,6 +6,7 @@ import utils from 'utils'
 import { UserContext } from 'UserContext'
 
 import './EditProfile.scss'
+import { ReactComponent as UploadIcon } from '../../../assets/cloud-upload.svg'
 
 const usersAPI = api('users')
 
@@ -163,10 +164,10 @@ export const EditProfile = () => {
             <span className="file-cta">
               <span className="file-icon">
                 {/* TODO: ADD an icon to the upload button */}
-                <img className="upload-icon" src="img/icons/cloud-upload.svg" alt="Upload icon" />
+                <UploadIcon className="upload-icon filter-primary" />
               </span>
               <span className="file-label">
-                Choose a file…
+                Upload Profile Pic
               </span>
             </span>
             {/* TODO: place chosen file name inside this span */}

@@ -27,7 +27,6 @@ export const Feed = ({ searchSelection, searchText }) => {
   }, [])
 
   useEffect(() => {
-    // TODO: Filter based on searchSelection
     searchSelection === 'title'
       ? setFilteredPosts(() => posts
         .filter(({ title }) => title.toLowerCase().includes(searchText.toLowerCase())))
