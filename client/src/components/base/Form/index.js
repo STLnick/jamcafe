@@ -9,7 +9,7 @@ const formVariants = {
   visible: {
     x: 0,
     transition: {
-      delay: 0.25,
+      delay: 0.1,
       duration: 1.25,
       when: "beforeChildren",
       staggerChildren: 0.3,
