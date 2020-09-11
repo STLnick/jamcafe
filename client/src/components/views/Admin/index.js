@@ -16,8 +16,17 @@ Modal.setAppElement('#root')
 
 export const Admin = () => {
   const history = useHistory()
+  const [addAdminModal, setAddAdminModal] = useState({
+    isOpen: false,
+    emailToMakeAdmin: '',
+    error: ''
+  })
   const [error, setError] = useState('')
-  const [editModal, setEditModal] = useState({ isOpen: false, currentItemToEdit: {}, error: '' })
+  const [editModal, setEditModal] = useState({
+    isOpen: false,
+    currentItemToEdit: {},
+    error: ''
+  })
   const [posts, setPosts] = useState(null)
   const [users, setUsers] = useState(null)
   const [selectedView, setSelectedView] = useState('users')
@@ -40,8 +49,7 @@ export const Admin = () => {
 
   const handleAddAdmin = async (e) => {
     e.preventDefault()
-    const adminEmail = e.target.elements[0].value.trim()
-    const result = await firebaseApi.addAdminRole(adminEmail)
+    const result = await firebaseApi.addAdminRole(addAdminModal.emailToMakeAdmin)
     console.log('Add Admin Role result: ', result)
   }
 
@@ -165,24 +173,51 @@ export const Admin = () => {
 
   return (<div className="admin-container flex flex--column flex--align-center">
     <h3 className="section-heading">Admin Dashboard</h3>
-    <form onSubmit={(e) => handleAddAdmin(e)}>
-      <label htmlFor="admin-email">Email to Make an Admin</label>
-      <input id="admin-email" type="text" />
-      <button type="submit">Add Admin</button>
-    </form>
     <button
-      className="cancel-btn"
-      onClick={handleChangeViewClick}
+      className="cancel-btn small-btn mx-3 my-3"
+      onClick={() => setAddAdminModal(prevModal => ({ ...prevModal, isOpen: true }))}
     >
-      View {selectedView === 'users' ? 'Posts' : 'Users'}
+      Add A New Admin
     </button>
-    <p className="is-size-5 has-text-weight-semibold mt-6">Total entries: {selectedView === 'users' ? users?.length : posts?.length}</p>
-    <button
-      className="cta-btn"
-      onClick={handleAddClick}
+    {/* Add Admin modal */}
+    <Modal
+      isOpen={addAdminModal.isOpen}
+      onRequestClose={() => setAddAdminModal(prevModal => ({ ...prevModal, isOpen: false }))}
     >
-      Add A New {selectedView === 'users' ? 'User' : 'Post'}
-    </button>
+      <form onSubmit={(e) => handleAddAdmin(e)}>
+        <label htmlFor="admin-email">Email to Make an Admin</label>
+        <input
+          id="admin-email"
+          onChange={(e) => setAddAdminModal(prevModal => ({ ...prevModal, emailToMakeAdmin: e.target.value }))}
+          type="text"
+          value={addAdminModal.emailToMakeAdmin}
+        />
+        <button
+          className="cancel-btn"
+          onClick={() => setAddAdminModal(prevModal => ({ ...prevModal, isOpen: false }))}
+        >
+          Cancel
+        </button>
+        <button type="submit">Add Admin</button>
+      </form>
+    </Modal>
+    <p className="is-size-5 has-text-weight-semibold mt-6">
+      Total entries: {selectedView === 'users' ? users?.length : posts?.length}
+    </p>
+    <div className="flex">
+      <button
+        className="cancel-btn small-btn mx-3 my-3"
+        onClick={handleChangeViewClick}
+      >
+        View {selectedView === 'users' ? 'Posts' : 'Users'}
+      </button>
+      <button
+        className="cta-btn small-btn mx-3 my-3"
+        onClick={handleAddClick}
+      >
+        Add A New {selectedView === 'users' ? 'User' : 'Post'}
+      </button>
+    </div>
     {error ? <p className="help has-text-danger is-size-4">{error}</p> : null}
     {users
       ? <table>
