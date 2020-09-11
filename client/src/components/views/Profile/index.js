@@ -6,6 +6,12 @@ import { UserContext } from 'UserContext'
 
 import './Profile.scss'
 import { ReactComponent as EditIcon } from '../../../assets/pencil.svg'
+import { ReactComponent as GuitarIcon } from '../../../assets/electric-guitar.svg'
+import { ReactComponent as BassIcon } from '../../../assets/bass-guitar.svg'
+import { ReactComponent as DrumIcon } from '../../../assets/snare-drum.svg'
+import { ReactComponent as VocalsIcon } from '../../../assets/microphone.svg'
+import { ReactComponent as PianoIcon } from '../../../assets/piano.svg'
+import { ReactComponent as NoteIcon } from '../../../assets/note.svg'
 
 const postsAPI = api('posts')
 const usersAPI = api('users')
@@ -31,27 +37,27 @@ export const Profile = () => {
         setIsLoggedInUsersProfile(user?.username === profile.username)
       }
     })()
-  }, [profile, user.username])
+  }, [profile, user?.username])
 
   const determineInstrumentIcon = (instrument) => {
     switch (instrument) {
       case 'Guitar':
-        return '../img/icons/electric-guitar.svg'
+        return <GuitarIcon className="instrument-icon-lg" />
       case 'Bass':
-        return '../img/icons/bass-guitar.svg'
+        return <BassIcon className="instrument-icon-lg" />
       case 'Drums':
-        return '../img/icons/snare-drum.svg'
+        return <DrumIcon className="instrument-icon-lg" />
       case 'Vocals':
-        return '../img/icons/microphone.svg'
+        return <VocalsIcon className="instrument-icon-lg" />
       case 'Keyboard / Piano':
-        return '../img/icons/piano.svg'
+        return <PianoIcon className="instrument-icon-lg" />
       default:
-        return '../img/icons/note.svg'
+        return <NoteIcon className="instrument-icon-lg" />
     }
   }
 
   const renderInstrumentIcons = () => profile.instruments.map(instrument => {
-    return <img key={instrument} className="instrument-icon-lg" src={determineInstrumentIcon(instrument)} alt={`${instrument} icon`} />
+    return determineInstrumentIcon(instrument)
   })
 
   const renderUserPosts = () => userPosts.sort((a, b) => new Date(b.datePosted) - new Date(a.datePosted))
