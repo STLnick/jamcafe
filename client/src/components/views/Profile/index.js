@@ -1,3 +1,4 @@
+import { motion } from 'framer-motion'
 import React, { useContext, useEffect, useState } from 'react'
 import Modal from 'react-modal'
 import { Link, useLocation } from 'react-router-dom'
@@ -19,6 +20,31 @@ const postsAPI = api('posts')
 const usersAPI = api('users')
 
 Modal.setAppElement('#root')
+
+const containerVariants = {
+  hidden: {
+    opacity: 0
+  },
+  visible: {
+    opacity: 1,
+    transition: {
+      when: "beforeChildren",
+      staggerChildren: 0.2
+    }
+  }
+}
+
+const fieldVariants = {
+  hidden: {
+    opacity: 0
+  },
+  visible: {
+    opacity: 1,
+    transition: {
+      duration: 0.5
+    }
+  }
+}
 
 export const Profile = () => {
   const location = useLocation()
@@ -101,22 +127,62 @@ export const Profile = () => {
     </div>))
 
   return <main
-    className="view-profile-container flex flex--column flex--align-center flex--justify-center">
+    className="view-profile-container flex flex--column flex--align-center flex--justify-center"
+  >
     <h3 className="section-heading">View Profile</h3>
     {profile
       ? <>
-        <div className="profile-container flex flex--column flex--align-center flex--justify-around">
-          <h4 id="name" className="profile-title">{profile.username}</h4>
-          <img alt="User avatar" className="avatar big" src={profile.avatar || 'img/avatar.jpg'} />
+        <motion.div
+          initial="hidden"
+          animate="visible"
+          className="profile-container flex flex--column flex--align-center flex--justify-around"
+          variants={containerVariants}
+        >
+          <motion.h4
+            id="name"
+            className="profile-title"
+            variants={fieldVariants}
+          >
+            {profile.username}
+          </motion.h4>
+          <motion.img
+            alt="User avatar"
+            className="avatar big"
+            src={profile.avatar || 'img/avatar.jpg'}
+            variants={fieldVariants}
+          />
           <h6 className="profile-field-heading">Bio</h6>
-          <p id="bio" className="profile-field">{profile.bio}</p>
+          <motion.p
+            id="bio"
+            className="profile-field"
+            variants={fieldVariants}
+          >
+            {profile.bio}
+          </motion.p>
           <h6 className="profile-field-heading">Location</h6>
-          <p id="location" className="profile-field">{profile.location ? profile.location : ''}</p>
+          <motion.p
+            id="location"
+            className="profile-field"
+            variants={fieldVariants}
+          >
+            {profile.location ? profile.location : ''}
+          </motion.p>
           <h6 className="profile-field-heading">Genres</h6>
-          <p id="genres" className="profile-field">{profile.genres ? profile.genres.join(', ') : ''}</p>
+          <motion.p
+            id="genres"
+            className="profile-field"
+            variants={fieldVariants}
+          >
+            {profile.genres ? profile.genres.join(', ') : ''}
+          </motion.p>
           <h6 className="profile-field-heading">Instruments</h6>
-          <div id="instruments">{profile.instruments ? renderInstrumentIcons() : ''}</div>
-        </div>
+          <motion.div
+            id="instruments"
+            variants={fieldVariants}
+          >
+            {profile.instruments ? renderInstrumentIcons() : ''}
+          </motion.div>
+        </motion.div>
         {isLoggedInUsersProfile
           ? <Link
             className="cancel-btn mt-6"
