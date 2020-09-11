@@ -1,0 +1,25 @@
+.filter-modal-content {
+  background: #fff;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  left: 50%;
+  outline: none;
+  overflow: auto;
+  padding: 20px;
+  position: absolute;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  -webkit-overflow-scrolling: touch;
+}
+
+.filter-modal-form {
+  height: 100%;
+}
+
+.filter-modal-form button:last-of-type {
+  margin-top: 1rem;
+}
+
+.medium-label {
+  font-size: 16px;
+}
