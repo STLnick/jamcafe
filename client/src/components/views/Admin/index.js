@@ -167,35 +167,85 @@ export const Admin = () => {
         {/* // TODO: Change the default values to actual values of <li> clicked on */}
         {selectedView === 'users'
           ? <>
-            <label htmlFor="_id">_id</label>
-            <input id="_id" type="text" defaultValue={modal.currentItemToEdit._id} />
-            <label htmlFor="_id">uid</label>
-            <input id="uid" type="text" defaultValue={modal.currentItemToEdit.uid} />
-            <label htmlFor="_id">name</label>
-            <input id="name" type="text" defaultValue={modal.currentItemToEdit.name} />
-            <label htmlFor="_id">username</label>
-            <input id="username" type="text" defaultValue={modal.currentItemToEdit.username} />
+            <label className="is-size-4" htmlFor="_id">_id</label>
+            <input
+              className="my-input"
+              id="_id"
+              type="text"
+              defaultValue={modal.currentItemToEdit._id}
+            />
+            <label className="is-size-4" htmlFor="_id">uid</label>
+            <input
+              className="my-input"
+              id="uid"
+              type="text"
+              defaultValue={modal.currentItemToEdit.uid}
+            />
+            <label className="is-size-4" htmlFor="_id">name</label>
+            <input
+              className="my-input"
+              id="name"
+              type="text"
+              defaultValue={modal.currentItemToEdit.name}
+            />
+            <label className="is-size-4" htmlFor="_id">username</label>
+            <input
+              className="my-input"
+              id="username"
+              type="text"
+              defaultValue={modal.currentItemToEdit.username}
+            />
           </>
           : <>
-            <label htmlFor="_id">_id</label>
-            <input id="_id" type="text" defaultValue={modal.currentItemToEdit._id} />
-            <label htmlFor="_id">uid</label>
-            <input id="uid" type="text" defaultValue={modal.currentItemToEdit.uid} />
-            <label htmlFor="_id">user</label>
-            <input id="user" type="text" defaultValue={modal.currentItemToEdit.user} />
-            <label htmlFor="_id">title</label>
-            <input id="title" type="text" defaultValue={modal.currentItemToEdit.title} />
-            <label htmlFor="_id">content</label>
-            <input id="content" type="text" defaultValue={modal.currentItemToEdit.content} />
-            <label htmlFor="_id">datePosted</label>
-            <input id="datePosted" type="text" defaultValue={modal.currentItemToEdit.datePosted} />
+            <label className="is-size-4" htmlFor="_id">_id</label>
+            <input
+              className="my-input"
+              id="_id"
+              type="text"
+              defaultValue={modal.currentItemToEdit._id}
+            />
+            <label className="is-size-4" htmlFor="_id">uid</label>
+            <input
+              className="my-input"
+              id="uid"
+              type="text"
+              defaultValue={modal.currentItemToEdit.uid}
+            />
+            <label className="is-size-4" htmlFor="_id">user</label>
+            <input
+              className="my-input"
+              id="user"
+              type="text"
+              defaultValue={modal.currentItemToEdit.user}
+            />
+            <label className="is-size-4" htmlFor="_id">title</label>
+            <input
+              className="my-input"
+              id="title"
+              type="text"
+              defaultValue={modal.currentItemToEdit.title}
+            />
+            <label className="is-size-4" htmlFor="_id">content</label>
+            <input
+              className="my-input"
+              id="content"
+              type="text"
+              defaultValue={modal.currentItemToEdit.content}
+            />
+            <label className="is-size-4" htmlFor="_id">datePosted</label>
+            <input
+              className="my-input"
+              id="datePosted"
+              type="text"
+              defaultValue={modal.currentItemToEdit.datePosted}
+            />
           </>}
 
         <div className="flex">
-          <button onClick={() => setModal(prevModal => ({ ...prevModal, isOpen: false }))}>
+          <button className="cancel-btn" onClick={() => setModal(prevModal => ({ ...prevModal, isOpen: false }))}>
             Close
           </button>
-          <button type="submit">Confirm Changes</button>
+          <button className="cta-btn" type="submit">Confirm Changes</button>
         </div>
       </form>
     </Modal >
