@@ -29,7 +29,6 @@ export const Profile = () => {
       if (profile) {
         setUserPosts(await postsAPI.showOne(profile.username))
         setIsLoggedInUsersProfile(user?.username === profile.username)
-        console.log('Testing Context: ', user?.username === profile.username)
       }
     })()
   }, [profile, user.username])
