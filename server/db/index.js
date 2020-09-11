@@ -102,9 +102,10 @@ export const getPostsByName = async (user) => {
 };
 
 export const updatePost = async (id, propsToUpdate) => {
+  const validPropsToUpdate = { ...propsToUpdate, datePosted: new Date(propsToUpdate.datePosted) };
   try {
     return await client.db('jamcafe').collection('posts')
-      .findOneAndUpdate({ _id: ObjectId(id) }, { $set: { ...propsToUpdate } });
+      .findOneAndUpdate({ _id: ObjectId(id) }, { $set: { ...validPropsToUpdate } });
   } catch (err) {
     throw new Error(err);
   }
