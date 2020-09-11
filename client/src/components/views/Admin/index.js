@@ -1,4 +1,5 @@
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useContext, useEffect, useRef, useState } from 'react'
+import Modal from 'react-modal'
 import { useHistory } from 'react-router-dom'
 
 import api from 'api'
@@ -10,10 +11,12 @@ import './Admin.scss'
 const postsAPI = api('posts')
 const usersAPI = api('users')
 
-// TODO: Add some way to identify a User as Admin, if they aren't redirect them away from this page
+Modal.setAppElement('#root')
+
 export const Admin = () => {
   const history = useHistory()
   const [error, setError] = useState('')
+  const [modalIsOpen, setModalIsOpen] = useState(false)
   const [posts, setPosts] = useState(null)
   const [users, setUsers] = useState(null)
   const [selectedView, setSelectedView] = useState('users')
@@ -85,6 +88,11 @@ export const Admin = () => {
   // then we can access all data there and send a PATCH to Mongo
   const handleEditClick = async (e) => {
     console.log('Attempting to EDIT this item!')
+    setModalIsOpen(true)
+  }
+
+  const handleEditSubmit = () => {
+
   }
 
   const renderTableHeadings = (resource) => Object.keys(resource[0]).map((key, i) => <td key={i}>{key}</td>).concat(<td key="blank"></td>)
@@ -149,6 +157,43 @@ export const Admin = () => {
         </tbody>
       </table>
       : <p className="is-size-4">Loading Data...</p>}
+    <Modal
+      isOpen={modalIsOpen}
+      onRequestClose={() => setModalIsOpen(false)}>
+      <form onSubmit={(e) => handleEditSubmit(e)}>
+        {/* // TODO: Change the default values to actual values of <li> clicked on */}
+        {selectedView === 'users'
+          ? <>
+            <label htmlFor="_id">_id</label>
+            <input id="_id" type="text" defaultValue='_id' />
+            <label htmlFor="_id">uid</label>
+            <input id="uid" type="text" defaultValue='uid' />
+            <label htmlFor="_id">name</label>
+            <input id="name" type="text" defaultValue='name' />
+            <label htmlFor="_id">username</label>
+            <input id="username" type="text" defaultValue='username' />
+          </>
+          : <>
+            <label htmlFor="_id">_id</label>
+            <input id="_id" type="text" defaultValue='_id' />
+            <label htmlFor="_id">uid</label>
+            <input id="uid" type="text" defaultValue='uid' />
+            <label htmlFor="_id">user</label>
+            <input id="user" type="text" defaultValue='user' />
+            <label htmlFor="_id">title</label>
+            <input id="title" type="text" defaultValue='title' />
+            <label htmlFor="_id">content</label>
+            <input id="content" type="text" defaultValue='content' />
+            <label htmlFor="_id">datePosted</label>
+            <input id="datePosted" type="text" defaultValue='datePosted' />
+          </>}
+
+        <div className="flex">
+          <button onClick={() => setModalIsOpen(false)}>Close</button>
+          <button type="submit">Confirm Changes</button>
+        </div>
+      </form>
+    </Modal>
   </div>
   )
 }
