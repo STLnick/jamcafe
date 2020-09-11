@@ -27,6 +27,7 @@ import { UserContext } from './UserContext'
 import './App.scss';
 
 export const App = () => {
+  const [searchSelection, setSearchSelection] = useState('title')
   const [searchText, setSearchText] = useState('')
   const [user, setUser] = useState(null)
   const providerValue = useMemo(() => ({ user, setUser }), [user, setUser])
@@ -43,6 +44,12 @@ export const App = () => {
     }
   }
 
+  const handleSearchSelectionChange = (e) => {
+    e.preventDefault()
+
+    console.log(Array.from(e.target.elements).filter(el => el.checked))
+  }
+
   const handleSearchTextChange = (e) => {
     setSearchText(e.target.value)
   }
@@ -54,7 +61,9 @@ export const App = () => {
         <Header
           handleClick={toggleMobileMenu}
           handleKeyDown={handleMenuBtnKeyDown}
+          handleSearchSelectionChange={handleSearchSelectionChange}
           handleSearchTextChange={handleSearchTextChange}
+          searchSelection={searchSelection}
           searchText={searchText} />
         <Switch>
           <Route exact path='/about'>
@@ -73,7 +82,7 @@ export const App = () => {
             <EditProfile />
           </Route>
           <Route exact path='/feed'>
-            <Feed searchText={searchText} />
+            <Feed searchSelection={searchSelection} searchText={searchText} />
           </Route>
           <Route exact path='/forgot'>
             <Forgot />

@@ -8,7 +8,7 @@ import { UserContext } from 'UserContext'
 
 const postsAPI = api('posts')
 
-export const Feed = ({ searchText }) => {
+export const Feed = ({ searchSelection, searchText }) => {
   const history = useHistory()
   const [filteredPosts, setFilteredPosts] = useState([])
   const [posts, setPosts] = useState([])
@@ -27,6 +27,7 @@ export const Feed = ({ searchText }) => {
   }, [])
 
   useEffect(() => {
+    // TODO: Filter based on searchSelection
     setFilteredPosts(() => posts
       .filter(({ title }) => title.toLowerCase().includes(searchText.toLowerCase())))
   }, [posts, searchText])
@@ -51,5 +52,6 @@ export const Feed = ({ searchText }) => {
 }
 
 Feed.propTypes = {
+  searchSelection: PropTypes.string,
   searchText: PropTypes.string
 }
