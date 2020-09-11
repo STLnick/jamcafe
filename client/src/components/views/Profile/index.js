@@ -126,97 +126,99 @@ export const Profile = () => {
         : null}
     </div>))
 
-  return <main
-    className="view-profile-container flex flex--column flex--align-center flex--justify-center"
-  >
-    <h3 className="section-heading">View Profile</h3>
-    {profile
-      ? <>
-        <motion.div
-          initial="hidden"
-          animate="visible"
-          className="profile-container flex flex--column flex--align-center flex--justify-around"
-          variants={containerVariants}
-        >
-          <motion.h4
-            id="name"
-            className="profile-title"
-            variants={fieldVariants}
-          >
-            {profile.username}
-          </motion.h4>
-          <motion.img
-            alt="User avatar"
-            className="avatar big"
-            src={profile.avatar || 'img/avatar.jpg'}
-            variants={fieldVariants}
-          />
-          <h6 className="profile-field-heading">Bio</h6>
-          <motion.p
-            id="bio"
-            className="profile-field"
-            variants={fieldVariants}
-          >
-            {profile.bio}
-          </motion.p>
-          <h6 className="profile-field-heading">Location</h6>
-          <motion.p
-            id="location"
-            className="profile-field"
-            variants={fieldVariants}
-          >
-            {profile.location ? profile.location : ''}
-          </motion.p>
-          <h6 className="profile-field-heading">Genres</h6>
-          <motion.p
-            id="genres"
-            className="profile-field"
-            variants={fieldVariants}
-          >
-            {profile.genres ? profile.genres.join(', ') : ''}
-          </motion.p>
-          <h6 className="profile-field-heading">Instruments</h6>
+  return <>
+    <h3 className="section-heading no-flex-heading has-text-centered">View Profile</h3>
+    <main
+      className="view-profile-container flex flex--column flex--align-center flex--justify-center"
+    >
+      {profile
+        ? <>
           <motion.div
-            id="instruments"
-            variants={fieldVariants}
+            initial="hidden"
+            animate="visible"
+            className="profile-container flex flex--column flex--align-center flex--justify-around"
+            variants={containerVariants}
           >
-            {profile.instruments ? renderInstrumentIcons() : ''}
-          </motion.div>
-        </motion.div>
-        {isLoggedInUsersProfile
-          ? <Link
-            className="cancel-btn mt-6"
-            to={`/profile/edit/${user.username}`}>
-            Edit Profile
-        </Link>
-          : <Link
-            className="cta-btn mt-6"
-            to={`/message?${profile.username}`}>
-            Send A Message
-        </Link>}
-        <h3 className="section-heading profile-posts-heading">Posts By {profile.username}</h3>
-        <div className="profile-posts-container">
-          {userPosts ? renderUserPosts() : null}
-        </div>
-        <Modal
-          isOpen={modal.isOpen}
-          onRequestClose={() => setModal(prevModal => ({ ...prevModal, isOpen: false }))}
-        >
-          <form onSubmit={(e) => handleEditSubmit(e)}>
-            <label htmlFor="title">Title</label>
-            <input id="title" type="text" defaultValue={modal.clickedPostToEdit?.title} />
-            <label htmlFor="content">Content</label>
-            <input id="content" type="text" defaultValue={modal.clickedPostToEdit?.content} />
-            <button
-              className="cancel-btn"
-              onClick={() => setModal(prevModal => ({ ...prevModal, isOpen: false }))}
+            <motion.h4
+              id="name"
+              className="profile-title"
+              variants={fieldVariants}
             >
-              Cancel
+              {profile.username}
+            </motion.h4>
+            <motion.img
+              alt="User avatar"
+              className="avatar big"
+              src={profile.avatar || 'img/avatar.jpg'}
+              variants={fieldVariants}
+            />
+            <h6 className="profile-field-heading">Bio</h6>
+            <motion.p
+              id="bio"
+              className="profile-field"
+              variants={fieldVariants}
+            >
+              {profile.bio}
+            </motion.p>
+            <h6 className="profile-field-heading">Location</h6>
+            <motion.p
+              id="location"
+              className="profile-field"
+              variants={fieldVariants}
+            >
+              {profile.location ? profile.location : ''}
+            </motion.p>
+            <h6 className="profile-field-heading">Genres</h6>
+            <motion.p
+              id="genres"
+              className="profile-field"
+              variants={fieldVariants}
+            >
+              {profile.genres ? profile.genres.join(', ') : ''}
+            </motion.p>
+            <h6 className="profile-field-heading">Instruments</h6>
+            <motion.div
+              id="instruments"
+              variants={fieldVariants}
+            >
+              {profile.instruments ? renderInstrumentIcons() : ''}
+            </motion.div>
+          </motion.div>
+          {isLoggedInUsersProfile
+            ? <Link
+              className="cancel-btn mt-6"
+              to={`/profile/edit/${user.username}`}>
+              Edit Profile
+        </Link>
+            : <Link
+              className="cta-btn mt-6"
+              to={`/message?${profile.username}`}>
+              Send A Message
+        </Link>}
+          <h3 className="section-heading profile-posts-heading">Posts By {profile.username}</h3>
+          <div className="profile-posts-container">
+            {userPosts ? renderUserPosts() : null}
+          </div>
+          <Modal
+            isOpen={modal.isOpen}
+            onRequestClose={() => setModal(prevModal => ({ ...prevModal, isOpen: false }))}
+          >
+            <form onSubmit={(e) => handleEditSubmit(e)}>
+              <label htmlFor="title">Title</label>
+              <input id="title" type="text" defaultValue={modal.clickedPostToEdit?.title} />
+              <label htmlFor="content">Content</label>
+              <input id="content" type="text" defaultValue={modal.clickedPostToEdit?.content} />
+              <button
+                className="cancel-btn"
+                onClick={() => setModal(prevModal => ({ ...prevModal, isOpen: false }))}
+              >
+                Cancel
             </button>
-            <button className="cta-btn" type="submit">Confirm Changes</button>
-          </form>
-        </Modal>
-      </>
-      : <h3>Loading...</h3>}
-  </main>
+              <button className="cta-btn" type="submit">Confirm Changes</button>
+            </form>
+          </Modal>
+        </>
+        : <h3>Loading...</h3>}
+    </main>
+  </>
 }
