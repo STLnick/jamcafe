@@ -204,10 +204,28 @@ export const Admin = () => {
     <Modal
       isOpen={addAdminModal.isOpen}
       onRequestClose={() => setAddAdminModal(prevModal => ({ ...prevModal, isOpen: false }))}
+      style={{
+        content: {
+          height: '275px',
+          left: '50%',
+          top: '25%',
+          transform: 'translate(-50%, -50%)',
+          width: '200px',
+        }
+      }}
     >
-      <form onSubmit={(e) => handleAddAdmin(e)}>
-        <label htmlFor="admin-email">Email to Make an Admin</label>
+      <form
+        className="admin-modal-form flex flex--column flex--align-center flex--justify-between"
+        onSubmit={(e) => handleAddAdmin(e)}
+      >
+        <label
+          className="medium-label"
+          htmlFor="admin-email"
+        >
+          Email to Make an Admin
+        </label>
         <input
+          className="my-input"
           id="admin-email"
           onChange={(e) => handleAddAdminTextChange(e)}
           type="text"
@@ -219,7 +237,12 @@ export const Admin = () => {
         >
           Cancel
         </button>
-        <button type="submit">Add Admin</button>
+        <button
+          className="cta-btn"
+          type="submit"
+        >
+          Add Admin
+        </button>
       </form>
     </Modal>
     <p className="is-size-5 has-text-weight-semibold mt-6">
@@ -257,66 +280,111 @@ export const Admin = () => {
     {/* EDIT MODAL */}
     <Modal
       isOpen={editModal.isOpen}
-      onRequestClose={() => setEditModal(prevModal => ({ ...prevModal, isOpen: false }))}>
-      <form onSubmit={(e) => handleEditItemSubmit(e)}>
+      onRequestClose={() => setEditModal(prevModal => ({ ...prevModal, isOpen: false }))}
+      style={{
+        content: {
+          height: '550px',
+          left: '50%',
+          top: '50%',
+          transform: 'translate(-50%, -50%)',
+          width: '65%'
+        }
+      }}
+    >
+      <form
+        className="edit-modal-form flex flex--column flex--align-center flex--justify-between"
+        onSubmit={(e) => handleEditItemSubmit(e)}
+      >
         {editModal.error ? <p className="help has-text-danger is-size-4">{editModal.error}</p> : null}
         {selectedView === 'users'
           ? <>
-            <label className="is-size-4" htmlFor="_id">_id</label>
-            <p className="is-size-5 has-text-weight-semibold">{editModal.currentItemToEdit?._id}</p>
-            <label className="is-size-4" htmlFor="uid">uid</label>
-            <p className="is-size-5 has-text-weight-semibold">{editModal.currentItemToEdit?.uid}</p>
-            <label className="is-size-4" htmlFor="name">name</label>
-            <input
-              className="my-input"
-              id="name"
-              type="text"
-              defaultValue={editModal.currentItemToEdit?.name}
-            />
-            <label className="is-size-4" htmlFor="username">username</label>
-            <input
-              className="my-input"
-              id="username"
-              type="text"
-              defaultValue={editModal.currentItemToEdit?.username}
-            />
+            <div className="flex flex--column flex--align-center">
+              <label className="is-size-4" htmlFor="_id">_id</label>
+              <p className="is-size-5 has-text-weight-semibold">
+                {editModal.currentItemToEdit?._id}
+              </p>
+            </div>
+            <div className="flex flex--column flex--align-center">
+              <label className="is-size-4" htmlFor="uid">uid</label>
+              <p className="is-size-5 has-text-weight-semibold">
+                {editModal.currentItemToEdit?.uid}
+              </p>
+            </div>
+            <div className="flex flex--column flex--align-center">
+              <label className="is-size-4" htmlFor="name">name</label>
+              <input
+                className="my-input"
+                id="name"
+                type="text"
+                defaultValue={editModal.currentItemToEdit?.name}
+              />
+            </div>
+            <div className="flex flex--column flex--align-center">
+              <label className="is-size-4" htmlFor="username">username</label>
+              <input
+                className="my-input"
+                id="username"
+                type="text"
+                defaultValue={editModal.currentItemToEdit?.username}
+              />
+            </div>
           </>
           : <>
-            <label className="is-size-4">_id</label>
-            <p className="is-size-5 has-text-weight-semibold">{editModal.currentItemToEdit?._id}</p>
-            <label className="is-size-4">uid</label>
-            <p className="is-size-5 has-text-weight-semibold">{editModal.currentItemToEdit?.uid}</p>
-            <label className="is-size-4" htmlFor="user">user</label>
-            <p className="is-size-5 has-text-weight-semibold">{editModal.currentItemToEdit?.user}</p>
-            <label className="is-size-4" htmlFor="title">title</label>
-            <input
-              className="my-input"
-              id="title"
-              type="text"
-              defaultValue={editModal.currentItemToEdit?.title}
-            />
-            <label className="is-size-4" htmlFor="content">content</label>
-            <input
-              className="my-input"
-              id="content"
-              type="text"
-              defaultValue={editModal.currentItemToEdit?.content}
-            />
-            <label className="is-size-4" htmlFor="datePosted">datePosted</label>
-            <input
-              className="my-input"
-              id="datePosted"
-              type="text"
-              defaultValue={editModal.currentItemToEdit?.datePosted}
-            />
+            <div className="flex flex--column flex--align-center">
+              <label className="is-size-4">_id</label>
+              <p className="is-size-5 has-text-weight-semibold">
+                {editModal.currentItemToEdit?._id}
+              </p>
+            </div>
+            <div className="flex flex--column flex--align-center">
+              <label className="is-size-4">uid</label>
+              <p className="is-size-5 has-text-weight-semibold">
+                {editModal.currentItemToEdit?.uid}
+              </p>
+            </div>
+            <div className="flex flex--column flex--align-center">
+              <label className="is-size-4" htmlFor="user">user</label>
+              <p className="is-size-5 has-text-weight-semibold">
+                {editModal.currentItemToEdit?.user}
+              </p>
+            </div>
+            <div className="flex flex--column flex--align-center">
+              <label className="is-size-4" htmlFor="title">title</label>
+              <input
+                className="my-input"
+                id="title"
+                type="text"
+                defaultValue={editModal.currentItemToEdit?.title}
+              />
+            </div>
+            <div className="flex flex--column flex--align-center">
+              <label className="is-size-4" htmlFor="content">content</label>
+              <textarea
+                className="my-input"
+                id="content"
+                defaultValue={editModal.currentItemToEdit?.content}
+              ></textarea>
+            </div>
+            <div className="flex flex--column flex--align-center">
+              <label className="is-size-4" htmlFor="datePosted">datePosted</label>
+              <input
+                className="my-input"
+                id="datePosted"
+                type="text"
+                defaultValue={editModal.currentItemToEdit?.datePosted}
+              />
+            </div>
           </>}
 
-        <div className="flex">
-          <button className="cancel-btn" onClick={() => setEditModal(prevModal => ({ ...prevModal, isOpen: false }))}>
-            Close
+        <button
+          className="cancel-btn"
+          onClick={() => setEditModal(prevModal => ({ ...prevModal, isOpen: false }))}
+        >
+          Cancel
           </button>
-          <button className="cta-btn" type="submit">Confirm Changes</button>
-        </div>
+        <button className="cta-btn" type="submit">
+          Confirm Changes
+          </button>
       </form>
     </Modal >
   </div >

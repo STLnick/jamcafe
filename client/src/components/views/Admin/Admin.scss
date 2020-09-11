@@ -49,3 +49,28 @@ tbody td {
 .admin-icon img {
   width: 2rem;
 }
+
+.admin-modal-form {
+  height: 100%;
+}
+
+.admin-modal-form input {
+  width: 100%;
+}
+
+.admin-modal-form button:last-of-type {
+  margin-top: 1rem;
+}
+
+.edit-modal-form {
+  height: 100%;
+}
+
+#content {
+  height: 125px;
+  width: 225px;
+}
+
+.edit-modal-form button {
+  margin-top: 1rem;
+}
