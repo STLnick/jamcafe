@@ -28,9 +28,12 @@ export const Feed = ({ searchSelection, searchText }) => {
 
   useEffect(() => {
     // TODO: Filter based on searchSelection
-    setFilteredPosts(() => posts
-      .filter(({ title }) => title.toLowerCase().includes(searchText.toLowerCase())))
-  }, [posts, searchText])
+    searchSelection === 'title'
+      ? setFilteredPosts(() => posts
+        .filter(({ title }) => title.toLowerCase().includes(searchText.toLowerCase())))
+      : setFilteredPosts(() => posts
+        .filter(({ user }) => user.toLowerCase().includes(searchText.toLowerCase())))
+  }, [posts, searchSelection, searchText])
 
   const renderFilteredPosts = () => filteredPosts
     .sort((a, b) => new Date(b.datePosted) - new Date(a.datePosted))
