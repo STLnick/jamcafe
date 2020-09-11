@@ -180,15 +180,19 @@ textarea {
   width: auto;
 }
 
+.hero-text-container {
+  margin-bottom: 1em;
+  text-align: center;
+}
+
 .hero-text {
   color: white;
-  font-size: 16px;
-  line-height: 1.5rem;
+  font-size: 24px;
   text-shadow: 0 0 5px var(--primary-color), 0 0 10px #000, 0 0 16px #616161;
 }
 
 .hero-text-last {
-  margin-top: 0.5rem;
+  margin-top: 1rem;
   text-transform: uppercase;
 }
 
