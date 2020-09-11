@@ -46,6 +46,14 @@ export const Admin = () => {
     })()
   }, [])
 
+  useEffect(() => {
+    if (successMsg) {
+      setTimeout(() => {
+        setSuccessMsg('')
+      }, 2500)
+    }
+  }, [successMsg])
+
   const handleChangeViewClick = () => setSelectedView(prevView => prevView === 'users' ? 'posts' : 'users')
 
   const handleAddAdminTextChange = (e) => {
