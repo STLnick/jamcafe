@@ -1,7 +1,20 @@
+import { motion } from 'framer-motion'
 import React from 'react'
 import { Link } from 'react-router-dom'
 
 export const Hero = () => {
+  const linkVariants = {
+    hidden: {
+      opacity: 0
+    },
+    visible: {
+      opacity: 1,
+      transition: {
+        delay: 1.0,
+        duration: 1.5
+      }
+    }
+  }
 
   return (
     <section
@@ -11,12 +24,19 @@ export const Hero = () => {
       <p className="hero-text">Find someone for your band.</p>
       <p className="hero-text">Find a band to join.</p>
       <p className="hero-text hero-text-last">Find people to play music with.</p>
-      <Link
-        className="cta-btn hero-btn"
-        to="/register"
+      <motion.div
+        initial="hidden"
+        animate="visible"
+        className="hero-btn mt-6"
+        variants={linkVariants}
       >
-        Join to Jam
-      </Link>
+        <Link
+          className="cta-btn hero-btn"
+          to="/register"
+        >
+          Join to Jam
+        </Link>
+      </motion.div>
     </section>
   )
 }
