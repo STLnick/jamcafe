@@ -30,6 +30,7 @@ export const Admin = () => {
   const [posts, setPosts] = useState(null)
   const [users, setUsers] = useState(null)
   const [selectedView, setSelectedView] = useState('users')
+  const [successMsg, setSuccessMsg] = useState('')
   const { user } = useContext(UserContext)
 
   if (user && !user.admin) {
@@ -54,8 +55,13 @@ export const Admin = () => {
 
   const handleAddAdmin = async (e) => {
     e.preventDefault()
-    const result = await firebaseApi.addAdminRole(addAdminModal.emailToMakeAdmin)
-    console.log('Add Admin Role result: ', result)
+    try {
+      const result = await firebaseApi.addAdminRole(addAdminModal.emailToMakeAdmin)
+      setSuccessMsg(result)
+      setAddAdminModal(prevModal => ({ ...prevModal, isOpen: false }))
+    } catch (err) {
+      setError(err)
+    }
   }
 
   // TODO: Add a way to manually Add a User or Post for the Admin
@@ -223,6 +229,7 @@ export const Admin = () => {
         Add A New {selectedView === 'users' ? 'User' : 'Post'}
       </button>
     </div>
+    {successMsg ? <p className="help has-text-success is-size-4">{successMsg}</p> : null}
     {error ? <p className="help has-text-danger is-size-4">{error}</p> : null}
     {users
       ? <table>
