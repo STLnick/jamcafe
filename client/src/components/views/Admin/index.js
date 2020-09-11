@@ -17,7 +17,7 @@ Modal.setAppElement('#root')
 export const Admin = () => {
   const history = useHistory()
   const [error, setError] = useState('')
-  const [modal, setModal] = useState({ isOpen: false, currentItemToEdit: {}, error: '' })
+  const [editModal, setEditModal] = useState({ isOpen: false, currentItemToEdit: {}, error: '' })
   const [posts, setPosts] = useState(null)
   const [users, setUsers] = useState(null)
   const [selectedView, setSelectedView] = useState('users')
@@ -41,7 +41,6 @@ export const Admin = () => {
   const handleAddAdmin = async (e) => {
     e.preventDefault()
     const adminEmail = e.target.elements[0].value.trim()
-    console.log(adminEmail)
     const result = await firebaseApi.addAdminRole(adminEmail)
     console.log('Add Admin Role result: ', result)
   }
@@ -90,48 +89,48 @@ export const Admin = () => {
     const clickedItemToEdit = selectedView === 'users'
       ? users.find(user => user._id === rowId)
       : posts.find(post => post._id === rowId)
-    setModal({ isOpen: true, currentItemToEdit: clickedItemToEdit })
+    setEditModal({ isOpen: true, currentItemToEdit: clickedItemToEdit })
   }
 
   const handleEditSubmit = async (e) => {
     e.preventDefault()
 
     const updatedObj = utils.createObjectFromFields(e.target.elements)
-    updatedObj._id = modal.currentItemToEdit._id
-    updatedObj.uid = modal.currentItemToEdit.uid
+    updatedObj._id = editModal.currentItemToEdit._id
+    updatedObj.uid = editModal.currentItemToEdit.uid
     if (selectedView === 'posts') {
-      updatedObj.datePosted = new Date(modal.currentItemToEdit.datePosted).toISOString()
+      updatedObj.datePosted = new Date(editModal.currentItemToEdit.datePosted).toISOString()
     }
-    console.log(updatedObj)
 
     if (selectedView === 'users') { // Editing a User
-      if (await usersAPI.showOne(updatedObj.username)) {
-        setModal({ error: 'Username is taken' })
+      if (editModal.currentItemToEdit.username !== updatedObj.username && await usersAPI.showOne(updatedObj.username)) {
+        setEditModal({ error: 'Username is taken' })
       } else {
-        setModal({ error: '' })
+        setEditModal({ error: '' })
         try {
           await usersAPI.update(updatedObj)
+
           // Find ALL posts by user and change 'user' to new username
-          if (modal.currentItemToEdit.username !== updatedObj.username) {
-            const userPosts = await postsAPI.showOne(modal.currentItemToEdit.username)
+          if (editModal.currentItemToEdit.username !== updatedObj.username) {
+            const userPosts = await postsAPI.showOne(editModal.currentItemToEdit.username)
             userPosts.forEach(async (post) => {
               await postsAPI.update({ ...post, user: updatedObj.username })
             })
           }
           setUsers(await usersAPI.show())
           setPosts(await postsAPI.show())
-          setModal({ isOpen: false })
+          setEditModal({ isOpen: false })
         } catch (err) {
-          setModal({ error: err })
+          setEditModal({ error: err })
         }
       }
     } else { // Editing a Post
       try {
         await postsAPI.update(updatedObj)
         setPosts(await postsAPI.show())
-        setModal({ isOpen: false })
+        setEditModal({ isOpen: false })
       } catch (err) {
-        setModal({ error: err })
+        setEditModal({ error: err })
       }
     }
   }
@@ -200,63 +199,63 @@ export const Admin = () => {
       : <p className="is-size-4">Loading Data...</p>}
     {/* EDIT MODAL */}
     <Modal
-      isOpen={modal.isOpen}
-      onRequestClose={() => setModal(prevModal => ({ ...prevModal, isOpen: false }))}>
+      isOpen={editModal.isOpen}
+      onRequestClose={() => setEditModal(prevModal => ({ ...prevModal, isOpen: false }))}>
       <form onSubmit={(e) => handleEditSubmit(e)}>
-        {modal.error ? <p className="help has-text-danger is-size-4">{modal.error}</p> : null}
+        {editModal.error ? <p className="help has-text-danger is-size-4">{editModal.error}</p> : null}
         {selectedView === 'users'
           ? <>
             <label className="is-size-4" htmlFor="_id">_id</label>
-            <p className="is-size-5 has-text-weight-semibold">{modal.currentItemToEdit?._id}</p>
+            <p className="is-size-5 has-text-weight-semibold">{editModal.currentItemToEdit?._id}</p>
             <label className="is-size-4" htmlFor="uid">uid</label>
-            <p className="is-size-5 has-text-weight-semibold">{modal.currentItemToEdit?.uid}</p>
+            <p className="is-size-5 has-text-weight-semibold">{editModal.currentItemToEdit?.uid}</p>
             <label className="is-size-4" htmlFor="name">name</label>
             <input
               className="my-input"
               id="name"
               type="text"
-              defaultValue={modal.currentItemToEdit?.name}
+              defaultValue={editModal.currentItemToEdit?.name}
             />
             <label className="is-size-4" htmlFor="username">username</label>
             <input
               className="my-input"
               id="username"
               type="text"
-              defaultValue={modal.currentItemToEdit?.username}
+              defaultValue={editModal.currentItemToEdit?.username}
             />
           </>
           : <>
             <label className="is-size-4">_id</label>
-            <p className="is-size-5 has-text-weight-semibold">{modal.currentItemToEdit?._id}</p>
+            <p className="is-size-5 has-text-weight-semibold">{editModal.currentItemToEdit?._id}</p>
             <label className="is-size-4">uid</label>
-            <p className="is-size-5 has-text-weight-semibold">{modal.currentItemToEdit?.uid}</p>
+            <p className="is-size-5 has-text-weight-semibold">{editModal.currentItemToEdit?.uid}</p>
             <label className="is-size-4" htmlFor="user">user</label>
-            <p className="is-size-5 has-text-weight-semibold">{modal.currentItemToEdit?.user}</p>
+            <p className="is-size-5 has-text-weight-semibold">{editModal.currentItemToEdit?.user}</p>
             <label className="is-size-4" htmlFor="title">title</label>
             <input
               className="my-input"
               id="title"
               type="text"
-              defaultValue={modal.currentItemToEdit?.title}
+              defaultValue={editModal.currentItemToEdit?.title}
             />
             <label className="is-size-4" htmlFor="content">content</label>
             <input
               className="my-input"
               id="content"
               type="text"
-              defaultValue={modal.currentItemToEdit?.content}
+              defaultValue={editModal.currentItemToEdit?.content}
             />
             <label className="is-size-4" htmlFor="datePosted">datePosted</label>
             <input
               className="my-input"
               id="datePosted"
               type="text"
-              defaultValue={modal.currentItemToEdit?.datePosted}
+              defaultValue={editModal.currentItemToEdit?.datePosted}
             />
           </>}
 
         <div className="flex">
-          <button className="cancel-btn" onClick={() => setModal(prevModal => ({ ...prevModal, isOpen: false }))}>
+          <button className="cancel-btn" onClick={() => setEditModal(prevModal => ({ ...prevModal, isOpen: false }))}>
             Close
           </button>
           <button className="cta-btn" type="submit">Confirm Changes</button>
