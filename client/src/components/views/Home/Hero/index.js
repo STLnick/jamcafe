@@ -2,19 +2,20 @@ import { motion } from 'framer-motion'
 import React from 'react'
 import { Link } from 'react-router-dom'
 
-export const Hero = () => {
-  const linkVariants = {
-    hidden: {
-      opacity: 0
-    },
-    visible: {
-      opacity: 1,
-      transition: {
-        delay: 1.0,
-        duration: 1.5
-      }
+const linkVariants = {
+  hidden: {
+    opacity: 0
+  },
+  visible: {
+    opacity: 1,
+    transition: {
+      delay: 1.0,
+      duration: 1.5
     }
   }
+}
+
+export const Hero = () => {
 
   return (
     <section

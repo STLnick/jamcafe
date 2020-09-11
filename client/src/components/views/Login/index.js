@@ -1,3 +1,4 @@
+import { motion } from 'framer-motion'
 import React, { useContext, useState } from 'react'
 import { Link, useHistory } from 'react-router-dom'
 
@@ -9,6 +10,32 @@ import { Form } from '../../base'
 import { UserContext } from 'UserContext'
 
 const usersAPI = api('users')
+
+const buttonVariants = {
+  hidden: {
+    opacity: 0,
+    x: '-100vw'
+  },
+  visible: {
+    opacity: 1,
+    x: 0,
+    transition: {
+      delay: 2.5
+    }
+  }
+}
+
+const formBottomVariants = {
+  hidden: {
+    opacity: 0
+  },
+  visible: {
+    opacity: 1,
+    transition: {
+      delay: 3
+    }
+  }
+}
 
 export const Login = () => {
   const history = useHistory()
@@ -33,7 +60,15 @@ export const Login = () => {
       })
   }
 
-  const button = <button className="cta-btn" type="submit">Login</button>
+  const button = <motion.button
+    inital="hidden"
+    animate="visible"
+    className="cta-btn"
+    type="submit"
+    variants={buttonVariants}
+  >
+    Login
+  </motion.button>
 
   const inputs = [
     {
@@ -50,11 +85,16 @@ export const Login = () => {
     }
   ]
 
-  const formBottom = <div className="register-form-bottom">
+  const formBottom = <motion.div
+    initial="hidden"
+    animate="visible"
+    className="register-form-bottom"
+    variants={formBottomVariants}
+  >
     <p>Not registered yet?</p>
     <Link className="login-link" to='/register' >Register</Link>
     <Link className="login-link" to='/forgot' >Forgot Password?</Link>
-  </div>
+  </motion.div>
 
   return (
     <main className="register-container flex flex--column flex--align-center flex--justify-center">
