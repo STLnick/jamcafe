@@ -35,21 +35,6 @@ const postItemVariants = {
   }
 }
 
-const iconVariants = {
-  hidden: {
-    opacity: 0,
-    x: '100vw'
-  },
-  visible: {
-    opacity: 1,
-    x: 0,
-    transition: {
-      delay: 1.25,
-      duration: 1.25
-    }
-  }
-}
-
 export const Card = ({ post: { content, datePosted, title, user }, userLoggedIn }) => {
   const history = useHistory()
   const [avatar, setAvatar] = useState(null)
