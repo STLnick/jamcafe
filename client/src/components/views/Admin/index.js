@@ -97,13 +97,13 @@ export const Admin = () => {
     try {
       if (selectedView === 'posts') {
         await postsAPI.delete({ _id: id })
+        setSuccessMsg('Post successfully deleted')
         setPosts(await postsAPI.show())
       } else {
         await usersAPI.delete({ _id: id })
         setUsers(await usersAPI.show())
         const firebaseResult = await firebaseApi.deleteUser(uid)
-        // TODO: Display result on UI
-        console.log(firebaseResult)
+        setSuccessMsg(firebaseResult)
       }
       setError('')
     } catch (err) {
@@ -144,6 +144,7 @@ export const Admin = () => {
               await postsAPI.update({ ...post, user: updatedObj.username })
             })
           }
+          setSuccessMsg('User successfully updated!')
           setUsers(await usersAPI.show())
           setPosts(await postsAPI.show())
           setEditModal({ isOpen: false })
@@ -154,6 +155,7 @@ export const Admin = () => {
     } else { // Editing a Post
       try {
         await postsAPI.update(updatedObj)
+        setSuccessMsg('Post successfully updated!')
         setPosts(await postsAPI.show())
         setEditModal({ isOpen: false })
       } catch (err) {
