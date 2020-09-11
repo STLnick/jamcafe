@@ -85,10 +85,7 @@ export const Admin = () => {
     }
   }
 
-  // TODO: Add a way to manually Update a User or Post for the Admin
-  // May need to develop a separate view to edit a specific item like /admin/edit?_id
-  // then we can access all data there and send a PATCH to Mongo
-  const handleEditClick = async (e) => {
+  const handleEditClick = (e) => {
     const rowId = e.target.closest('button').dataset.id
     const clickedItemToEdit = selectedView === 'users'
       ? users.find(user => user._id === rowId)
