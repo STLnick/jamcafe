@@ -63,7 +63,8 @@ export const App = () => {
           handleSearchSelectionChange={handleSearchSelectionChange}
           handleSearchTextChange={handleSearchTextChange}
           searchSelection={searchSelection}
-          searchText={searchText} />
+          searchText={searchText}
+        />
         <Switch>
           <Route exact path='/about'>
             <About />
