@@ -94,8 +94,9 @@ export const Admin = () => {
     setModal({ isOpen: true, currentItemToEdit: clickedItemToEdit })
   }
 
-  const handleEditSubmit = () => {
-
+  const handleEditSubmit = (e) => {
+    e.preventDefault()
+    console.log(Array.from(e.target.elements).filter(el => el.id))
   }
 
   const renderTableHeadings = (resource) => Object.keys(resource[0]).map((key, i) => <td key={i}>{key}</td>).concat(<td key="blank"></td>)
@@ -160,6 +161,7 @@ export const Admin = () => {
         </tbody>
       </table>
       : <p className="is-size-4">Loading Data...</p>}
+    {/* EDIT MODAL */}
     <Modal
       isOpen={modal.isOpen}
       onRequestClose={() => setModal(prevModal => ({ ...prevModal, isOpen: false }))}>
@@ -168,27 +170,17 @@ export const Admin = () => {
         {selectedView === 'users'
           ? <>
             <label className="is-size-4" htmlFor="_id">_id</label>
-            <input
-              className="my-input"
-              id="_id"
-              type="text"
-              defaultValue={modal.currentItemToEdit._id}
-            />
-            <label className="is-size-4" htmlFor="_id">uid</label>
-            <input
-              className="my-input"
-              id="uid"
-              type="text"
-              defaultValue={modal.currentItemToEdit.uid}
-            />
-            <label className="is-size-4" htmlFor="_id">name</label>
+            <p className="is-size-5 has-text-weight-semibold">{modal.currentItemToEdit._id}</p>
+            <label className="is-size-4" htmlFor="uid">uid</label>
+            <p className="is-size-5 has-text-weight-semibold">{modal.currentItemToEdit.uid}</p>
+            <label className="is-size-4" htmlFor="name">name</label>
             <input
               className="my-input"
               id="name"
               type="text"
               defaultValue={modal.currentItemToEdit.name}
             />
-            <label className="is-size-4" htmlFor="_id">username</label>
+            <label className="is-size-4" htmlFor="username">username</label>
             <input
               className="my-input"
               id="username"
@@ -197,42 +189,32 @@ export const Admin = () => {
             />
           </>
           : <>
-            <label className="is-size-4" htmlFor="_id">_id</label>
-            <input
-              className="my-input"
-              id="_id"
-              type="text"
-              defaultValue={modal.currentItemToEdit._id}
-            />
-            <label className="is-size-4" htmlFor="_id">uid</label>
-            <input
-              className="my-input"
-              id="uid"
-              type="text"
-              defaultValue={modal.currentItemToEdit.uid}
-            />
-            <label className="is-size-4" htmlFor="_id">user</label>
+            <label className="is-size-4">_id</label>
+            <p className="is-size-5 has-text-weight-semibold">{modal.currentItemToEdit._id}</p>
+            <label className="is-size-4">uid</label>
+            <p className="is-size-5 has-text-weight-semibold">{modal.currentItemToEdit.uid}</p>
+            <label className="is-size-4" htmlFor="user">user</label>
             <input
               className="my-input"
               id="user"
               type="text"
               defaultValue={modal.currentItemToEdit.user}
             />
-            <label className="is-size-4" htmlFor="_id">title</label>
+            <label className="is-size-4" htmlFor="title">title</label>
             <input
               className="my-input"
               id="title"
               type="text"
               defaultValue={modal.currentItemToEdit.title}
             />
-            <label className="is-size-4" htmlFor="_id">content</label>
+            <label className="is-size-4" htmlFor="content">content</label>
             <input
               className="my-input"
               id="content"
               type="text"
               defaultValue={modal.currentItemToEdit.content}
             />
-            <label className="is-size-4" htmlFor="_id">datePosted</label>
+            <label className="is-size-4" htmlFor="datePosted">datePosted</label>
             <input
               className="my-input"
               id="datePosted"
