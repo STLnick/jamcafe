@@ -47,6 +47,11 @@ export const Admin = () => {
 
   const handleChangeViewClick = () => setSelectedView(prevView => prevView === 'users' ? 'posts' : 'users')
 
+  const handleAddAdminTextChange = (e) => {
+    const value = e.target.value
+    setAddAdminModal(prevModal => ({ ...prevModal, emailToMakeAdmin: value }))
+  }
+
   const handleAddAdmin = async (e) => {
     e.preventDefault()
     const result = await firebaseApi.addAdminRole(addAdminModal.emailToMakeAdmin)
@@ -55,7 +60,7 @@ export const Admin = () => {
 
   // TODO: Add a way to manually Add a User or Post for the Admin
   // TODO: Will need to also manually add an email/password to Firebase
-  const handleAddClick = async (e) => {
+  const handleAddItemClick = async (e) => {
     console.log('Trying to ADD a new item!')
     try {
       if (selectedView === 'posts') {
@@ -71,7 +76,7 @@ export const Admin = () => {
     }
   }
 
-  const handleDeleteClick = async (e) => {
+  const handleDeleteItemClick = async (e) => {
     const id = e.target.closest('button').dataset.id // MongoDB identifier
     const uid = e.target.closest('button').dataset.uid // Firebase identifier
 
@@ -92,7 +97,7 @@ export const Admin = () => {
     }
   }
 
-  const handleEditClick = (e) => {
+  const handleEditItemClick = (e) => {
     const rowId = e.target.closest('button').dataset.id
     const clickedItemToEdit = selectedView === 'users'
       ? users.find(user => user._id === rowId)
@@ -100,7 +105,7 @@ export const Admin = () => {
     setEditModal({ isOpen: true, currentItemToEdit: clickedItemToEdit })
   }
 
-  const handleEditSubmit = async (e) => {
+  const handleEditItemSubmit = async (e) => {
     e.preventDefault()
 
     const updatedObj = utils.createObjectFromFields(e.target.elements)
@@ -153,7 +158,7 @@ export const Admin = () => {
           <button
             className="admin-icon"
             data-id={el._id}
-            onClick={(e) => handleEditClick(e)}
+            onClick={(e) => handleEditItemClick(e)}
           >
             <img className="filter-primary" alt="Edit icon" src="img/icons/pencil.svg" />
           </button>
@@ -163,7 +168,7 @@ export const Admin = () => {
             className="admin-icon"
             data-id={el._id}
             data-uid={el.uid}
-            onClick={(e) => handleDeleteClick(e)}
+            onClick={(e) => handleDeleteItemClick(e)}
           >
             <img className="filter-primary" alt="Delete icon" src="img/icons/trash.svg" />
           </button>
@@ -188,7 +193,7 @@ export const Admin = () => {
         <label htmlFor="admin-email">Email to Make an Admin</label>
         <input
           id="admin-email"
-          onChange={(e) => setAddAdminModal(prevModal => ({ ...prevModal, emailToMakeAdmin: e.target.value }))}
+          onChange={(e) => handleAddAdminTextChange(e)}
           type="text"
           value={addAdminModal.emailToMakeAdmin}
         />
@@ -213,7 +218,7 @@ export const Admin = () => {
       </button>
       <button
         className="cta-btn small-btn mx-3 my-3"
-        onClick={handleAddClick}
+        onClick={handleAddItemClick}
       >
         Add A New {selectedView === 'users' ? 'User' : 'Post'}
       </button>
@@ -236,7 +241,7 @@ export const Admin = () => {
     <Modal
       isOpen={editModal.isOpen}
       onRequestClose={() => setEditModal(prevModal => ({ ...prevModal, isOpen: false }))}>
-      <form onSubmit={(e) => handleEditSubmit(e)}>
+      <form onSubmit={(e) => handleEditItemSubmit(e)}>
         {editModal.error ? <p className="help has-text-danger is-size-4">{editModal.error}</p> : null}
         {selectedView === 'users'
           ? <>
