@@ -46,8 +46,7 @@ export const App = () => {
 
   const handleSearchSelectionChange = (e) => {
     e.preventDefault()
-
-    console.log(Array.from(e.target.elements).filter(el => el.checked))
+    setSearchSelection(e.target.elements[0].value)
   }
 
   const handleSearchTextChange = (e) => {

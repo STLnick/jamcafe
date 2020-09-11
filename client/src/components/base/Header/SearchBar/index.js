@@ -6,13 +6,14 @@ import { ReactComponent as FunnelIcon } from '../../../../assets/funnel.svg'
 
 export const SearchBar = ({ handleSearchSelectionChange, handleSearchTextChange, searchSelection, searchText }) => {
   const [modalIsOpen, setModalIsOpen] = useState(false)
+  const [selectValue, setSelectValue] = useState(searchSelection)
 
   return (<div className="search-bar flex flex--align-center flex--justify-between">
     <input
       type="text"
       className="search-input"
       onChange={(e) => handleSearchTextChange(e)}
-      placeholder="Search Posts By Title"
+      placeholder={searchSelection === 'title' ? 'Search Posts by Title' : 'Search Posts by User'}
       value={searchText}
     />
     <button
@@ -23,8 +24,25 @@ export const SearchBar = ({ handleSearchSelectionChange, handleSearchTextChange,
     </button>
     <Modal isOpen={modalIsOpen} onRequestClose={() => setModalIsOpen(false)}>
       {/* Checkboxes for filter selection */}
-      <form onSubmit={(e) => handleSearchSelectionChange(e)}>
-        <label className="checkbox-container flex flex--align-center is-size-4" htmlFor="title">
+      <form onSubmit={(e) => {
+        handleSearchSelectionChange(e)
+        setModalIsOpen(false)
+      }}>
+        <label htmlFor="filter-choice"></label>
+        <select
+          name="filter-choice"
+          onChange={(e) => setSelectValue(e.target.value)}
+          id="filter-choice"
+          value={selectValue}>
+          <option value="title">
+            Title
+          </option>
+          <option value="username">
+            Username
+          </option>
+        </select>
+
+        {/* <label className="checkbox-container flex flex--align-center is-size-4" htmlFor="title">
           Title
         <input
             defaultChecked={searchSelection === 'title'}
@@ -45,7 +63,7 @@ export const SearchBar = ({ handleSearchSelectionChange, handleSearchTextChange,
             value="username"
           />
           <span className="checkmark"></span>
-        </label>
+        </label> */}
         <button className="cancel-btn" onClick={() => setModalIsOpen(false)}>Cancel</button>
         <button className="cta-btn" type="submit">Confirm</button>
       </form>
