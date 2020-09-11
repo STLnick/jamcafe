@@ -168,27 +168,27 @@ export const Admin = () => {
         {selectedView === 'users'
           ? <>
             <label htmlFor="_id">_id</label>
-            <input id="_id" type="text" defaultValue='_id' />
+            <input id="_id" type="text" defaultValue={modal.currentItemToEdit._id} />
             <label htmlFor="_id">uid</label>
-            <input id="uid" type="text" defaultValue='uid' />
+            <input id="uid" type="text" defaultValue={modal.currentItemToEdit.uid} />
             <label htmlFor="_id">name</label>
-            <input id="name" type="text" defaultValue='name' />
+            <input id="name" type="text" defaultValue={modal.currentItemToEdit.name} />
             <label htmlFor="_id">username</label>
-            <input id="username" type="text" defaultValue='username' />
+            <input id="username" type="text" defaultValue={modal.currentItemToEdit.username} />
           </>
           : <>
             <label htmlFor="_id">_id</label>
-            <input id="_id" type="text" defaultValue='_id' />
+            <input id="_id" type="text" defaultValue={modal.currentItemToEdit._id} />
             <label htmlFor="_id">uid</label>
-            <input id="uid" type="text" defaultValue='uid' />
+            <input id="uid" type="text" defaultValue={modal.currentItemToEdit.uid} />
             <label htmlFor="_id">user</label>
-            <input id="user" type="text" defaultValue='user' />
+            <input id="user" type="text" defaultValue={modal.currentItemToEdit.user} />
             <label htmlFor="_id">title</label>
-            <input id="title" type="text" defaultValue='title' />
+            <input id="title" type="text" defaultValue={modal.currentItemToEdit.title} />
             <label htmlFor="_id">content</label>
-            <input id="content" type="text" defaultValue='content' />
+            <input id="content" type="text" defaultValue={modal.currentItemToEdit.content} />
             <label htmlFor="_id">datePosted</label>
-            <input id="datePosted" type="text" defaultValue='datePosted' />
+            <input id="datePosted" type="text" defaultValue={modal.currentItemToEdit.datePosted} />
           </>}
 
         <div className="flex">
