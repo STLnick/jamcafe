@@ -5,6 +5,7 @@ import { useHistory } from 'react-router-dom'
 import api from 'api'
 import firebaseApi from 'firebaseApi'
 import { UserContext } from 'UserContext'
+import utils from 'utils'
 
 import './Admin.scss'
 
@@ -75,6 +76,7 @@ export const Admin = () => {
         await usersAPI.delete({ _id: id })
         setUsers(await usersAPI.show())
         const firebaseResult = await firebaseApi.deleteUser(uid)
+        // TODO: Display result on UI
         console.log(firebaseResult)
       }
       setError('')
@@ -97,6 +99,10 @@ export const Admin = () => {
   const handleEditSubmit = (e) => {
     e.preventDefault()
     console.log(Array.from(e.target.elements).filter(el => el.id))
+    const updatedObj = utils.createObjectFromFields(e.target.elements)
+    updatedObj._id = modal.currentItemToEdit._id
+    updatedObj.uid = modal.currentItemToEdit.uid
+    console.log(updatedObj)
   }
 
   const renderTableHeadings = (resource) => Object.keys(resource[0]).map((key, i) => <td key={i}>{key}</td>).concat(<td key="blank"></td>)
