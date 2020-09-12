@@ -1,3 +1,4 @@
+import { motion } from 'framer-motion'
 import PropTypes from 'prop-types'
 import React, { useContext, useEffect, useState } from 'react'
 import { Link, useHistory } from 'react-router-dom'
@@ -7,6 +8,39 @@ import api from 'api'
 import { UserContext } from 'UserContext'
 
 const postsAPI = api('posts')
+
+const wrapperVariants = {
+  hidden: {
+    opacity: 0,
+  },
+  visible: {
+    opacity: 1,
+    transition: {
+      delay: 0.5,
+      duration: 1.25,
+      when: "beforeChildren"
+    }
+  },
+  exit: {
+    opacity: 0,
+    x: '-100vw',
+    transition: { ease: 'easeInOut' }
+  }
+}
+
+const headerVariants = {
+  hidden: {
+    opacity: 0,
+    scale: 0.5
+  },
+  visible: {
+    opacity: 1,
+    scale: 1,
+    transition: {
+      duration: 1
+    }
+  }
+}
 
 export const Feed = ({ searchSelection, searchText }) => {
   const history = useHistory()
@@ -39,8 +73,19 @@ export const Feed = ({ searchSelection, searchText }) => {
     .map((post, i) => <Card key={i} post={post} userLoggedIn={user} />)
 
   return (
-    <div className="posts flex flex--column flex--align-center flex--justify-start">
-      <h3 className="section-heading">User Posts</h3>
+    <motion.div
+      className="posts flex flex--column flex--align-center flex--justify-start"
+      initial="hidden"
+      animate="visible"
+      exit="exit"
+      variants={wrapperVariants}
+    >
+      <motion.h3
+        className="section-heading"
+        variants={headerVariants}
+      >
+        User Posts
+      </motion.h3>
       {renderFilteredPosts()}
       <Link to="/post" className="write-post-link">
         <img
@@ -49,7 +94,7 @@ export const Feed = ({ searchSelection, searchText }) => {
           className="write-post-icon filter-primary"
           alt="Plus icon to write a post" />
       </Link>
-    </div>
+    </motion.div>
   )
 }
 

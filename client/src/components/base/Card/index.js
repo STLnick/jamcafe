@@ -21,7 +21,7 @@ const postVariants = {
   visible: {
     opacity: 1,
     transition: {
-      delay: 0.25,
+      delay: 0.5,
       duration: 0.5,
       when: "beforeChildren",
       staggerChildren: 0.15
