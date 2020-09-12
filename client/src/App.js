@@ -1,8 +1,9 @@
+import { AnimatePresence } from 'framer-motion'
 import React, { useMemo, useState } from 'react';
 import {
-  BrowserRouter as Router,
   Route,
-  Switch
+  Switch,
+  useLocation
 } from 'react-router-dom'
 
 // components
@@ -27,6 +28,7 @@ import { UserContext } from './UserContext'
 import './App.scss';
 
 export const App = () => {
+  const location = useLocation()
   const [searchSelection, setSearchSelection] = useState('title')
   const [searchText, setSearchText] = useState('')
   const [user, setUser] = useState(null)
@@ -53,22 +55,19 @@ export const App = () => {
     setSearchText(e.target.value)
   }
 
-  return (
-    <Router>
-      <div className="overlay" onClick={toggleMobileMenu}></div>
-      <UserContext.Provider value={providerValue}>
-        <Header
-          handleClick={toggleMobileMenu}
-          handleKeyDown={handleMenuBtnKeyDown}
-          handleSearchSelectionChange={handleSearchSelectionChange}
-          handleSearchTextChange={handleSearchTextChange}
-          searchSelection={searchSelection}
-          searchText={searchText}
-        />
-        <Switch>
-          <Route exact path='/about'>
-            <About />
-          </Route>
+  return (<>
+    <div className="overlay" onClick={toggleMobileMenu}></div>
+    <UserContext.Provider value={providerValue}>
+      <Header
+        handleClick={toggleMobileMenu}
+        handleKeyDown={handleMenuBtnKeyDown}
+        handleSearchSelectionChange={handleSearchSelectionChange}
+        handleSearchTextChange={handleSearchTextChange}
+        searchSelection={searchSelection}
+        searchText={searchText}
+      />
+      <AnimatePresence>
+        <Switch location={location} key={location.key}>
           <Route exact path='/about'>
             <About />
           </Route>
@@ -106,8 +105,9 @@ export const App = () => {
             <NotFound />
           </Route>
         </Switch>
-      </UserContext.Provider>
-      <Footer />
-    </Router>
+      </AnimatePresence>
+    </UserContext.Provider>
+    <Footer />
+  </>
   );
 }
