@@ -195,7 +195,7 @@ export const Admin = () => {
   return (<div className="admin-container flex flex--column flex--align-center">
     <h3 className="section-heading">Admin Dashboard</h3>
     <button
-      className="cancel-btn small-btn mx-3 my-3"
+      className="cancel-btn mx-3 my-3"
       onClick={() => setAddAdminModal(prevModal => ({ ...prevModal, isOpen: true }))}
     >
       Add A New Admin
@@ -250,13 +250,13 @@ export const Admin = () => {
     </p>
     <div className="flex">
       <button
-        className="cancel-btn small-btn mx-3 my-3"
+        className="cancel-btn mx-3 my-3"
         onClick={handleChangeViewClick}
       >
         View {selectedView === 'users' ? 'Posts' : 'Users'}
       </button>
       <button
-        className="cta-btn small-btn mx-3 my-3"
+        className="cta-btn mx-3 my-3"
         onClick={handleAddItemClick}
       >
         Add A New {selectedView === 'users' ? 'User' : 'Post'}
