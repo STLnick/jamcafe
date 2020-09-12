@@ -1,3 +1,4 @@
+import { motion } from 'framer-motion'
 import React, { useContext, useEffect, useState } from 'react'
 import { Link, useHistory, useLocation } from 'react-router-dom'
 
@@ -9,6 +10,38 @@ import './EditProfile.scss'
 import { ReactComponent as UploadIcon } from '../../../assets/cloud-upload.svg'
 
 const usersAPI = api('users')
+
+const wrapperVariants = {
+  hidden: {
+    opacity: 0,
+  },
+  visible: {
+    opacity: 1,
+    transition: {
+      delay: 0.5,
+      duration: 1.25
+    }
+  },
+  exit: {
+    opacity: 0,
+    x: '-100vw',
+    transition: { ease: 'easeInOut' }
+  }
+}
+
+const headerVariants = {
+  hidden: {
+    opacity: 0,
+    scale: 0.5
+  },
+  visible: {
+    opacity: 1,
+    scale: 1,
+    transition: {
+      duration: 1
+    }
+  }
+}
 
 export const EditProfile = () => {
   const history = useHistory()
@@ -71,8 +104,19 @@ export const EditProfile = () => {
     }
   }
 
-  return (<main className="edit-profile-container flex flex--column flex--align-center flex--justify-center">
-    <h3 className="section-heading">Edit Profile</h3>
+  return (<motion.main
+    className="edit-profile-container flex flex--column flex--align-center flex--justify-center"
+    initial="hidden"
+    animate="visible"
+    exit="exit"
+    variants={wrapperVariants}
+  >
+    <motion.h3
+      className="section-heading"
+      variants={headerVariants}
+    >
+      Edit Profile
+    </motion.h3>
     {editError ? <p className="help has-text-danger is-size-3">{editError}</p> : null}
     {profileToEdit
       ? <form
@@ -178,5 +222,5 @@ export const EditProfile = () => {
         <button className="cta-btn" type="submit">Confirm</button>
       </form>
       : <h3>Loading...</h3>}
-  </main>)
+  </motion.main>)
 }
