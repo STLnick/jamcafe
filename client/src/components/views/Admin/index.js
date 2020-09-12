@@ -1,3 +1,4 @@
+import { motion } from 'framer-motion'
 import React, { useContext, useEffect, useState } from 'react'
 import Modal from 'react-modal'
 import { useHistory } from 'react-router-dom'
@@ -13,6 +14,39 @@ const postsAPI = api('posts')
 const usersAPI = api('users')
 
 Modal.setAppElement('#root')
+
+const wrapperVariants = {
+  hidden: {
+    opacity: 0,
+  },
+  visible: {
+    opacity: 1,
+    transition: {
+      delay: 0.5,
+      duration: 1.25,
+      when: "beforeChildren"
+    }
+  },
+  exit: {
+    opacity: 0,
+    x: '-100vw',
+    transition: { ease: 'easeInOut' }
+  }
+}
+
+const headerVariants = {
+  hidden: {
+    opacity: 0,
+    scale: 0.5
+  },
+  visible: {
+    opacity: 1,
+    scale: 1,
+    transition: {
+      duration: 1
+    }
+  }
+}
 
 export const Admin = () => {
   const history = useHistory()
@@ -192,8 +226,19 @@ export const Admin = () => {
     </tr>)
   }
 
-  return (<div className="admin-container flex flex--column flex--align-center">
-    <h3 className="section-heading">Admin Dashboard</h3>
+  return (<motion.div
+    className="admin-container flex flex--column flex--align-center"
+    initial="hidden"
+    animate="visible"
+    exit="exit"
+    variants={wrapperVariants}
+  >
+    <motion.h3
+      className="section-heading"
+      variants={headerVariants}
+    >
+      Admin Dashboard
+    </motion.h3>
     <button
       className="cancel-btn mx-3 my-3"
       onClick={() => setAddAdminModal(prevModal => ({ ...prevModal, isOpen: true }))}
@@ -386,7 +431,7 @@ export const Admin = () => {
           Confirm Changes
           </button>
       </form>
-    </Modal >
-  </div >
+    </Modal>
+  </motion.div>
   )
 }
