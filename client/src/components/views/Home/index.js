@@ -1,9 +1,28 @@
+import { motion } from 'framer-motion'
 import React, { Fragment } from 'react'
 import { Link } from 'react-router-dom'
 
 import { Section } from '../../base'
 import { Hero } from './Hero'
 import { TestimonialsSection } from './TestimonialsSection'
+
+const wrapperVariants = {
+  hidden: {
+    opacity: 0,
+  },
+  visible: {
+    opacity: 1,
+    transition: {
+      delay: 0.5,
+      duration: 1.25
+    }
+  },
+  exit: {
+    opacity: 0,
+    x: '-100vw',
+    transition: { ease: 'easeInOut' }
+  }
+}
 
 export const Home = () => {
 
@@ -166,7 +185,11 @@ export const Home = () => {
   ]
 
   return (
-    <Fragment>
+    <motion.div
+      initial="hidden"
+      animate="visible"
+      exit="exit"
+      variants={wrapperVariants}>
       <Hero />
       <Section section={sections[0]} />
       <div>
@@ -180,6 +203,6 @@ export const Home = () => {
       <Section section={sections[2]} />
       <TestimonialsSection reviews={reviews} />
       <Section section={sections[3]} />
-    </Fragment>
+    </motion.div>
   )
 }

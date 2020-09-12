@@ -10,7 +10,7 @@ const linkVariants = {
     opacity: 1,
     transition: {
       delay: 1.25,
-      duration: 1.5
+      duration: 1.75
     }
   }
 }
@@ -22,6 +22,7 @@ const textContainerVariants = {
   visible: {
     opacity: 1,
     transition: {
+      delay: 0.75,
       duration: 0.2,
       when: "beforeChildren",
       staggerChildren: 0.3

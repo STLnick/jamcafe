@@ -1,6 +1,26 @@
+import { motion } from 'framer-motion'
 import React from 'react'
 
 import { Section } from '../../base'
+
+const wrapperVariants = {
+  hidden: {
+    opacity: 0,
+    x: '100vw'
+  },
+  visible: {
+    opacity: 1,
+    x: 0,
+    transition: {
+      delay: 0.5,
+      duration: 1.25
+    }
+  },
+  exit: {
+    x: '-100vw',
+    transition: { ease: 'easeInOut' }
+  }
+}
 
 const section = {
   heading: 'About Us',
@@ -20,6 +40,12 @@ const section = {
 
 export const About = () => {
   return (
-    <Section section={section} />
+    <motion.div
+      initial="hidden"
+      animate="visible"
+      exit="exit"
+      variants={wrapperVariants}>
+      <Section section={section} />
+    </motion.div>
   )
 }
