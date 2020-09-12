@@ -7,6 +7,8 @@ import { Card } from '../../base'
 import api from 'api'
 import { UserContext } from 'UserContext'
 
+import './Feed.scss'
+
 const postsAPI = api('posts')
 
 const wrapperVariants = {

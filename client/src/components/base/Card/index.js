@@ -4,6 +4,7 @@ import PropTypes from 'prop-types'
 import { Link, useHistory } from 'react-router-dom'
 import api from 'api'
 
+import './Card.scss'
 import { ReactComponent as EditIcon } from '../../../assets/pencil.svg'
 import { ReactComponent as GuitarIcon } from '../../../assets/electric-guitar.svg'
 import { ReactComponent as BassIcon } from '../../../assets/bass-guitar.svg'

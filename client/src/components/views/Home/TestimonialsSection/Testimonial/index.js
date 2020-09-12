@@ -1,6 +1,8 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
+import './Testimonial.scss'
+
 export const Testimonial = ({ review: { className, image, quote, user } }) => {
   return (
     <div className={`testimonial ${className}`} key={className}>

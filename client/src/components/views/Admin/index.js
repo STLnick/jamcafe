@@ -311,7 +311,7 @@ export const Admin = () => {
     {error ? <p className="help has-text-danger is-size-4">{error}</p> : null}
     {users
       ? <table>
-        <caption className="post--title">{selectedView === 'users' ? 'Users' : 'Posts'}</caption>
+        <caption className="table-title">{selectedView === 'users' ? 'Users' : 'Posts'}</caption>
         <thead>
           <tr>
             {renderTableHeadings(selectedView === 'users' ? users : posts)}

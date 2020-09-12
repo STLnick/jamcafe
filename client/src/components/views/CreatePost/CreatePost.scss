@@ -1,0 +1,37 @@
+.write-post-container {
+  min-height: 100vh;
+  padding: 1rem 0;
+}
+
+.write-post-icon {
+  border-radius: 50%;
+  bottom: 2rem;
+  outline: none;
+  position: fixed;
+  right: 2rem;
+  transition: transform 0.4s;
+  width: 5rem;
+}
+
+.write-post-icon:focus,
+.write-post-icon:hover {
+  transform: scale(1.35);
+}
+
+#write-post-heading {
+  margin: 2rem 0;
+}
+
+.my-input.title-input {
+  border: 1px solid var(--basic-text);
+  border-radius: 5px;
+  margin-top: 2rem;
+  max-width: 500px;
+  outline: none;
+  padding: 1rem;
+  width: 60%;
+}
+
+.my-input.title-input::placeholder {
+  color: var(--basic-text);
+}

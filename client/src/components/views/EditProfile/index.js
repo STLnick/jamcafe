@@ -207,14 +207,12 @@ export const EditProfile = () => {
             <input onChange={(e) => handleFileChange(e)} className="file-input" type="file" name="avatar" id="avatar" />
             <span className="file-cta">
               <span className="file-icon">
-                {/* TODO: ADD an icon to the upload button */}
                 <UploadIcon className="upload-icon filter-primary" />
               </span>
               <span className="file-label">
                 Upload Profile Pic
               </span>
             </span>
-            {/* TODO: place chosen file name inside this span */}
             <span className="file-name">{fileText}</span>
           </label>
         </div>

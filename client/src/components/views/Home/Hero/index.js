@@ -2,6 +2,8 @@ import { motion } from 'framer-motion'
 import React from 'react'
 import { Link } from 'react-router-dom'
 
+import './Hero.scss'
+
 const linkVariants = {
   hidden: {
     opacity: 0

@@ -42,7 +42,7 @@ export const Forgot = () => {
   </div>
 
   return (
-    <main className="register-container flex flex--column flex--align-center flex--justify-center">
+    <main className="entry-container flex flex--column flex--align-center flex--justify-center">
       <h3 className="section-heading">We All Forget Sometimes</h3>
       {successMessage
         ? <p className="help has-text-success is-size-3">{successMessage}</p>

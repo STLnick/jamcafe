@@ -6,6 +6,8 @@ import { Section } from '../../base'
 import { Hero } from './Hero'
 import { TestimonialsSection } from './TestimonialsSection'
 
+import './Home.scss'
+
 const wrapperVariants = {
   hidden: {
     opacity: 0,

@@ -131,7 +131,7 @@ export const Login = () => {
 
   return (
     <motion.main
-      className="register-container flex flex--column flex--align-center flex--justify-center"
+      className="entry-container flex flex--column flex--align-center flex--justify-center"
       initial="hidden"
       animate="visible"
       exit="exit"

@@ -6,6 +6,8 @@ import api from 'api'
 
 import { UserContext } from 'UserContext'
 
+import './CreatePost.scss'
+
 const postsAPI = api('posts')
 
 const wrapperVariants = {
@@ -66,12 +68,9 @@ export const CreatePost = () => {
 
     try {
       await postsAPI.create(postInfo)
-      // TODO: Display message on success
       setFeedbackMessage({ text: 'Post Successful!', textClass: 'success' })
       setSubmitted(prevSubmitted => !prevSubmitted)
     } catch (err) {
-      // TODO: Add spot in UI to display err
-      console.log(err)
       setFeedbackMessage({ text: 'Error occurred trying to post', textClass: 'danger' })
     }
   }

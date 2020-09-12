@@ -5,6 +5,8 @@ import PropTypes from 'prop-types'
 import auth from 'auth'
 import { UserContext } from 'UserContext'
 
+import './MobileMenu.scss'
+
 export const MobileMenu = ({ handleClick }) => {
   const history = useHistory()
   const { user, setUser } = useContext(UserContext)
@@ -84,7 +86,7 @@ export const MobileMenu = ({ handleClick }) => {
           : null}
         {user
           ? <button
-            className="button mt-5 is-size-5 is-uppercase"
+            className="cancel-btn small-btn mt-5 is-size-5 is-uppercase"
             onClick={handleSignOut}>
             Sign out
           </button>

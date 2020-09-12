@@ -1,6 +1,8 @@
 import React, { Fragment } from 'react'
 import PropTypes from 'prop-types'
 
+import './Section.scss'
+
 export const Section = ({ section: { button, heading, images, list, listClass, listItemClass, text, title } }) => {
 
   const renderList = () => {

@@ -45,7 +45,7 @@ export const Form = ({ btn, errorMsg, formBtm, handler, inputs }) => {
     <motion.form
       initial="hidden"
       animate="visible"
-      className="register-form flex flex--column flex--align-center flex--justify-evenly"
+      className="my-form flex flex--column flex--align-center flex--justify-evenly"
       onSubmit={(e) => handler(e)}
       variants={formVariants}
     >

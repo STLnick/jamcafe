@@ -6,6 +6,7 @@ import { MobileMenu } from './MobileMenu'
 import { SearchBar } from './SearchBar'
 import { UserContext } from 'UserContext'
 
+import './Header.scss'
 import { ReactComponent as MenuIcon } from '../../../assets/menu.svg'
 
 export const Header = ({ handleClick, handleKeyDown, handleSearchSelectionChange, handleSearchTextChange, searchSelection, searchText }) => {

@@ -89,12 +89,6 @@ textarea {
   display: initial;
 }
 
-.top-nav {
-  background-color: #eee;
-  height: 7vh;
-  padding: 0.5rem 1rem;
-}
-
 .logo-container {
   width: 4rem;
 }
@@ -104,176 +98,17 @@ textarea {
   width: 100%;
 }
 
-.menu-btn-container,
-.message-icon-container {
-  background: none;
-  border: none;
-  margin: 0;
-  outline: none;
-  padding: 0;
-  transition: transform 0.4s;
-  z-index: 2;
-}
-
-.menu-btn {
-  height: auto;
-  outline: none;
-  width: 3rem;
-  z-index: 2;
-}
-
-.menu-btn-container:focus,
-.menu-btn-container:hover {
-  transform: scale(1.15);
-}
-
-.message-icon-container:focus,
-.message-icon-container:hover {
-  transform: scale(1.25);
-}
-
-.mobile-menu {
-  background-color: white;
-  border: 2px solid var(--primary-color);
-  font-size: 2em;
-  padding: 1rem 1rem 3rem;
-  position: fixed;
-  right: -80vw;
-  top: 9vh;
-  transition: right 0.7s;
-  width: 65vw;
-  z-index: 2;
-}
-
-.active-mobile-menu {
-  right: 0;
-}
-
-.mobile-menu--list-link {
-  color: var(--basic-text);
-  outline: none;
-  transition: text-decoration, text-shadow 0.7s;
-}
-
-.mobile-menu--list-link:focus,
-.mobile-menu--list-link:hover {
-  font-weight: 700;
-  text-decoration: underline var(--primary-color);
-  text-shadow: 0 0 1px var(--primary-color);
-}
-
-.mobile-menu--list {
-  list-style-type: none;
-}
-
-.mobile-menu--list li {
-  border-bottom: 1px solid #444;
-  padding: 1rem;
-}
-
-.section--hero {
-  background-image: url(./assets/steet-duo-bw.jpg);
-  background-position: center;
-  background-size: cover;
-  height: 93vh;
-  overflow: hidden;
-  width: auto;
-}
-
-.hero-text-container {
-  margin-bottom: 1em;
-  text-align: center;
-}
-
-.hero-text {
-  color: white;
-  font-size: 24px;
-  text-shadow: 0 0 5px var(--primary-color), 0 0 10px #000, 0 0 16px #616161;
-}
-
-.hero-text-last {
-  margin-top: 1rem;
-  text-transform: uppercase;
-}
-
-.hero-btn {
-  margin: 1rem 0 10rem 0;
-}
-
-.partition-img {
-  width: 100%;
-}
-
-.feature-list-item {
-  margin-bottom: 0.5rem;
-}
-
-.feature-list-item--marker {
-  margin-right: 0.25rem;
-  width: 2rem;
-}
-
-.my-section.section--use {
-  background-color: #eee;
-}
-
-.use-list {
-  text-align: center;
-}
-
-.use-img {
-  width: 5rem;
-}
-
-.testimonial {
-  width: 100%;
-}
-
-.testimonial-1,
-.testimonial-2 {
-  border-bottom: 4px solid #eee;
-  margin-bottom: 2.5rem;
-  padding-bottom: 2.5rem;
-}
-
-.testimonial-1-img,
-.testimonial-2-img,
-.testimonial-3-img {
-  border-radius: 10px;
-  width: 100%;
-}
-
-.my-section.section--help {
-  background-color: #eee;
-}
-
 .bottom-cta-btn {
   margin: 2rem 0 0;
 }
 
-.footer {
-  background-color: #616161;
-  padding: 1rem;
-}
-
-.social-links {
-  width: 10rem;
-}
-
-.social-icon {
-  height: 2rem;
-  width: 2rem;
-}
-
-.register-container,
-.edit-profile-container {
+.entry-container {
   background-color: #fff;
   height: 91vh;
   width: 100vw;
 }
 
-.register-form,
-.edit-profile-form {
+.my-form {
   background-color: #eee;
   border: none;
   border-radius: 5px;
@@ -351,45 +186,6 @@ textarea {
   width: 100%;
 }
 
-.search-input {
-  border: 1px solid var(--primary-color);
-  border-radius: 5px;
-  font-size: 14px;
-  outline: none;
-  padding: 0.75rem;
-  transition: box-shadow 0.4s;
-  width: 100%;
-}
-
-.search-button {
-  background: none;
-  border: none;
-  border-radius: 50%;
-  height: 2rem;
-  outline: none;
-  padding: 0;
-  transition: transform 0.4s;
-  width: 5rem;
-}
-
-.search-button:focus,
-.search-button:hover {
-  transform: scale(1.15);
-}
-
-.search-icon {
-  transition: box-shadow 0.4s;
-  width: 3rem;
-  height: 3rem;
-  margin-left: 0.5rem;
-}
-
-.posts {
-  background-color: #fff;
-  min-height: 90vh;
-  padding: 2rem 0 3rem;
-}
-
 .post {
   background-color: #eee;
   border: 1px solid var(--primary-color);
@@ -424,10 +220,6 @@ textarea {
   margin: 0 0 0.5rem 0;
   outline: none;
   transition: text-decoration, color 0.4s;
-}
-
-.user-instruments {
-  margin: 0.5rem 1rem 1.5rem;
 }
 
 .instrument-icon {
@@ -488,48 +280,6 @@ textarea {
   margin: 0 0 0 1rem;
 }
 
-.post--message-icon {
-  margin: 0 1rem 0 0;
-  outline: none;
-  transition: transform 0.4s;
-  width: 3rem;
-}
-
-.write-post-icon {
-  border-radius: 50%;
-  bottom: 2rem;
-  outline: none;
-  position: fixed;
-  right: 2rem;
-  transition: transform 0.4s;
-  width: 5rem;
-}
-
-.write-post-icon:focus,
-.write-post-icon:hover {
-  transform: scale(1.35);
-}
-
-.my-input.title-input {
-  border: 1px solid var(--basic-text);
-  border-radius: 5px;
-  margin-top: 2rem;
-  max-width: 500px;
-  outline: none;
-  padding: 1rem;
-  width: 60%;
-}
-
-.my-input.title-input::placeholder {
-  color: var(--basic-text);
-}
-
-.write-post-container {
-  min-height: 100vh;
-  padding: 1rem 0;
-}
-
-#write-post-heading,
 #message-heading {
   margin: 2rem 0;
 }
@@ -716,9 +466,7 @@ textarea {
 }
 
 .my-input:focus,
-.my-input:hover,
-.search-input:focus,
-.search-input:hover {
+.my-input:hover {
   box-shadow: 0 0 3px 3px var(--primary-dark);
 }
 

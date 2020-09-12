@@ -1,0 +1,27 @@
+.top-nav {
+  background-color: #eee;
+  height: 7vh;
+  padding: 0.5rem 1rem;
+}
+
+.menu-btn-container {
+  background: none;
+  border: none;
+  margin: 0;
+  outline: none;
+  padding: 0;
+  transition: transform 0.4s;
+  z-index: 2;
+}
+
+.menu-btn {
+  height: auto;
+  outline: none;
+  width: 3rem;
+  z-index: 2;
+}
+
+.menu-btn-container:focus,
+.menu-btn-container:hover {
+  transform: scale(1.15);
+}
