@@ -21,6 +21,44 @@ const usersAPI = api('users')
 
 Modal.setAppElement('#root')
 
+const wrapperVariants = {
+  hidden: {
+    opacity: 0,
+  },
+  visible: {
+    opacity: 1,
+    transition: {
+      delay: 0.5,
+      duration: 1.25,
+      when: "beforeChildren"
+    }
+  },
+  exit: {
+    opacity: 0,
+    x: '-100vw',
+    transition: { ease: 'easeInOut' }
+  }
+}
+
+const headerVariants = {
+  hidden: {
+    opacity: 0,
+    scale: 0.5
+  },
+  visible: {
+    opacity: 1,
+    scale: 1,
+    transition: {
+      duration: 1
+    }
+  },
+  exit: {
+    opacity: 0,
+    x: '-100vw',
+    transition: { ease: 'easeInOut' }
+  }
+}
+
 const containerVariants = {
   hidden: {
     opacity: 0
@@ -127,15 +165,25 @@ export const Profile = () => {
     </div>))
 
   return <>
-    <h3 className="section-heading no-flex-heading has-text-centered">View Profile</h3>
-    <main
+    <motion.h3
+      className="section-heading no-flex-heading has-text-centered"
+      initial="hidden"
+      animate="visible"
+      exit="exit"
+      variants={headerVariants}
+    >
+      View Profile
+    </motion.h3>
+    <motion.main
       className="view-profile-container flex flex--column flex--align-center flex--justify-center"
+      initial="hidden"
+      animate="visible"
+      exit="exit"
+      variants={wrapperVariants}
     >
       {profile
         ? <>
           <motion.div
-            initial="hidden"
-            animate="visible"
             className="profile-container flex flex--column flex--align-center flex--justify-around"
             variants={containerVariants}
           >
@@ -219,6 +267,6 @@ export const Profile = () => {
           </Modal>
         </>
         : <h3>Loading...</h3>}
-    </main>
+    </motion.main>
   </>
 }
