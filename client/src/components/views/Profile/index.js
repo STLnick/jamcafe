@@ -92,20 +92,20 @@ export const Profile = () => {
     }
   }
 
-  const renderInstrumentIcons = () => profile.instruments.map(instrument => {
+  const renderInstrumentIcons = () => profile.instruments.map((instrument, i) => {
     switch (instrument) {
       case 'Guitar':
-        return <GuitarIcon className="instrument-icon-lg" />
+        return <GuitarIcon key={i} className="instrument-icon-lg" />
       case 'Bass':
-        return <BassIcon className="instrument-icon-lg" />
+        return <BassIcon key={i} className="instrument-icon-lg" />
       case 'Drums':
-        return <DrumIcon className="instrument-icon-lg" />
+        return <DrumIcon key={i} className="instrument-icon-lg" />
       case 'Vocals':
-        return <VocalsIcon className="instrument-icon-lg" />
+        return <VocalsIcon key={i} className="instrument-icon-lg" />
       case 'Keyboard / Piano':
-        return <PianoIcon className="instrument-icon-lg" />
+        return <PianoIcon key={i} className="instrument-icon-lg" />
       default:
-        return <NoteIcon className="instrument-icon-lg" />
+        return <NoteIcon key={i} className="instrument-icon-lg" />
     }
   })
 
