@@ -22,6 +22,10 @@
   transition: text-decoration, text-shadow 0.7s;
 }
 
+.link-button {
+  margin: 0 1rem;
+}
+
 .mobile-menu--list-link:focus,
 .mobile-menu--list-link:hover {
   font-weight: 700;

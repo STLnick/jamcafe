@@ -90,9 +90,32 @@ export const MobileMenu = ({ handleClick }) => {
             onClick={handleSignOut}>
             Sign out
           </button>
-          : null}
+          : <>
+            <Link
+              className="mobile-menu--list-link link-button"
+              onClick={handleClick}
+              to='/register'
+            >
+              <button
+                className="cancel-btn small-btn mt-5 is-size-5 is-uppercase"
+              >
+                Sign Up
+            </button>
+            </Link>
+            <Link
+              className="mobile-menu--list-link link-button"
+              onClick={handleClick}
+              to='/login'
+            >
+              <button
+                className="cta-btn small-btn mt-5 is-size-5 is-uppercase"
+              >
+                Login
+            </button>
+            </Link>
+          </>}
       </ul>
-    </div>
+    </div >
   )
 }
 
