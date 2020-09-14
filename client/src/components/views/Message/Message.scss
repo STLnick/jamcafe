@@ -27,12 +27,32 @@
   width: 70%;
 }
 
+.message {
+  margin-bottom: 0.5rem;
+}
+
+.sent-message {
+  justify-content: flex-end;
+}
+
+.received-message {
+
+}
+
+.user-clip {
+  background-color: #bbb;
+  border-radius: 10px;
+  font-weight: 600;
+  margin: 0 0.5rem;
+  padding: 0.25rem 0.5rem;
+}
+
 .chat-box {
   padding: 0.5rem;
   width: 100%;
 }
 
-.message {
+.new-message {
   background-color: #fff;
   height: 75px;
   padding: 0.5rem;

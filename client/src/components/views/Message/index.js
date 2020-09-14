@@ -60,24 +60,42 @@ const activeUser = 'user1'
 
 export const Message = () => {
   const [chats, setChats] = useState(tempChats)
+  const [activeChatId, setActiveChatId] = useState(chats[0]._id)
 
   const renderChats = () => chats.map(chat => <div className="chat-clip flex flex--align-center mb-4">
     <img className="avatar mr-3" src="img/avatar.jpg" alt="User Avatar" />
     <h2>{chat.users[0] === activeUser ? chat.users[1] : chat.users[0]}</h2>
   </div>)
 
+  const renderActiveChat = () => {
+    const targetChat = chats.find(chat => chat._id === activeChatId)
+    return targetChat.messages.map(msg => {
+      const msgClass = msg.from === activeUser ? 'sent-message' : 'received-message'
+      return msg.from === activeUser
+        ? <div className={`message ${msgClass} flex flex--align-center`}>
+          <p className="user-message">{msg.msg}</p>
+          <p className="user-clip">{msg.from}</p>
+        </div>
+        : <div className={`message ${msgClass} flex flex--align-center`}>
+          <p className="user-clip">{msg.from}</p>
+          <p className="user-message">{msg.msg}</p>
+        </div>
+    })
+  }
+
   return (<main className="write-post-container flex flex--column flex--align-center">
     <h3 id="message-heading" className="section-heading">Send A Message</h3>
     <div className="post flex flex--column flex--align-center">
       <div className="top-chat flex">
         <div className="users-window">
-          UsersWindow
           {renderChats()}
         </div>
-        <div className="chat-window">ChatWindow</div>
+        <div className="chat-window">
+          {renderActiveChat()}
+        </div>
       </div>
       <div className="chat-box flex flex--justify-between">
-        <div className="message">Enter Message here...</div>
+        <div className="new-message">Enter Message here...</div>
         <button className="cta-btn">Send</button>
       </div>
     </div>
