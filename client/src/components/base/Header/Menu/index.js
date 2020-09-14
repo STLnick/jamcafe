@@ -36,14 +36,6 @@ export const Menu = () => {
         text: 'Home'
       },
       {
-        path: '/register',
-        text: 'Sign Up'
-      },
-      {
-        path: '/login',
-        text: 'Login'
-      },
-      {
         path: '/about',
         text: 'About'
       },
@@ -94,7 +86,7 @@ export const Menu = () => {
               to='/register'
             >
               <button
-                className="cancel-btn is-size-5 is-uppercase"
+                className="cancel-btn is-uppercase"
               >
                 Sign Up
             </button>
@@ -104,7 +96,7 @@ export const Menu = () => {
               to='/login'
             >
               <button
-                className="cta-btn is-size-5 is-uppercase"
+                className="cta-btn is-uppercase"
               >
                 Login
             </button>

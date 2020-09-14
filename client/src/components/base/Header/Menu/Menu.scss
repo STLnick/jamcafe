@@ -1,7 +1,8 @@
 .menu {
+  display: none;
   font-size: 1.6em;
   padding: 1rem 1rem;
-  width: 600px;
+  width: 450px;
 }
 
 .menu--list {
@@ -28,4 +29,17 @@
 
 .menu--list li {
   padding: 1rem;
+}
+
+@media screen and (min-width: 768px) {
+  .menu {
+    display: block;
+  }
+}
+
+@media screen and (min-width: 1200px) {
+  .menu {
+    font-size: 2em;
+    width: 550px;
+  }
 }
