@@ -27,7 +27,7 @@ import './Message.scss'
 // Testing Chats
 const tempChats = [
   {
-    _id: '54321',
+    _id: '111',
     users: ['user1', 'user2'],
     messages: [
       { from: 'user1', to: 'user2', msg: 'hey there' },
@@ -36,21 +36,21 @@ const tempChats = [
     ]
   },
   {
-    _id: '54321',
+    _id: '222',
     users: ['user1', 'user3'],
     messages: [
-      { from: 'user1', to: 'user3', msg: 'hey there' },
-      { from: 'user3', to: 'user1', msg: 'how are you' },
+      { from: 'user1', to: 'user3', msg: 'hey ' },
+      { from: 'user3', to: 'user1', msg: 'whaddup' },
       { from: 'user1', to: 'user3', msg: 'I\'m good' },
     ]
   },
   {
-    _id: '54321',
-    users: ['user2', 'user3'],
+    _id: '333',
+    users: ['user4', 'user1'],
     messages: [
-      { from: 'user3', to: 'user2', msg: 'hey there' },
-      { from: 'user2', to: 'user3', msg: 'how are you' },
-      { from: 'user3', to: 'user2', msg: 'I\'m good' },
+      { from: 'user4', to: 'user1', msg: 'yoyoyo' },
+      { from: 'user1', to: 'user4', msg: 'lol' },
+      { from: 'user4', to: 'user1', msg: 'lolz' },
     ]
   },
 ]
@@ -62,25 +62,39 @@ export const Message = () => {
   const [chats, setChats] = useState(tempChats)
   const [activeChatId, setActiveChatId] = useState(chats[0]._id)
 
-  const renderChats = () => chats.map(chat => <div className="chat-clip flex flex--align-center mb-4">
-    <img className="avatar mr-3" src="img/avatar.jpg" alt="User Avatar" />
-    <h2>{chat.users[0] === activeUser ? chat.users[1] : chat.users[0]}</h2>
-  </div>)
+  const handleChatChange = (e) => {
+    const clickedChat = e.target.closest('div')
+    setActiveChatId(clickedChat.dataset.chatid)
+  }
+
+  const renderChats = () => chats.map(chat => {
+    return <div
+      className="chat-clip flex flex--align-center mb-4"
+      onClick={e => handleChatChange(e)}
+      data-chatid={chat._id}
+      key={chat._id}
+    >
+      <img className="avatar mr-3" src="img/avatar.jpg" alt="User Avatar" />
+      <h2>{chat.users[0] === activeUser ? chat.users[1] : chat.users[0]}</h2>
+    </div>
+  })
 
   const renderActiveChat = () => {
     const targetChat = chats.find(chat => chat._id === activeChatId)
-    return targetChat.messages.map(msg => {
-      const msgClass = msg.from === activeUser ? 'sent-message' : 'received-message'
-      return msg.from === activeUser
-        ? <div className={`message ${msgClass} flex flex--align-center`}>
-          <p className="user-message">{msg.msg}</p>
-          <p className="user-clip">{msg.from}</p>
-        </div>
-        : <div className={`message ${msgClass} flex flex--align-center`}>
-          <p className="user-clip">{msg.from}</p>
-          <p className="user-message">{msg.msg}</p>
-        </div>
-    })
+    return targetChat
+      ? targetChat.messages.map((msg, i) => {
+        const msgClass = msg.from === activeUser ? 'sent-message' : 'received-message'
+        return msg.from === activeUser
+          ? <div className={`message ${msgClass} flex flex--align-center`} key={i}>
+            <p className="user-message">{msg.msg}</p>
+            <p className="user-clip">{msg.from}</p>
+          </div>
+          : <div className={`message ${msgClass} flex flex--align-center`} key={i}>
+            <p className="user-clip">{msg.from}</p>
+            <p className="user-message">{msg.msg}</p>
+          </div>
+      })
+      : null
   }
 
   return (<main className="write-post-container flex flex--column flex--align-center">
