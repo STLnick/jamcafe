@@ -15,7 +15,13 @@ app.use(cors());
 app.use(express.json());
 
 io.on('connection', (newSocket) => {
-  console.log('a user connected');
+  console.log('user connected: ', newSocket.id);
+  newSocket.emit('your id', newSocket.id);
+
+  newSocket.on('send message', (body) => {
+    io.emit('message', body);
+  });
+
   newSocket.on('disconnect', () => {
     console.log('user disconnected');
   });

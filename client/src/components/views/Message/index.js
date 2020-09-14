@@ -5,33 +5,7 @@ import api from 'api'
 
 import './Message.scss'
 
-/*
-  Just
-
-  chats = [
-    {chat}, {chat}, {chat}
-  ]
-
-  chat = {
-    _id: xxxxxx,
-    users: [user1, user2]
-    messages: [
-      {msg}, {msg}, {msg}
-    ]
-  }
-
-  msg = {
-    from: 'user1',
-    to: 'user2',
-    msg: 'A message here'
-  }
-*/
-
 const chatsAPI = api('chats')
-// Will use:
-// update() -- adding a new message to existing chat
-// showOne() -- get all chats for a user
-// create() -- create a new chat between two users
 
 // Testing render of chat clips showing other username
 const activeUser = 'stlnick'
@@ -40,6 +14,7 @@ export const Message = () => {
   const [chats, setChats] = useState([])
   const [activeChat, setActiveChat] = useState(null)
   const [newMessageText, setNewMessageText] = useState('')
+  const [yourId, setYourId] = useState()
   const socketRef = useRef()
 
   // TODO: Redirect to login if no user in context (no one logged in)
@@ -53,6 +28,14 @@ export const Message = () => {
     })()
 
     socketRef.current = io.connect('http://localhost:5000')
+
+    socketRef.current.on('your id', id => {
+      setYourId(id)
+    })
+
+    socketRef.current.on('message', message => {
+      receivedMessage(message)
+    })
   }, [])
 
   const handleChatChange = (e) => {
@@ -72,30 +55,9 @@ export const Message = () => {
       msg: newMessageText,
       to: activeChat.users[0] === activeUser ? activeChat.users[1] : activeChat.users[0]
     }
+    console.log(activeChat)
 
-    setActiveChat(prevChat => ({
-      ...prevChat,
-      'messages': [
-        ...prevChat['messages'],
-        newMsg
-      ]
-    }))
-
-    setChats(prevChats => {
-      return prevChats.map(chat => {
-        if (chat._id === activeChat._id) {
-          return {
-            ...chat,
-            'messages': [
-              ...chat['messages'],
-              newMsg
-            ]
-          }
-        } else {
-          return chat
-        }
-      })
-    })
+    socketRef.current.emit('send message', { ...newMsg, chatId: activeChat._id })
 
     try {
       await chatsAPI.update({ _id: activeChat._id, message: newMsg })
@@ -103,8 +65,6 @@ export const Message = () => {
       // TODO: Provide feedback on UI on error
       console.log(err)
     }
-
-    // TODO: Emit socket.io event to send to other user live
 
     setNewMessageText('')
   }
@@ -145,6 +105,30 @@ export const Message = () => {
       }
     }
 
+  }
+
+  const receivedMessage = ({ chatId, ...newMsg }) => {
+    setActiveChat(prevChat => ({
+      ...prevChat,
+      'messages': [
+        ...prevChat['messages'],
+        newMsg
+      ]
+    }))
+
+    setChats(prevChats => prevChats.map(chat => {
+      if (chat._id === chatId) {
+        return {
+          ...chat,
+          'messages': [
+            ...chat['messages'],
+            newMsg
+          ]
+        }
+      } else {
+        return chat
+      }
+    }))
   }
 
   const renderChats = () => chats.map(chat => {
