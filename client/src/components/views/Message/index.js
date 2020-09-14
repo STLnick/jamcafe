@@ -61,10 +61,15 @@ const activeUser = 'user1'
 export const Message = () => {
   const [chats, setChats] = useState(tempChats)
   const [activeChatId, setActiveChatId] = useState(chats[0]._id)
+  const [newMessageText, setNewMessageText] = useState('')
 
   const handleChatChange = (e) => {
     const clickedChat = e.target.closest('div')
     setActiveChatId(clickedChat.dataset.chatid)
+  }
+
+  const handleNewMessageTextChange = (e) => {
+    setNewMessageText(e.target.value)
   }
 
   const renderChats = () => chats.map(chat => {
@@ -109,7 +114,11 @@ export const Message = () => {
         </div>
       </div>
       <div className="chat-box flex flex--justify-between">
-        <div className="new-message">Enter Message here...</div>
+        <input
+          className="my-input new-message"
+          onChange={e => handleNewMessageTextChange(e)}
+          value={newMessageText}
+        />
         <button className="cta-btn">Send</button>
       </div>
     </div>
