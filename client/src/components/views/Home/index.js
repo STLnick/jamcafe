@@ -101,15 +101,15 @@ export const Home = () => {
           image: {
             alt: '',
             className: 'use-img',
-            src: 'img/icons/add-circle-sharp.svg'
+            src: 'img/use-img1.png'
           },
-          text: 'Search for other Musicians'
+          text: 'Search through Posts by Title or User'
         },
         {
           image: {
             alt: '',
             className: 'use-img',
-            src: 'img/icons/add-circle-sharp.svg'
+            src: 'img/use-img2.png'
           },
           text: 'Check out profiles to see who fits'
         },

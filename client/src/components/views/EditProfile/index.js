@@ -123,7 +123,7 @@ export const EditProfile = () => {
         className="edit-profile-form flex flex--column flex--align-center flex--justify-around"
         onSubmit={(e) => handleSubmit(e)}
       >
-        <label htmlFor="name" className="screen-reader-text">Name</label>
+        <label htmlFor="name" className="is-size-4 has-text-weight-bold">Name</label>
         <input
           id="name"
           type="text"
@@ -131,13 +131,13 @@ export const EditProfile = () => {
           placeholder="Name"
           defaultValue={profileToEdit.name}
         />
-        <label htmlFor="bio" className="screen-reader-text">About Me</label>
+        <label htmlFor="bio" className="is-size-4 has-text-weight-bold">About Me</label>
         <textarea
           id="bio"
           className="my-input"
           defaultValue={profileToEdit.bio ? profileToEdit.bio : ''}
           placeholder="About Me"></textarea>
-        <label htmlFor="location" className="screen-reader-text">Location</label>
+        <label htmlFor="location" className="is-size-4 has-text-weight-bold">Location</label>
         <input
           id="location"
           type="text"

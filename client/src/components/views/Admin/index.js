@@ -8,6 +8,8 @@ import firebaseApi from 'firebaseApi'
 import { UserContext } from 'UserContext'
 import utils from 'utils'
 
+import { ReactComponent as EditIcon } from '../../../assets/pencil.svg'
+import { ReactComponent as TrashIcon } from '../../../assets/trash.svg'
 import './Admin.scss'
 
 const postsAPI = api('posts')
@@ -210,7 +212,7 @@ export const Admin = () => {
             data-id={el._id}
             onClick={(e) => handleEditItemClick(e)}
           >
-            <img className="filter-primary" alt="Edit icon" src="img/icons/pencil.svg" />
+            <EditIcon className="admin-icon filter-primary" />
           </button>
         </td>)
         .concat(<td key="delete">
@@ -220,7 +222,7 @@ export const Admin = () => {
             data-uid={el.uid}
             onClick={(e) => handleDeleteItemClick(e)}
           >
-            <img className="filter-primary" alt="Delete icon" src="img/icons/trash.svg" />
+            <TrashIcon className="admin-icon filter-primary" />
           </button>
         </td>)}
     </tr>)

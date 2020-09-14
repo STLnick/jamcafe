@@ -35,3 +35,11 @@
 .my-input.title-input::placeholder {
   color: var(--basic-text);
 }
+
+@media screen and (min-width: 600px) {
+  .write-post-icon {
+    bottom: 4rem;
+    right: 3rem;
+    width: 7rem;
+  }
+}

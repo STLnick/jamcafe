@@ -36,8 +36,10 @@ tbody td {
 .admin-icon {
   background: none;
   border: none;
+  height: 3rem;
   outline: none;
   transition: transform 0.4s;
+  width: 3rem;
 }
 
 .admin-icon:focus,
@@ -64,11 +66,6 @@ tbody td {
 
 .edit-modal-form {
   height: 100%;
-}
-
-#content {
-  height: 125px;
-  width: 225px;
 }
 
 .edit-modal-form button {

@@ -90,7 +90,7 @@ textarea {
 }
 
 .logo-container {
-  width: 4rem;
+  width: 5rem;
 }
 
 .logo {
@@ -113,6 +113,8 @@ textarea {
   border: none;
   border-radius: 5px;
   height: 80%;
+  max-height: 700px;
+  max-width: 600px;
   width: 80%;
 }
 
@@ -192,6 +194,7 @@ textarea {
   border-radius: 10px;
   box-shadow: 0 16px 38px -12px rgba(0, 0, 0, 0.56), 0 4px 25px 0 rgba(0, 0, 0, 0.12), 0 8px 10px -5px rgba(0, 0, 0, 0.2);
   margin: 2.25rem 0;
+  max-width: 600px;
   padding: 0.5rem;
   width: 80%;
 }
@@ -257,6 +260,8 @@ textarea {
   border: 1px solid var(--basic-text);
   border-radius: 5px;
   height: 100%;
+  max-height: 300px;
+  max-width: 400px;
   outline: none;
   padding: 0.5rem;
   resize: none;
@@ -379,13 +384,12 @@ textarea {
   border-bottom: 2px solid var(--primary-light);
   font-size: 3.6em;
   font-weight: 700;
-  margin-bottom: 1rem;
+  margin-bottom: 2rem;
 }
 
 .no-flex-heading {
+  margin: 4rem auto 2rem;
   width: 5em;
-  margin: 0 auto;
-  margin-bottom: 1rem;
 }
 
 .section-text {
@@ -468,6 +472,18 @@ textarea {
 .my-input:focus,
 .my-input:hover {
   box-shadow: 0 0 3px 3px var(--primary-dark);
+}
+
+/* Media Queries */
+
+@media screen and (min-width: 600px) {
+  .logo-container {
+    width: 6rem;
+  }
+
+  .my-section {
+    padding: 8rem 4rem;
+  }
 }
 
 /* Change SVG color */
