@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import { motion } from 'framer-motion'
 import io from 'socket.io-client'
 
 import api from 'api'
@@ -7,8 +7,56 @@ import './Message.scss'
 
 const chatsAPI = api('chats')
 
-// Testing render of chat clips showing other username
-const activeUser = 'stlnick'
+const wrapperVariants = {
+  hidden: {
+    opacity: 0,
+  },
+  visible: {
+    opacity: 1,
+    transition: {
+      delay: 0.5,
+      duration: 1.25,
+      when: "beforeChildren"
+    }
+  },
+  exit: {
+    opacity: 0,
+    x: '-100vw',
+    transition: { ease: 'easeInOut' }
+  }
+}
+
+const headerVariants = {
+  hidden: {
+    opacity: 0,
+    scale: 0.5
+  },
+  visible: {
+    opacity: 1,
+    scale: 1,
+    transition: {
+      duration: 1
+    }
+  },
+  exit: {
+    opacity: 0,
+    x: '-100vw',
+    transition: { ease: 'easeInOut' }
+  }
+}
+
+const containerVariants = {
+  hidden: {
+    opacity: 0
+  },
+  visible: {
+    opacity: 1,
+    transition: {
+      when: "beforeChildren",
+      staggerChildren: 0.2
+    }
+  }
+}
 
 export const Message = () => {
   const [chats, setChats] = useState([])
@@ -160,9 +208,24 @@ export const Message = () => {
       : null
   }
 
-  return (<main className="write-post-container flex flex--column flex--align-center">
-    <h3 id="message-heading" className="section-heading">Send A Message</h3>
-    <div className="post flex flex--column flex--align-center">
+  return (<motion.main
+    className="write-post-container flex flex--column flex--align-center"
+    initial="hidden"
+    animate="visible"
+    exit="exit"
+    variants={wrapperVariants}
+  >
+    <motion.h3
+      id="message-heading"
+      className="section-heading"
+      variants={headerVariants}
+    >
+      Send A Message
+    </motion.h3>
+    <motion.div
+      className="post flex flex--column flex--align-center"
+      variants={containerVariants}
+    >
       <div className="top-chat flex">
         <div className="users-window">
           {renderChats()}
@@ -184,7 +247,7 @@ export const Message = () => {
           Send
         </button>
       </div>
-    </div>
+    </motion.div>
     <div className="start-chat-container">
       <form
         className="start-chat-form"
@@ -194,5 +257,5 @@ export const Message = () => {
         <button type="submit">Start Chat</button>
       </form>
     </div>
-  </main>)
+  </motion.main>)
 }
