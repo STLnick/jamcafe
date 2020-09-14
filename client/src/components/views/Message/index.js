@@ -60,12 +60,12 @@ const activeUser = 'user1'
 
 export const Message = () => {
   const [chats, setChats] = useState(tempChats)
-  const [activeChatId, setActiveChatId] = useState(chats[0]._id)
+  const [activeChat, setActiveChat] = useState(chats[0])
   const [newMessageText, setNewMessageText] = useState('')
 
   const handleChatChange = (e) => {
     const clickedChat = e.target.closest('div')
-    setActiveChatId(clickedChat.dataset.chatid)
+    setActiveChat(chats.find(chat => chat._id === clickedChat.dataset.chatid))
   }
 
   const handleNewMessageTextChange = (e) => {
@@ -85,9 +85,8 @@ export const Message = () => {
   })
 
   const renderActiveChat = () => {
-    const targetChat = chats.find(chat => chat._id === activeChatId)
-    return targetChat
-      ? targetChat.messages.map((msg, i) => {
+    return activeChat
+      ? activeChat.messages.map((msg, i) => {
         const msgClass = msg.from === activeUser ? 'sent-message' : 'received-message'
         return msg.from === activeUser
           ? <div className={`message ${msgClass} flex flex--align-center`} key={i}>
