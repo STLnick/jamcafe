@@ -38,6 +38,10 @@ export const Menu = () => {
       {
         path: '/about',
         text: 'About'
+      },
+      {
+        path: '/message',
+        text: 'TESTING MESSAGE'
       }
     ]
 
