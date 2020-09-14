@@ -115,8 +115,6 @@ export const updatePost = async (id, propsToUpdate) => {
 
 export const addChat = async (newChat) => {
   try {
-    // TODO: Edit method here to insert correct stucture of a new chat
-    // { _id: (auto), users: [user1, user2], messages: []}
     return await client.db('jamcafe').collection('chats')
       .insertOne(newChat);
   } catch (err) {
@@ -133,12 +131,11 @@ export const getChatsByUsername = async (user) => {
   }
 };
 
-// export const updateChat = async (id, propsToUpdate) => {
-//   const validPropsToUpdate = { ...propsToUpdate, datePosted: new Date(propsToUpdate.datePosted) };
-//   try {
-//     return await client.db('jamcafe').collection('chats')
-//       .findOneAndUpdate({ _id: ObjectId(id) }, { $set: { ...validPropsToUpdate } });
-//   } catch (err) {
-//     throw new Error(err);
-//   }
-// };
+export const updateChat = async (id, message) => {
+  try {
+    return await client.db('jamcafe').collection('chats')
+      .findOneAndUpdate({ _id: ObjectId(id) }, { $push: { messages: message } });
+  } catch (err) {
+    throw new Error(err);
+  }
+};
