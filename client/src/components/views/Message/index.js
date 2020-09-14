@@ -1,7 +1,9 @@
 import { motion } from 'framer-motion'
+import React, { useContext, useEffect, useRef, useState } from 'react';
 import io from 'socket.io-client'
 
 import api from 'api'
+import { UserContext } from 'UserContext'
 
 import './Message.scss'
 
@@ -64,13 +66,14 @@ export const Message = () => {
   const [newMessageText, setNewMessageText] = useState('')
   const [yourId, setYourId] = useState()
   const socketRef = useRef()
+  const { user } = useContext(UserContext)
 
   // TODO: Redirect to login if no user in context (no one logged in)
 
   // TODO: Get User from Context and use to retrieve all chats for that users
   useEffect(() => {
     (async () => {
-      const chatsRes = await chatsAPI.showOne('stlnick')
+      const chatsRes = await chatsAPI.showOne(user?.username)
       setChats(chatsRes)
       setActiveChat(chatsRes[0])
     })()
@@ -99,9 +102,9 @@ export const Message = () => {
 
   const handleSendMessage = async () => {
     const newMsg = {
-      from: activeUser,
+      from: user?.username,
       msg: newMessageText,
-      to: activeChat.users[0] === activeUser ? activeChat.users[1] : activeChat.users[0]
+      to: activeChat.users[0] === user?.username ? activeChat.users[1] : activeChat.users[0]
     }
     console.log(activeChat)
 
@@ -123,13 +126,13 @@ export const Message = () => {
 
     const userToChatWith = e.target.elements[0].value
     const newChat = {
-      users: [activeUser, userToChatWith],
+      users: [user?.username, userToChatWith],
       messages: []
     }
 
     let hasExistingChat = false
     chats.forEach(chat => {
-      if (chat.users.includes(activeUser && userToChatWith)) {
+      if (chat.users.includes(user?.username && userToChatWith)) {
         hasExistingChat = true
       }
     })
@@ -187,15 +190,15 @@ export const Message = () => {
       key={chat._id}
     >
       <img className="avatar mr-3" src="img/avatar.jpg" alt="User Avatar" />
-      <h2>{chat.users[0] === activeUser ? chat.users[1] : chat.users[0]}</h2>
+      <h2>{chat.users[0] === user?.username ? chat.users[1] : chat.users[0]}</h2>
     </div>
   })
 
   const renderActiveChat = () => {
     return activeChat
       ? activeChat.messages.map((msg, i) => {
-        const msgClass = msg.from === activeUser ? 'sent-message' : 'received-message'
-        return msg.from === activeUser
+        const msgClass = msg.from === user?.username ? 'sent-message' : 'received-message'
+        return msg.from === user?.username
           ? <div className={`message ${msgClass} flex flex--align-center`} key={i}>
             <p className="user-message">{msg.msg}</p>
             <p className="user-clip">{msg.from}</p>
