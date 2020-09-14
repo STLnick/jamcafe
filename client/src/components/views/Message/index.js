@@ -105,6 +105,44 @@ export const Message = () => {
     setNewMessageText('')
   }
 
+  const handleStartNewChat = async (e) => {
+    // TODO: Provide a search functionality to find a user by username
+    e.preventDefault()
+
+    const userToChatWith = e.target.elements[0].value
+    const newChat = {
+      users: [activeUser, userToChatWith],
+      messages: []
+    }
+
+    let hasExistingChat = false
+    chats.forEach(chat => {
+      if (chat.users.includes(activeUser && userToChatWith)) {
+        hasExistingChat = true
+      }
+    })
+
+    if (hasExistingChat) {
+      // TODO: Provide feedback on UI
+      console.log('You already have a chat with them!')
+    } else {
+      try {
+        const newChatRes = await chatsAPI.create(newChat)
+        newChat._id = newChatRes.insertedId
+
+        setChats(prevChats => ([
+          ...prevChats,
+          newChat
+        ]))
+        // TODO: Change activeChat to the newly created chat for UX
+      } catch (err) {
+        // TODO: Provide feedback on UI
+        console.log(err)
+      }
+    }
+
+  }
+
   const renderChats = () => chats.map(chat => {
     return <div
       className="chat-clip flex flex--align-center mb-4"
@@ -158,6 +196,15 @@ export const Message = () => {
           Send
         </button>
       </div>
+    </div>
+    <div className="start-chat-container">
+      <form
+        className="start-chat-form"
+        onSubmit={e => handleStartNewChat(e)}
+      >
+        <input type="text" className="my-input" />
+        <button type="submit">Start Chat</button>
+      </form>
     </div>
   </main>)
 }
