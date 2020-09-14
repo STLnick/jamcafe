@@ -39,14 +39,6 @@ This app is built using the MERN stack:
 
 ## TODOs
 
-- Finish Admin
-  - Implement admin status on Firebase
-  - Create Cloud Function to allow deletion of Users from Firebase inside the App
-  - Allow editing of User or Post information from Admin Dashboard
-
-- Edit Post
-  - Allow a User to edit their own Posts
-
 - Deploy it!
   - Will deploy client-side on Netlify
   - Will deploy server-side on Heroku
