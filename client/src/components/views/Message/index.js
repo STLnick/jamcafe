@@ -26,37 +26,6 @@ import './Message.scss'
   }
 */
 
-// Testing Chats
-const tempChats = [
-  {
-    _id: '111',
-    users: ['user1', 'user2'],
-    messages: [
-      { from: 'user1', to: 'user2', msg: 'hey there' },
-      { from: 'user2', to: 'user1', msg: 'how are you' },
-      { from: 'user1', to: 'user2', msg: 'I\'m good' },
-    ]
-  },
-  {
-    _id: '222',
-    users: ['user1', 'user3'],
-    messages: [
-      { from: 'user1', to: 'user3', msg: 'hey ' },
-      { from: 'user3', to: 'user1', msg: 'whaddup' },
-      { from: 'user1', to: 'user3', msg: 'I\'m good' },
-    ]
-  },
-  {
-    _id: '333',
-    users: ['user4', 'user1'],
-    messages: [
-      { from: 'user4', to: 'user1', msg: 'yoyoyo' },
-      { from: 'user1', to: 'user4', msg: 'lol' },
-      { from: 'user4', to: 'user1', msg: 'lolz' },
-    ]
-  },
-]
-
 const chatsAPI = api('chats')
 // Will use:
 // update() -- adding a new message to existing chat
