@@ -11,7 +11,7 @@ router.get('/:username', async (req, res) => {
 
 // Update a chat (add a new message)
 router.patch('/:_id', async (req, res) => {
-  res.status(200).json(await updateChat(req.params._id, req.body));
+  res.status(200).json(await updateChat(req.params._id, req.body.message));
 });
 
 // Add a chat

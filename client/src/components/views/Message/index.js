@@ -93,12 +93,13 @@ export const Message = () => {
     setNewMessageText(e.target.value)
   }
 
-  const handleSendMessage = () => {
+  const handleSendMessage = async () => {
     const newMsg = {
       from: activeUser,
       msg: newMessageText,
       to: activeChat.users[0] === activeUser ? activeChat.users[1] : activeChat.users[0]
     }
+
     setActiveChat(prevChat => ({
       ...prevChat,
       'messages': [
@@ -123,7 +124,12 @@ export const Message = () => {
       })
     })
 
-    // TODO: Store message in Mongo
+    try {
+      await chatsAPI.update({ _id: activeChat._id, message: newMsg })
+    } catch (err) {
+      // TODO: Provide feedback on UI on error
+      console.log(err)
+    }
 
     // TODO: Emit socket.io event to send to other user live
 
