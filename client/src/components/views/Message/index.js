@@ -1,4 +1,5 @@
-import React, { useEffect, useReducer, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
+import io from 'socket.io-client'
 
 import api from 'api'
 
@@ -39,6 +40,7 @@ export const Message = () => {
   const [chats, setChats] = useState([])
   const [activeChat, setActiveChat] = useState(null)
   const [newMessageText, setNewMessageText] = useState('')
+  const socketRef = useRef()
 
   // TODO: Redirect to login if no user in context (no one logged in)
 
@@ -49,6 +51,8 @@ export const Message = () => {
       setChats(chatsRes)
       setActiveChat(chatsRes[0])
     })()
+
+    socketRef.current = io.connect('http://localhost:5000')
   }, [])
 
   const handleChatChange = (e) => {
