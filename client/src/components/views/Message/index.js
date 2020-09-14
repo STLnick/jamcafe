@@ -66,7 +66,6 @@ export const Message = () => {
   const [chats, setChats] = useState([])
   const [activeChat, setActiveChat] = useState(null)
   const [newMessageText, setNewMessageText] = useState('')
-  const [yourId, setYourId] = useState()
   const socketRef = useRef()
   const { user } = useContext(UserContext)
 
@@ -83,10 +82,6 @@ export const Message = () => {
     })()
 
     socketRef.current = io.connect('http://localhost:5000')
-
-    socketRef.current.on('your id', id => {
-      setYourId(id)
-    })
 
     socketRef.current.on('message', message => {
       receivedMessage(message)

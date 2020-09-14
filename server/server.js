@@ -16,7 +16,6 @@ app.use(express.json());
 
 io.on('connection', (newSocket) => {
   console.log('user connected: ', newSocket.id);
-  newSocket.emit('your id', newSocket.id);
 
   newSocket.on('send message', (body) => {
     io.emit('message', body);
