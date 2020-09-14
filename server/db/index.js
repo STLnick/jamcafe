@@ -113,33 +113,34 @@ export const updatePost = async (id, propsToUpdate) => {
 
 /* * Chats * */
 
-export const addChat = async (newChat) => {
-  try {
-    // TODO: Edit method here to insert correct stucture of a new chat
-    // { _id: (auto), users: [user1, user2], messages: []}
-    return await client.db('jamcafe').collection('chats')
-      .insertOne({});
-  } catch (err) {
-    throw new Error(err);
-  }
-};
+// export const addChat = async (newChat) => {
+//   try {
+//     // TODO: Edit method here to insert correct stucture of a new chat
+//     // { _id: (auto), users: [user1, user2], messages: []}
+//     return await client.db('jamcafe').collection('chats')
+//       .insertOne({});
+//   } catch (err) {
+//     throw new Error(err);
+//   }
+// };
 
 export const getChatsByUsername = async (user) => {
+  const testName = 'stlnick';
   try {
     // TODO: Edit method here to find a user in an Array in Mongo
     return await client.db('jamcafe').collection('chats')
-      .find({ user }).toArray();
+      .find({ users: testName }).toArray();
   } catch (err) {
     throw new Error(err);
   }
 };
 
-export const updateChat = async (id, propsToUpdate) => {
-  const validPropsToUpdate = { ...propsToUpdate, datePosted: new Date(propsToUpdate.datePosted) };
-  try {
-    return await client.db('jamcafe').collection('chats')
-      .findOneAndUpdate({ _id: ObjectId(id) }, { $set: { ...validPropsToUpdate } });
-  } catch (err) {
-    throw new Error(err);
-  }
-};
+// export const updateChat = async (id, propsToUpdate) => {
+//   const validPropsToUpdate = { ...propsToUpdate, datePosted: new Date(propsToUpdate.datePosted) };
+//   try {
+//     return await client.db('jamcafe').collection('chats')
+//       .findOneAndUpdate({ _id: ObjectId(id) }, { $set: { ...validPropsToUpdate } });
+//   } catch (err) {
+//     throw new Error(err);
+//   }
+// };
