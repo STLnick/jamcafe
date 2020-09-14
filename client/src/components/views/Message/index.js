@@ -1,5 +1,7 @@
 import React, { useEffect, useReducer, useState } from 'react';
 
+import api from 'api'
+
 import './Message.scss'
 
 /*
@@ -54,6 +56,12 @@ const tempChats = [
     ]
   },
 ]
+
+const chatsAPI = api('chats')
+// Will use:
+// update() -- adding a new message to existing chat
+// showOne() -- get all chats for a user
+// create() -- create a new chat between two users
 
 // Testing render of chat clips showing other username
 const activeUser = 'user1'
