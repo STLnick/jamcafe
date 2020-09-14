@@ -1,4 +1,4 @@
-import React, { useReduce, useState } from 'react';
+import React, { useEffect, useReducer, useState } from 'react';
 
 import './Message.scss'
 
@@ -63,6 +63,14 @@ export const Message = () => {
   const [activeChat, setActiveChat] = useState(chats[0])
   const [newMessageText, setNewMessageText] = useState('')
 
+  useEffect(() => {
+    setChats(prevChats => {
+      return prevChats.map(chat => {
+        return chat._id === activeChat._id ? activeChat : chat
+      })
+    })
+  }, [activeChat.messages])
+
   const handleChatChange = (e) => {
     const clickedChat = e.target.closest('div')
     setActiveChat(chats.find(chat => chat._id === clickedChat.dataset.chatid))
@@ -70,6 +78,22 @@ export const Message = () => {
 
   const handleNewMessageTextChange = (e) => {
     setNewMessageText(e.target.value)
+  }
+
+  const handleSendMessage = () => {
+    setActiveChat(prevChat => ({
+      ...prevChat,
+      'messages': [
+        ...prevChat['messages'],
+        {
+          from: activeUser,
+          msg: newMessageText,
+          to: activeChat.users[0] === activeUser ? activeChat.users[1] : activeChat.users[0]
+        }
+      ]
+    }))
+
+    setNewMessageText('')
   }
 
   const renderChats = () => chats.map(chat => {
@@ -118,7 +142,12 @@ export const Message = () => {
           onChange={e => handleNewMessageTextChange(e)}
           value={newMessageText}
         />
-        <button className="cta-btn">Send</button>
+        <button
+          className="cta-btn"
+          onClick={handleSendMessage}
+        >
+          Send
+        </button>
       </div>
     </div>
   </main>)

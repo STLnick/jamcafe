@@ -7,6 +7,7 @@
 .users-window {
   border-right: 1px solid #616161;
   height: 400px;
+  overflow: scroll;
   padding: 0.5rem;
   width: 30%;
 }
@@ -23,6 +24,7 @@
 
 .chat-window {
   height: 400px;
+  overflow: scroll;
   padding: 0.5rem;
   width: 70%;
 }
