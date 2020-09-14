@@ -256,7 +256,7 @@ export const Message = () => {
         className="start-chat-form"
         onSubmit={e => handleStartNewChat(e)}
       >
-        <input type="text" className="my-input" />
+        <input type="text" className="my-input" placeholder="Username to chat with..." />
         <button type="submit">Start Chat</button>
       </form>
     </div>
