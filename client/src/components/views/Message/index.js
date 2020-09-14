@@ -73,17 +73,18 @@ export const Message = () => {
     history.push('/login')
   }
 
-  // TODO: Get User from Context and use to retrieve all chats for that users
   useEffect(() => {
     let isSubscribed = true;
-
-    (async () => {
-      if (isSubscribed) {
-        const chatsRes = await chatsAPI.showOne(user?.username)
-        setChats(chatsRes)
-        setActiveChat(chatsRes[0])
-      }
-    })()
+    if (user) {
+      const { username } = user;
+      (async () => {
+        if (isSubscribed) {
+          const chatsRes = await chatsAPI.showOne(username)
+          setChats(chatsRes)
+          setActiveChat(chatsRes[0])
+        }
+      })()
+    }
 
     socketRef.current = io.connect('http://localhost:5000')
 
@@ -93,13 +94,11 @@ export const Message = () => {
       }
     })
     return () => isSubscribed = false
-  }, [])
+  }, [user])
 
   const handleChatChange = (e) => {
     const clickedChat = e.target.closest('div')
     setActiveChat(chats.find(chat => chat._id === clickedChat.dataset.chatid))
-
-    // TODO: Need to get new socket id???
   }
 
   const handleNewMessageTextChange = (e) => {
