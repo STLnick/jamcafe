@@ -63,17 +63,23 @@ export const Message = () => {
   const [activeChat, setActiveChat] = useState(chats[0])
   const [newMessageText, setNewMessageText] = useState('')
 
+  // TODO: Get User from Context and use to retrieve all chats for that users
+
   useEffect(() => {
     setChats(prevChats => {
       return prevChats.map(chat => {
         return chat._id === activeChat._id ? activeChat : chat
       })
     })
+
+    // TODO: setChats with retrieved chats from Mongo
   }, [activeChat.messages])
 
   const handleChatChange = (e) => {
     const clickedChat = e.target.closest('div')
     setActiveChat(chats.find(chat => chat._id === clickedChat.dataset.chatid))
+
+    // TODO: Need to get new socket id???
   }
 
   const handleNewMessageTextChange = (e) => {
@@ -92,6 +98,10 @@ export const Message = () => {
         }
       ]
     }))
+
+    // TODO: Store message in Mongo
+
+    // TODO: Emit socket.io event to send to other user live
 
     setNewMessageText('')
   }
