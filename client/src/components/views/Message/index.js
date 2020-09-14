@@ -64,14 +64,22 @@ const chatsAPI = api('chats')
 // create() -- create a new chat between two users
 
 // Testing render of chat clips showing other username
-const activeUser = 'user1'
+const activeUser = 'stlnick'
 
 export const Message = () => {
   const [chats, setChats] = useState(tempChats)
   const [activeChat, setActiveChat] = useState(chats[0])
   const [newMessageText, setNewMessageText] = useState('')
 
+  // TODO: Redirect to login if no user in context (no one logged in)
+
   // TODO: Get User from Context and use to retrieve all chats for that users
+  useEffect(() => {
+    (async () => {
+      const res = await chatsAPI.showOne('stlnick')
+      setChats(res)
+    })()
+  }, [])
 
   useEffect(() => {
     setChats(prevChats => {
