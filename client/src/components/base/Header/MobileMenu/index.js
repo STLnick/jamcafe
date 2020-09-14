@@ -28,6 +28,10 @@ export const MobileMenu = ({ handleClick }) => {
       {
         path: `/profile/edit/${user.username}`,
         text: 'Edit Profile'
+      },
+      {
+        path: '/message',
+        text: 'Chat'
       }
     ]
     : [

@@ -28,6 +28,10 @@ export const Menu = () => {
       {
         path: `/profile/edit/${user.username}`,
         text: 'Edit Profile'
+      },
+      {
+        path: '/message',
+        text: 'Chat'
       }
     ]
     : [
@@ -38,10 +42,6 @@ export const Menu = () => {
       {
         path: '/about',
         text: 'About'
-      },
-      {
-        path: '/message',
-        text: 'TESTING MESSAGE'
       }
     ]
 
