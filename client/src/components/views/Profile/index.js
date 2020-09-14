@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion'
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useCallback, useContext, useEffect, useState } from 'react'
 import Modal from 'react-modal'
 import { Link, useLocation } from 'react-router-dom'
 
@@ -99,14 +99,17 @@ export const Profile = () => {
     })()
   }, [location.pathname])
 
+  const checkIfIsLoggedInUsersProfile = useCallback(() => user?.username === profile.username, [user, profile])
+
   useEffect(() => {
     (async () => {
       if (profile) {
         setUserPosts(await postsAPI.showOne(profile.username))
-        setIsLoggedInUsersProfile(user?.username === profile.username)
+        setIsLoggedInUsersProfile(checkIfIsLoggedInUsersProfile())
       }
     })()
-  }, [profile, user?.username])
+  }, [profile, checkIfIsLoggedInUsersProfile])
+
 
   const handleEditClick = (e) => {
     const targetPostId = e.target.closest('button').dataset.id
