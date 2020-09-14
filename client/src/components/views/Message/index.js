@@ -1,5 +1,6 @@
 import { motion } from 'framer-motion'
 import React, { useContext, useEffect, useRef, useState } from 'react';
+import { useHistory } from 'react-router-dom'
 import io from 'socket.io-client'
 
 import api from 'api'
@@ -61,6 +62,7 @@ const containerVariants = {
 }
 
 export const Message = () => {
+  const history = useHistory()
   const [chats, setChats] = useState([])
   const [activeChat, setActiveChat] = useState(null)
   const [newMessageText, setNewMessageText] = useState('')
@@ -68,7 +70,9 @@ export const Message = () => {
   const socketRef = useRef()
   const { user } = useContext(UserContext)
 
-  // TODO: Redirect to login if no user in context (no one logged in)
+  if (!user) {
+    history.push('/login')
+  }
 
   // TODO: Get User from Context and use to retrieve all chats for that users
   useEffect(() => {
