@@ -7,6 +7,8 @@ import { Card } from '../../base'
 import api from 'api'
 import { UserContext } from 'UserContext'
 
+import { SearchBar } from '../../base'
+
 import './Feed.scss'
 
 const postsAPI = api('posts')
@@ -44,10 +46,12 @@ const headerVariants = {
   }
 }
 
-export const Feed = ({ searchSelection, searchText }) => {
+export const Feed = () => {
   const history = useHistory()
   const [filteredPosts, setFilteredPosts] = useState([])
   const [posts, setPosts] = useState([])
+  const [searchSelection, setSearchSelection] = useState('title')
+  const [searchText, setSearchText] = useState('')
   const { user } = useContext(UserContext)
 
   if (!user) {
@@ -70,6 +74,15 @@ export const Feed = ({ searchSelection, searchText }) => {
         .filter(({ user }) => user.toLowerCase().includes(searchText.toLowerCase())))
   }, [posts, searchSelection, searchText])
 
+  const handleSearchSelectionChange = (e) => {
+    e.preventDefault()
+    setSearchSelection(e.target.elements[0].value)
+  }
+
+  const handleSearchTextChange = (e) => {
+    setSearchText(e.target.value)
+  }
+
   const renderFilteredPosts = () => filteredPosts
     .sort((a, b) => new Date(b.datePosted) - new Date(a.datePosted))
     .map((post, i) => <Card key={i} post={post} userLoggedIn={user} />)
@@ -88,6 +101,12 @@ export const Feed = ({ searchSelection, searchText }) => {
       >
         User Posts
       </motion.h3>
+      <SearchBar
+        handleSearchSelectionChange={handleSearchSelectionChange}
+        handleSearchTextChange={handleSearchTextChange}
+        searchSelection={searchSelection}
+        searchText={searchText}
+      />
       {renderFilteredPosts()}
       <Link to="/post" className="write-post-link">
         <img

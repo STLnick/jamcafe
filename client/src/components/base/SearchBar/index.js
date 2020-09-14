@@ -3,7 +3,7 @@ import Modal from 'react-modal'
 import PropTypes from 'prop-types'
 
 import './SearchBar.scss'
-import { ReactComponent as FunnelIcon } from '../../../../assets/funnel.svg'
+import { ReactComponent as FunnelIcon } from '../../../assets/funnel.svg'
 
 export const SearchBar = ({ handleSearchSelectionChange, handleSearchTextChange, searchSelection, searchText }) => {
   const [modalIsOpen, setModalIsOpen] = useState(false)

@@ -29,8 +29,6 @@ import './App.scss';
 
 export const App = () => {
   const location = useLocation()
-  const [searchSelection, setSearchSelection] = useState('title')
-  const [searchText, setSearchText] = useState('')
   const [user, setUser] = useState(null)
   const providerValue = useMemo(() => ({ user, setUser }), [user, setUser])
 
@@ -46,14 +44,7 @@ export const App = () => {
     }
   }
 
-  const handleSearchSelectionChange = (e) => {
-    e.preventDefault()
-    setSearchSelection(e.target.elements[0].value)
-  }
 
-  const handleSearchTextChange = (e) => {
-    setSearchText(e.target.value)
-  }
 
   return (<>
     <div className="overlay" onClick={toggleMobileMenu}></div>
@@ -61,10 +52,6 @@ export const App = () => {
       <Header
         handleClick={toggleMobileMenu}
         handleKeyDown={handleMenuBtnKeyDown}
-        handleSearchSelectionChange={handleSearchSelectionChange}
-        handleSearchTextChange={handleSearchTextChange}
-        searchSelection={searchSelection}
-        searchText={searchText}
       />
       <AnimatePresence>
         <Switch location={location} key={location.key}>
@@ -81,7 +68,7 @@ export const App = () => {
             <EditProfile />
           </Route>
           <Route exact path='/feed'>
-            <Feed searchSelection={searchSelection} searchText={searchText} />
+            <Feed />
           </Route>
           <Route exact path='/forgot'>
             <Forgot />
