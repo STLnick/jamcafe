@@ -1,0 +1,31 @@
+.use-list {
+  text-align: center;
+}
+
+.use-list li {
+  margin: 4rem auto;
+}
+
+.use-img {
+  box-shadow: 0 16px 38px -12px rgba(0, 0, 0, 0.56), 0 4px 25px 0 rgba(0, 0, 0, 0.12), 0 8px 10px -5px rgba(0, 0, 0, 0.2);
+  border: 1px solid #616161;
+  border-radius: 10px;
+  width: 50rem;
+}
+
+.feature-list-item {
+  margin-bottom: 0.5rem;
+}
+
+.feature-list-item--marker {
+  margin-right: 0.25rem;
+  width: 2rem;
+}
+
+.my-section.section--use {
+  background-color: #eee;
+}
+
+.my-section.section--help {
+  background-color: #eee;
+}

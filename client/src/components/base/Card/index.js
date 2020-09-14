@@ -1,9 +1,48 @@
+import { motion } from 'framer-motion'
 import React, { useEffect, useState } from 'react'
 import PropTypes from 'prop-types'
 import { Link, useHistory } from 'react-router-dom'
 import api from 'api'
 
+import './Card.scss'
+import { ReactComponent as EditIcon } from '../../../assets/pencil.svg'
+import { ReactComponent as GuitarIcon } from '../../../assets/electric-guitar.svg'
+import { ReactComponent as BassIcon } from '../../../assets/bass-guitar.svg'
+import { ReactComponent as DrumIcon } from '../../../assets/snare-drum.svg'
+import { ReactComponent as VocalsIcon } from '../../../assets/microphone.svg'
+import { ReactComponent as PianoIcon } from '../../../assets/piano.svg'
+import { ReactComponent as NoteIcon } from '../../../assets/note.svg'
+
 const usersAPI = api('users')
+
+const postVariants = {
+  hidden: {
+    opacity: 0
+  },
+  visible: {
+    opacity: 1,
+    transition: {
+      delay: 0.5,
+      duration: 0.5,
+      when: "beforeChildren",
+      staggerChildren: 0.15
+    }
+  }
+}
+
+const postItemVariants = {
+  hidden: {
+    opacity: 0
+  },
+  visible: {
+    opacity: 1,
+    transition: {
+      duration: 0.5,
+      when: "beforeChildren",
+      staggerChildren: 0.15
+    }
+  }
+}
 
 export const Card = ({ post: { content, datePosted, title, user }, userLoggedIn }) => {
   const history = useHistory()
@@ -22,51 +61,68 @@ export const Card = ({ post: { content, datePosted, title, user }, userLoggedIn 
     })()
   }, [user])
 
-
-  const determineInstrumentIcon = (instrument) => {
+  const renderInstrumentIcons = () => instruments.map((instrument, i) => {
     switch (instrument) {
       case 'Guitar':
-        return 'img/icons/electric-guitar.svg'
+        return <GuitarIcon key={i} className="instrument-icon-lg" />
       case 'Bass':
-        return 'img/icons/bass-guitar.svg'
+        return <BassIcon key={i} className="instrument-icon-lg" />
       case 'Drums':
-        return 'img/icons/snare-drum.svg'
+        return <DrumIcon key={i} className="instrument-icon-lg" />
       case 'Vocals':
-        return 'img/icons/microphone.svg'
+        return <VocalsIcon key={i} className="instrument-icon-lg" />
       case 'Keyboard / Piano':
-        return 'img/icons/piano.svg'
+        return <PianoIcon key={i} className="instrument-icon-lg" />
       default:
-        return 'img/icons/note.svg'
+        return <NoteIcon key={i} className="instrument-icon-lg" />
     }
-  }
-
-  const renderInstrumentIcons = () => instruments.map(instrument => {
-    return <img key={instrument} className="instrument-icon" src={determineInstrumentIcon(instrument)} alt={`${instrument} icon`} />
   })
 
   return (
-    <div className="post flex flex--column flex--align-center">
-      <h4 className="post--title">{title}</h4>
-      <div className="flex flex--align-center">
+    <motion.div
+      initial="hidden"
+      animate="visible"
+      className="post flex flex--column flex--align-center"
+      variants={postVariants}
+    >
+      <motion.h4
+        className="post--title"
+        variants={postItemVariants}
+      >
+        {title}
+      </motion.h4>
+      <motion.div
+        className="flex flex--align-center"
+        variants={postItemVariants}
+      >
         <img className="avatar" src={avatar || 'img/avatar.jpg'} alt="User avatar" />
         <button className="has-text-weight-bold username-btn" onClick={() => handleUsernameClick()}>{user}</button>
-      </div>
-      <div className="flex flex--align-center user-instruments">
+      </motion.div>
+      <motion.div
+        className="flex flex--align-center user-instruments"
+        variants={postItemVariants}
+      >
         <span className="is-size-5 has-text-weight-semibold">Plays:</span>
         {instruments ? renderInstrumentIcons() : null}
-      </div>
-      <div className="post--content">
+      </motion.div>
+      <motion.div
+        className="post--content"
+        variants={postItemVariants}
+      >
         <p>{content}</p>
-      </div>
-      <div className="post-footer flex flex--align-center flex--justify-between">
+      </motion.div>
+      <motion.div
+        className="post-footer flex flex--align-center flex--justify-between"
+        variants={postItemVariants}
+      >
         <p className="post--date">{datePosted.slice(0, 10)}</p>
         <Link to={`/message?${user}`}>
           <button className="message-icon-container">
             <img src="img/icons/chatbox-ellipses.svg" alt="" className="post--message-icon filter-primary" />
           </button>
         </Link>
-      </div>
-    </div>
+      </motion.div>
+    </motion.div>
   )
 }
 

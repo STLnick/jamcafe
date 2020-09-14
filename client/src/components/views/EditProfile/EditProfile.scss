@@ -1,3 +1,24 @@
+.edit-profile-container {
+  background-color: #fff;
+  height: 91vh;
+  width: 100vw;
+}
+
+.edit-profile-form {
+  background-color: #eee;
+  border: none;
+  border-radius: 5px;
+  height: 80%;
+  max-width: 650px;
+  width: 80%;
+}
+
+#bio {
+max-height: 150px;
+  resize: none;
+  width: 250px;
+}
+
 /* The container */
 .checkbox-container {
   -moz-user-select: none;
@@ -61,4 +82,12 @@
   top: 5px;
   transform: rotate(45deg);
   width: 5px;
+}
+
+.file-label > .file-cta {
+  background-color: #ccc;
+}
+
+.file-name {
+  width: 16em;
 }

@@ -1,6 +1,28 @@
+import { motion } from 'framer-motion'
 import React from 'react'
 
 import { Section } from '../../base'
+
+import './About.scss'
+
+const wrapperVariants = {
+  hidden: {
+    opacity: 0,
+    x: '100vw'
+  },
+  visible: {
+    opacity: 1,
+    x: 0,
+    transition: {
+      delay: 0.5,
+      duration: 1.25
+    }
+  },
+  exit: {
+    x: '-100vw',
+    transition: { ease: 'easeInOut' }
+  }
+}
 
 const section = {
   heading: 'About Us',
@@ -15,11 +37,18 @@ const section = {
     `What drives us is trying to help others get that amazing feeling as much and as easily as possible. The biggest issue we ran into as individuals was not having anyone to play with. Maybe you moved to a new town, maybe your buddies moved to a new town - whatever. We do what we do so others can get that problem taken care of as easily as possible. `,
     `Go ahead. Jam out.`
   ],
-  title: null
+  title: 'about'
 }
 
 export const About = () => {
   return (
-    <Section section={section} />
+    <motion.div
+      className="about-view"
+      initial="hidden"
+      animate="visible"
+      exit="exit"
+      variants={wrapperVariants}>
+      <Section section={section} />
+    </motion.div>
   )
 }

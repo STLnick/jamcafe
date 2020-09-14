@@ -1,3 +1,4 @@
+import { motion } from 'framer-motion'
 import React, { useContext, useEffect, useState } from 'react'
 import { Link, useHistory, useLocation } from 'react-router-dom'
 
@@ -6,8 +7,41 @@ import utils from 'utils'
 import { UserContext } from 'UserContext'
 
 import './EditProfile.scss'
+import { ReactComponent as UploadIcon } from '../../../assets/cloud-upload.svg'
 
 const usersAPI = api('users')
+
+const wrapperVariants = {
+  hidden: {
+    opacity: 0,
+  },
+  visible: {
+    opacity: 1,
+    transition: {
+      delay: 0.5,
+      duration: 1.25
+    }
+  },
+  exit: {
+    opacity: 0,
+    x: '-100vw',
+    transition: { ease: 'easeInOut' }
+  }
+}
+
+const headerVariants = {
+  hidden: {
+    opacity: 0,
+    scale: 0.5
+  },
+  visible: {
+    opacity: 1,
+    scale: 1,
+    transition: {
+      duration: 1
+    }
+  }
+}
 
 export const EditProfile = () => {
   const history = useHistory()
@@ -23,7 +57,7 @@ export const EditProfile = () => {
 
   useEffect(() => {
     (async () => {
-      const profileRes = await usersAPI.getUserByUsername(location.pathname.slice(14))
+      const profileRes = await usersAPI.showOne(location.pathname.slice(14))
       setProfileToEdit(profileRes)
     })()
   }, [location.pathname])
@@ -70,15 +104,26 @@ export const EditProfile = () => {
     }
   }
 
-  return (<main className="edit-profile-container flex flex--column flex--align-center flex--justify-center">
-    <h3 className="section-heading">Edit Profile</h3>
+  return (<motion.main
+    className="edit-profile-container flex flex--column flex--align-center flex--justify-center"
+    initial="hidden"
+    animate="visible"
+    exit="exit"
+    variants={wrapperVariants}
+  >
+    <motion.h3
+      className="section-heading"
+      variants={headerVariants}
+    >
+      Edit Profile
+    </motion.h3>
     {editError ? <p className="help has-text-danger is-size-3">{editError}</p> : null}
     {profileToEdit
       ? <form
         className="edit-profile-form flex flex--column flex--align-center flex--justify-around"
         onSubmit={(e) => handleSubmit(e)}
       >
-        <label htmlFor="name" className="screen-reader-text">Name</label>
+        <label htmlFor="name" className="is-size-4 has-text-weight-bold">Name</label>
         <input
           id="name"
           type="text"
@@ -86,13 +131,13 @@ export const EditProfile = () => {
           placeholder="Name"
           defaultValue={profileToEdit.name}
         />
-        <label htmlFor="bio" className="screen-reader-text">About Me</label>
+        <label htmlFor="bio" className="is-size-4 has-text-weight-bold">About Me</label>
         <textarea
           id="bio"
           className="my-input"
           defaultValue={profileToEdit.bio ? profileToEdit.bio : ''}
           placeholder="About Me"></textarea>
-        <label htmlFor="location" className="screen-reader-text">Location</label>
+        <label htmlFor="location" className="is-size-4 has-text-weight-bold">Location</label>
         <input
           id="location"
           type="text"
@@ -162,14 +207,12 @@ export const EditProfile = () => {
             <input onChange={(e) => handleFileChange(e)} className="file-input" type="file" name="avatar" id="avatar" />
             <span className="file-cta">
               <span className="file-icon">
-                {/* TODO: ADD an icon to the upload button */}
-                <img className="upload-icon" src="img/icons/cloud-upload.svg" alt="Upload icon" />
+                <UploadIcon className="upload-icon filter-primary" />
               </span>
               <span className="file-label">
-                Choose a file…
+                Upload Profile Pic
               </span>
             </span>
-            {/* TODO: place chosen file name inside this span */}
             <span className="file-name">{fileText}</span>
           </label>
         </div>
@@ -177,5 +220,5 @@ export const EditProfile = () => {
         <button className="cta-btn" type="submit">Confirm</button>
       </form>
       : <h3>Loading...</h3>}
-  </main>)
+  </motion.main>)
 }

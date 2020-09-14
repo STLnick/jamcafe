@@ -1,5 +1,48 @@
+import { motion } from 'framer-motion'
 import React from 'react'
 import { Link } from 'react-router-dom'
+
+import './Hero.scss'
+
+const linkVariants = {
+  hidden: {
+    opacity: 0
+  },
+  visible: {
+    opacity: 1,
+    transition: {
+      delay: 1.25,
+      duration: 1.75
+    }
+  }
+}
+
+const textContainerVariants = {
+  hidden: {
+    opacity: 0
+  },
+  visible: {
+    opacity: 1,
+    transition: {
+      delay: 0.75,
+      duration: 0.2,
+      when: "beforeChildren",
+      staggerChildren: 0.3
+    }
+  }
+}
+
+const textVariants = {
+  hidden: {
+    opacity: 0
+  },
+  visible: {
+    opacity: 1,
+    transition: {
+      duration: 0.5
+    }
+  }
+}
 
 export const Hero = () => {
 
@@ -7,16 +50,50 @@ export const Hero = () => {
     <section
       className="section--hero flex flex--column flex--justify-end flex--align-center"
     >
-      <p className="hero-text">Find someone to jam with.</p>
-      <p className="hero-text">Find someone for your band.</p>
-      <p className="hero-text">Find a band to join.</p>
-      <p className="hero-text hero-text-last">Find people to play music with.</p>
-      <Link
-        className="cta-btn hero-btn"
-        to="/register"
+      <motion.div
+        className="hero-text-container"
+        initial="hidden"
+        animate="visible"
+        variants={textContainerVariants}
       >
-        Join to Jam
-      </Link>
+        <motion.p
+          className="hero-text"
+          variants={textVariants}
+        >
+          Find someone to jam with.
+        </motion.p>
+        <motion.p
+          className="hero-text"
+          variants={textVariants}
+        >
+          Find someone for your band.
+        </motion.p>
+        <motion.p
+          className="hero-text"
+          variants={textVariants}
+        >
+          Find a band to join.
+        </motion.p>
+        <motion.p
+          className="hero-text hero-text-last"
+          variants={textVariants}
+        >
+          Find people to play music with.
+        </motion.p>
+      </motion.div>
+      <motion.div
+        initial="hidden"
+        animate="visible"
+        className="hero-btn mt-6"
+        variants={linkVariants}
+      >
+        <Link
+          className="cta-btn hero-btn"
+          to="/register"
+        >
+          Join to Jam
+        </Link>
+      </motion.div>
     </section>
   )
 }

@@ -5,6 +5,8 @@ import PropTypes from 'prop-types'
 import auth from 'auth'
 import { UserContext } from 'UserContext'
 
+import './MobileMenu.scss'
+
 export const MobileMenu = ({ handleClick }) => {
   const history = useHistory()
   const { user, setUser } = useContext(UserContext)
@@ -17,7 +19,7 @@ export const MobileMenu = ({ handleClick }) => {
       },
       {
         path: '/post',
-        text: 'Create A Post'
+        text: 'Create Post'
       },
       {
         path: `/profile/${user.username}`,
@@ -26,10 +28,6 @@ export const MobileMenu = ({ handleClick }) => {
       {
         path: `/profile/edit/${user.username}`,
         text: 'Edit Profile'
-      },
-      {
-        path: '/about',
-        text: 'About'
       }
     ]
     : [
@@ -38,20 +36,8 @@ export const MobileMenu = ({ handleClick }) => {
         text: 'Home'
       },
       {
-        path: '/register',
-        text: 'Sign Up'
-      },
-      {
-        path: '/login',
-        text: 'Login'
-      },
-      {
         path: '/about',
         text: 'About'
-      },
-      {
-        path: '/message',
-        text: 'TESTING MSG'
       }
     ]
 
@@ -88,13 +74,36 @@ export const MobileMenu = ({ handleClick }) => {
           : null}
         {user
           ? <button
-            className="button mt-5 is-size-5 is-uppercase"
+            className="cancel-btn small-btn mt-5 is-size-4 is-uppercase"
             onClick={handleSignOut}>
             Sign out
           </button>
-          : null}
+          : <>
+            <Link
+              className="mobile-menu--list-link link-button"
+              onClick={handleClick}
+              to='/register'
+            >
+              <button
+                className="cancel-btn small-btn mt-5 is-size-4 is-uppercase"
+              >
+                Sign Up
+            </button>
+            </Link>
+            <Link
+              className="mobile-menu--list-link link-button"
+              onClick={handleClick}
+              to='/login'
+            >
+              <button
+                className="cta-btn small-btn mt-5 is-size-4 is-uppercase"
+              >
+                Login
+            </button>
+            </Link>
+          </>}
       </ul>
-    </div>
+    </div >
   )
 }
 

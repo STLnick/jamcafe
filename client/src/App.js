@@ -1,8 +1,9 @@
+import { AnimatePresence } from 'framer-motion'
 import React, { useMemo, useState } from 'react';
 import {
-  BrowserRouter as Router,
   Route,
-  Switch
+  Switch,
+  useLocation
 } from 'react-router-dom'
 
 // components
@@ -27,7 +28,7 @@ import { UserContext } from './UserContext'
 import './App.scss';
 
 export const App = () => {
-  const [searchText, setSearchText] = useState('')
+  const location = useLocation()
   const [user, setUser] = useState(null)
   const providerValue = useMemo(() => ({ user, setUser }), [user, setUser])
 
@@ -43,23 +44,17 @@ export const App = () => {
     }
   }
 
-  const handleSearchTextChange = (e) => {
-    setSearchText(e.target.value)
-  }
 
-  return (
-    <Router>
-      <div className="overlay" onClick={toggleMobileMenu}></div>
-      <UserContext.Provider value={providerValue}>
-        <Header
-          handleClick={toggleMobileMenu}
-          handleKeyDown={handleMenuBtnKeyDown}
-          handleSearchTextChange={handleSearchTextChange}
-          searchText={searchText} />
-        <Switch>
-          <Route exact path='/about'>
-            <About />
-          </Route>
+
+  return (<>
+    <div className="overlay" onClick={toggleMobileMenu}></div>
+    <UserContext.Provider value={providerValue}>
+      <Header
+        handleClick={toggleMobileMenu}
+        handleKeyDown={handleMenuBtnKeyDown}
+      />
+      <AnimatePresence>
+        <Switch location={location} key={location.key}>
           <Route exact path='/about'>
             <About />
           </Route>
@@ -73,7 +68,7 @@ export const App = () => {
             <EditProfile />
           </Route>
           <Route exact path='/feed'>
-            <Feed searchText={searchText} />
+            <Feed />
           </Route>
           <Route exact path='/forgot'>
             <Forgot />
@@ -97,8 +92,9 @@ export const App = () => {
             <NotFound />
           </Route>
         </Switch>
-      </UserContext.Provider>
-      <Footer />
-    </Router>
+      </AnimatePresence>
+    </UserContext.Provider>
+    <Footer />
+  </>
   );
 }

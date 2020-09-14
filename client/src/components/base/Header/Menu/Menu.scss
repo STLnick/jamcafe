@@ -1,0 +1,52 @@
+.menu {
+  display: none;
+  font-size: 1.6em;
+  padding: 1rem 1rem;
+  width: 450px;
+}
+
+.menu--list {
+  list-style-type: none;
+  width: 100%;
+}
+
+.menu--list-link {
+  color: var(--basic-text);
+  outline: none;
+  transition: text-decoration, text-shadow 0.7s;
+}
+
+.link-button {
+  margin: 0 1rem;
+}
+
+.menu--list-link:focus,
+.menu--list-link:hover {
+  font-weight: 700;
+  text-decoration: underline var(--primary-color);
+  text-shadow: 0 0 1px var(--primary-color);
+}
+
+.menu--list li {
+  padding: 1rem;
+  text-align: center;
+}
+
+@media screen and (min-width: 768px) {
+  .menu {
+    display: block;
+  }
+}
+
+@media screen and (min-width: 1200px) {
+  .menu {
+    font-size: 2em;
+    width: 550px;
+  }
+}
+
+@media screen and (min-width: 1400px) {
+  .menu {
+    width: 650px;
+  }
+}

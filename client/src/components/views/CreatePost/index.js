@@ -1,3 +1,4 @@
+import { motion } from 'framer-motion'
 import React, { useContext, useState } from 'react'
 import { Link, useHistory } from 'react-router-dom'
 
@@ -5,7 +6,42 @@ import api from 'api'
 
 import { UserContext } from 'UserContext'
 
+import './CreatePost.scss'
+
 const postsAPI = api('posts')
+
+const wrapperVariants = {
+  hidden: {
+    opacity: 0,
+  },
+  visible: {
+    opacity: 1,
+    transition: {
+      delay: 0.5,
+      duration: 1.25,
+      when: "beforeChildren"
+    }
+  },
+  exit: {
+    opacity: 0,
+    x: '-100vw',
+    transition: { ease: 'easeInOut' }
+  }
+}
+
+const headerVariants = {
+  hidden: {
+    opacity: 0,
+    scale: 0.5
+  },
+  visible: {
+    opacity: 1,
+    scale: 1,
+    transition: {
+      duration: 1
+    }
+  }
+}
 
 export const CreatePost = () => {
   const history = useHistory()
@@ -32,22 +68,31 @@ export const CreatePost = () => {
 
     try {
       await postsAPI.create(postInfo)
-      // TODO: Display message on success
       setFeedbackMessage({ text: 'Post Successful!', textClass: 'success' })
       setSubmitted(prevSubmitted => !prevSubmitted)
     } catch (err) {
-      // TODO: Add spot in UI to display err
-      console.log(err)
       setFeedbackMessage({ text: 'Error occurred trying to post', textClass: 'danger' })
     }
   }
 
-  return (<main className="write-post-container flex flex--column flex--align-center">
+  return (<motion.main
+    className="write-post-container flex flex--column flex--align-center"
+    initial="hidden"
+    animate="visible"
+    exit="exit"
+    variants={wrapperVariants}
+  >
     {
       !user
         ? <h3 className="section-heading">Redirecting to Login</h3>
         : <>
-          <h3 id="write-post-heading" className="section-heading"> Write A Post</h3>
+          <motion.h3
+            id="write-post-heading"
+            className="section-heading"
+            variants={headerVariants}
+          >
+            Write A Post
+          </motion.h3>
           <p className={`help has-text-${feedbackMessage.textClass} is-size-3`}>{feedbackMessage.text}</p>
           <form
             className="post flex flex--column flex--align-center"
@@ -74,5 +119,5 @@ export const CreatePost = () => {
           </form>
         </>
     }
-  </main>)
+  </motion.main>)
 }

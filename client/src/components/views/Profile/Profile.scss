@@ -3,6 +3,7 @@
   border: none;
   border-radius: 5px;
   height: 80%;
+  max-width: 650px;
   padding: 2rem 0;
   width: 80%;
 }
@@ -24,4 +25,9 @@
   border-radius: 5px;
   padding: 1rem 2rem;
   margin: 2rem;
+  max-width: 600px;
+}
+
+.edit-post-form {
+  height: 100%;
 }

@@ -89,14 +89,8 @@ textarea {
   display: initial;
 }
 
-.top-nav {
-  background-color: #eee;
-  height: 7vh;
-  padding: 0.5rem 1rem;
-}
-
 .logo-container {
-  width: 4rem;
+  width: 5rem;
 }
 
 .logo {
@@ -104,182 +98,28 @@ textarea {
   width: 100%;
 }
 
-.menu-btn-container,
-.message-icon-container {
-  background: none;
-  border: none;
-  margin: 0;
-  outline: none;
-  padding: 0;
-  transition: transform 0.4s;
-  z-index: 2;
-}
-
-.menu-btn {
-  height: auto;
-  outline: none;
-  width: 3rem;
-  z-index: 2;
-}
-
-.menu-btn-container:focus,
-.menu-btn-container:hover {
-  transform: scale(1.15);
-}
-
-.message-icon-container:focus,
-.message-icon-container:hover {
-  transform: scale(1.25);
-}
-
-.mobile-menu {
-  background-color: white;
-  border: 2px solid var(--primary-color);
-  font-size: 2em;
-  padding: 1rem 1rem 3rem;
-  position: fixed;
-  right: -80vw;
-  top: 9vh;
-  transition: right 0.7s;
-  width: 65vw;
-  z-index: 2;
-}
-
-.active-mobile-menu {
-  right: 0;
-}
-
-.mobile-menu--list-link {
-  color: var(--basic-text);
-  outline: none;
-  transition: text-decoration, text-shadow 0.7s;
-}
-
-.mobile-menu--list-link:focus,
-.mobile-menu--list-link:hover {
-  font-weight: 700;
-  text-decoration: underline var(--primary-color);
-  text-shadow: 0 0 1px var(--primary-color);
-}
-
-.mobile-menu--list {
-  list-style-type: none;
-}
-
-.mobile-menu--list li {
-  border-bottom: 1px solid #444;
-  padding: 1rem;
-}
-
-.section--hero {
-  background-image: url(./assets/steet-duo-bw.jpg);
-  background-position: center;
-  background-size: cover;
-  height: 93vh;
-  overflow: hidden;
-  width: auto;
-}
-
-.hero-text {
-  color: white;
-  font-size: 16px;
-  line-height: 1.5rem;
-  text-shadow: 0 0 5px var(--primary-color), 0 0 10px #000, 0 0 16px #616161;
-}
-
-.hero-text-last {
-  margin-top: 0.5rem;
-  text-transform: uppercase;
-}
-
-.hero-btn {
-  margin: 1rem 0 10rem 0;
-}
-
-.partition-img {
-  width: 100%;
-}
-
-.feature-list-item {
-  margin-bottom: 0.5rem;
-}
-
-.feature-list-item--marker {
-  margin-right: 0.25rem;
-  width: 2rem;
-}
-
-.my-section.section--use {
-  background-color: #eee;
-}
-
-.use-list {
-  text-align: center;
-}
-
-.use-img {
-  width: 5rem;
-}
-
-.testimonial {
-  width: 100%;
-}
-
-.testimonial-1,
-.testimonial-2 {
-  border-bottom: 4px solid #eee;
-  margin-bottom: 2.5rem;
-  padding-bottom: 2.5rem;
-}
-
-.testimonial-1-img,
-.testimonial-2-img,
-.testimonial-3-img {
-  border-radius: 10px;
-  width: 100%;
-}
-
-.my-section.section--help {
-  background-color: #eee;
-}
-
 .bottom-cta-btn {
   margin: 2rem 0 0;
 }
 
-.footer {
-  background-color: #616161;
-  padding: 1rem;
-}
-
-.social-links {
-  width: 10rem;
-}
-
-.social-icon {
-  width: 2rem;
-}
-
-.register-container,
-.edit-profile-container {
+.entry-container {
   background-color: #fff;
   height: 91vh;
   width: 100vw;
 }
 
-.register-form,
-.edit-profile-form {
+.my-form {
   background-color: #eee;
   border: none;
   border-radius: 5px;
   height: 80%;
+  max-height: 700px;
+  max-width: 600px;
   width: 80%;
 }
 
-.profile-container p {
-  background-color: white;
-  font-size: 16px;
-  text-align: center;
+.view-profile-container {
+  min-height: 90vh;
 }
 
 .profile-title,
@@ -290,13 +130,18 @@ textarea {
 }
 
 .profile-field-heading {
+  border-bottom: 1px solid var(--primary-dark);
+  border-radius: 4px;
   font-size: 1.6em;
   font-weight: 600;
+  text-align: center;
+  width: 50%;
 }
 
 .profile-field {
-  border: 1px solid var(--primary-dark);
-  border-radius: 5px;
+  background-color: #eee;
+  font-size: 16px;
+  text-align: center;
   padding: 1rem;
   width: 80%;
 }
@@ -343,49 +188,13 @@ textarea {
   width: 100%;
 }
 
-.search-input {
-  border: 1px solid var(--primary-color);
-  border-radius: 5px;
-  font-size: 14px;
-  outline: none;
-  padding: 0.75rem;
-  transition: box-shadow 0.4s;
-  width: 100%;
-}
-
-.search-button {
-  background: none;
-  border: none;
-  border-radius: 50%;
-  height: 2rem;
-  outline: none;
-  padding: 0;
-  transition: transform 0.4s;
-  width: 5rem;
-}
-
-.search-button:focus,
-.search-button:hover {
-  transform: scale(1.15);
-}
-
-.search-icon {
-  transition: box-shadow 0.4s;
-  width: 100%;
-}
-
-.posts {
-  background-color: #fff;
-  min-height: 90vh;
-  padding: 2rem 0 3rem;
-}
-
 .post {
   background-color: #eee;
   border: 1px solid var(--primary-color);
   border-radius: 10px;
   box-shadow: 0 16px 38px -12px rgba(0, 0, 0, 0.56), 0 4px 25px 0 rgba(0, 0, 0, 0.12), 0 8px 10px -5px rgba(0, 0, 0, 0.2);
   margin: 2.25rem 0;
+  max-width: 600px;
   padding: 0.5rem;
   width: 80%;
 }
@@ -414,10 +223,6 @@ textarea {
   margin: 0 0 0.5rem 0;
   outline: none;
   transition: text-decoration, color 0.4s;
-}
-
-.user-instruments {
-  margin: 0.5rem 1rem 1.5rem;
 }
 
 .instrument-icon {
@@ -455,6 +260,8 @@ textarea {
   border: 1px solid var(--basic-text);
   border-radius: 5px;
   height: 100%;
+  max-height: 300px;
+  max-width: 400px;
   outline: none;
   padding: 0.5rem;
   resize: none;
@@ -478,48 +285,6 @@ textarea {
   margin: 0 0 0 1rem;
 }
 
-.post--message-icon {
-  margin: 0 1rem 0 0;
-  outline: none;
-  transition: transform 0.4s;
-  width: 3rem;
-}
-
-.write-post-icon {
-  border-radius: 50%;
-  bottom: 2rem;
-  outline: none;
-  position: fixed;
-  right: 2rem;
-  transition: transform 0.4s;
-  width: 5rem;
-}
-
-.write-post-icon:focus,
-.write-post-icon:hover {
-  transform: scale(1.35);
-}
-
-.my-input.title-input {
-  border: 1px solid var(--basic-text);
-  border-radius: 5px;
-  margin-top: 2rem;
-  max-width: 500px;
-  outline: none;
-  padding: 1rem;
-  width: 60%;
-}
-
-.my-input.title-input::placeholder {
-  color: var(--basic-text);
-}
-
-.write-post-container {
-  min-height: 100vh;
-  padding: 1rem 0;
-}
-
-#write-post-heading,
 #message-heading {
   margin: 2rem 0;
 }
@@ -593,6 +358,15 @@ textarea {
 
 /* --------------------- */
 
+.small-icon {
+  height: 1.5rem;
+  width: 1.5rem;
+}
+
+.medium-label {
+  font-size: 16px;
+}
+
 .button {
   transition: all 0.4s;
 }
@@ -610,7 +384,12 @@ textarea {
   border-bottom: 2px solid var(--primary-light);
   font-size: 3.6em;
   font-weight: 700;
-  margin-bottom: 1rem;
+  margin-bottom: 2rem;
+}
+
+.no-flex-heading {
+  margin: 4rem auto 2rem;
+  width: 5em;
 }
 
 .section-text {
@@ -660,6 +439,11 @@ textarea {
   color: white;
 }
 
+.small-btn {
+  font-size: 12px;
+  padding: 4px 8px;
+}
+
 .username-btn {
   background-color: transparent;
   border: none;
@@ -683,14 +467,23 @@ textarea {
   outline: none;
   padding: 1rem;
   transition: box-shadow 0.4s;
-  width: 80%;
 }
 
 .my-input:focus,
-.my-input:hover,
-.search-input:focus,
-.search-input:hover {
+.my-input:hover {
   box-shadow: 0 0 3px 3px var(--primary-dark);
+}
+
+/* Media Queries */
+
+@media screen and (min-width: 600px) {
+  .logo-container {
+    width: 6rem;
+  }
+
+  .my-section {
+    padding: 8rem 4rem;
+  }
 }
 
 /* Change SVG color */

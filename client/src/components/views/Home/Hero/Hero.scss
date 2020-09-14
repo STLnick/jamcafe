@@ -1,0 +1,28 @@
+.section--hero {
+  background-image: url(../../../../assets/steet-duo-bw.jpg);
+  background-position: center;
+  background-size: cover;
+  height: 93vh;
+  overflow: hidden;
+  width: auto;
+}
+
+.hero-text-container {
+  margin-bottom: 1em;
+  text-align: center;
+}
+
+.hero-text {
+  color: white;
+  font-size: 24px;
+  text-shadow: 0 0 5px var(--primary-color), 0 0 10px #000, 0 0 16px #616161;
+}
+
+.hero-text-last {
+  margin-top: 1rem;
+  text-transform: uppercase;
+}
+
+.hero-btn {
+  margin: 1rem 0 10rem 0;
+}
