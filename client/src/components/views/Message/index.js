@@ -1,46 +1,84 @@
-import React from 'react';
-import { useLocation } from 'react-router-dom'
+import React, { useReduce, useState } from 'react';
 
 import './Message.scss'
 
-export const Message = () => {
-  const location = useLocation()
+/*
+  Just
 
-  const recipient = location.search.slice(1)
+  chats = [
+    {chat}, {chat}, {chat}
+  ]
+
+  chat = {
+    _id: xxxxxx,
+    users: [user1, user2]
+    messages: [
+      {msg}, {msg}, {msg}
+    ]
+  }
+
+  msg = {
+    from: 'user1',
+    to: 'user2',
+    msg: 'A message here'
+  }
+*/
+
+// Testing Chats
+const tempChats = [
+  {
+    _id: '54321',
+    users: ['user1', 'user2'],
+    messages: [
+      { from: 'user1', to: 'user2', msg: 'hey there' },
+      { from: 'user2', to: 'user1', msg: 'how are you' },
+      { from: 'user1', to: 'user2', msg: 'I\'m good' },
+    ]
+  },
+  {
+    _id: '54321',
+    users: ['user1', 'user3'],
+    messages: [
+      { from: 'user1', to: 'user3', msg: 'hey there' },
+      { from: 'user3', to: 'user1', msg: 'how are you' },
+      { from: 'user1', to: 'user3', msg: 'I\'m good' },
+    ]
+  },
+  {
+    _id: '54321',
+    users: ['user2', 'user3'],
+    messages: [
+      { from: 'user3', to: 'user2', msg: 'hey there' },
+      { from: 'user2', to: 'user3', msg: 'how are you' },
+      { from: 'user3', to: 'user2', msg: 'I\'m good' },
+    ]
+  },
+]
+
+// Testing render of chat clips showing other username
+const activeUser = 'user1'
+
+export const Message = () => {
+  const [chats, setChats] = useState(tempChats)
+
+  const renderChats = () => chats.map(chat => <div className="chat-clip flex flex--align-center mb-4">
+    <img className="avatar mr-3" src="img/avatar.jpg" alt="User Avatar" />
+    <h2>{chat.users[0] === activeUser ? chat.users[1] : chat.users[0]}</h2>
+  </div>)
 
   return (<main className="write-post-container flex flex--column flex--align-center">
     <h3 id="message-heading" className="section-heading">Send A Message</h3>
     <div className="post flex flex--column flex--align-center">
-      <p className="message-recipient">Sending to: <strong>{recipient}</strong></p>
-      <label htmlFor="title" className="message-title">Message Title</label>
-      <input
-        type="text"
-        id="title"
-        className="my-input title-input"
-        placeholder="Title here..."
-      />
-
-      <div className="message-content flex flex--column flex--align-center flex--justify-center">
-        <label htmlFor="message">Type Message Below</label>
-        <textarea
-          id="message"
-          cols="30"
-          rows="10"
-          placeholder="Message content here...">
-        </textarea>
+      <div className="top-chat flex">
+        <div className="users-window">
+          UsersWindow
+          {renderChats()}
+        </div>
+        <div className="chat-window">ChatWindow</div>
       </div>
-
-      <div className="post-footer flex flex--align-center flex--justify-between">
-        <p className="post--date"></p>
-        {/* TODO: Make button actually send a message to specified User */}
-        {/* Need an onClick handler to send message */}
-        <button className="send-msg-btn">
-          <img
-            tabIndex="0"
-            src="img/icons/checkmark-circle.svg"
-            className="send-message-icon filter-primary"
-            alt="Checkmark icon to send a message" />
-        </button>
+      <div className="chat-box flex flex--justify-between">
+        <div className="message">Enter Message here...</div>
+        <button className="cta-btn">Send</button>
       </div>
     </div>
   </main>)

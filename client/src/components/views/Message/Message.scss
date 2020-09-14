@@ -1,0 +1,40 @@
+.top-chat {
+  margin: 1em 0;
+  padding: 0.5rem;
+  width: 100%;
+}
+
+.users-window {
+  border-right: 1px solid #616161;
+  height: 400px;
+  padding: 0.5rem;
+  width: 30%;
+}
+
+.chat-clip {
+  padding: 0.5rem;
+  transition: all 0.4s;
+}
+
+.chat-clip:focus,
+.chat-clip:hover {
+  background-color: #bbb;
+}
+
+.chat-window {
+  height: 400px;
+  padding: 0.5rem;
+  width: 70%;
+}
+
+.chat-box {
+  padding: 0.5rem;
+  width: 100%;
+}
+
+.message {
+  background-color: #fff;
+  height: 75px;
+  padding: 0.5rem;
+  width: 85%;
+}
