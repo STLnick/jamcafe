@@ -48,6 +48,7 @@ export const MobileMenu = ({ handleClick }) => {
   const handleSignOut = async () => {
     await auth.signOut()
     setUser(() => null)
+    handleClick()
     history.push('/login')
   }
 
