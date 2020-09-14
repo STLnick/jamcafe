@@ -250,11 +250,23 @@ export const Profile = () => {
           <Modal
             isOpen={modal.isOpen}
             onRequestClose={() => setModal(prevModal => ({ ...prevModal, isOpen: false }))}
+            style={{
+              content: {
+                height: '575px',
+                left: '50%',
+                top: '50%',
+                transform: 'translate(-50%, -50%)',
+                width: '300px',
+              }
+            }}
           >
-            <form onSubmit={(e) => handleEditSubmit(e)}>
-              <label htmlFor="title">Title</label>
+            <form
+              className="edit-post-form flex flex--column flex--align-center flex--justify-between"
+              onSubmit={(e) => handleEditSubmit(e)}
+            >
+              <label htmlFor="title" className="profile-field-heading">Title</label>
               <input id="title" type="text" defaultValue={modal.clickedPostToEdit?.title} />
-              <label htmlFor="content">Content</label>
+              <label htmlFor="content" className="profile-field-heading">Content</label>
               <input id="content" type="text" defaultValue={modal.clickedPostToEdit?.content} />
               <button
                 className="cancel-btn"
