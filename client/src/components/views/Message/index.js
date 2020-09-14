@@ -67,8 +67,8 @@ const chatsAPI = api('chats')
 const activeUser = 'stlnick'
 
 export const Message = () => {
-  const [chats, setChats] = useState(tempChats)
-  const [activeChat, setActiveChat] = useState(chats[0])
+  const [chats, setChats] = useState([])
+  const [activeChat, setActiveChat] = useState(null)
   const [newMessageText, setNewMessageText] = useState('')
 
   // TODO: Redirect to login if no user in context (no one logged in)
@@ -76,20 +76,11 @@ export const Message = () => {
   // TODO: Get User from Context and use to retrieve all chats for that users
   useEffect(() => {
     (async () => {
-      const res = await chatsAPI.showOne('stlnick')
-      setChats(res)
+      const chatsRes = await chatsAPI.showOne('stlnick')
+      setChats(chatsRes)
+      setActiveChat(chatsRes[0])
     })()
   }, [])
-
-  useEffect(() => {
-    setChats(prevChats => {
-      return prevChats.map(chat => {
-        return chat._id === activeChat._id ? activeChat : chat
-      })
-    })
-
-    // TODO: setChats with retrieved chats from Mongo
-  }, [activeChat.messages])
 
   const handleChatChange = (e) => {
     const clickedChat = e.target.closest('div')
@@ -103,17 +94,34 @@ export const Message = () => {
   }
 
   const handleSendMessage = () => {
+    const newMsg = {
+      from: activeUser,
+      msg: newMessageText,
+      to: activeChat.users[0] === activeUser ? activeChat.users[1] : activeChat.users[0]
+    }
     setActiveChat(prevChat => ({
       ...prevChat,
       'messages': [
         ...prevChat['messages'],
-        {
-          from: activeUser,
-          msg: newMessageText,
-          to: activeChat.users[0] === activeUser ? activeChat.users[1] : activeChat.users[0]
-        }
+        newMsg
       ]
     }))
+
+    setChats(prevChats => {
+      return prevChats.map(chat => {
+        if (chat._id === activeChat._id) {
+          return {
+            ...chat,
+            'messages': [
+              ...chat['messages'],
+              newMsg
+            ]
+          }
+        } else {
+          return chat
+        }
+      })
+    })
 
     // TODO: Store message in Mongo
 
