@@ -49,9 +49,6 @@ This app is built using the MERN stack:
   - Implement a 'Chat' or 'Messaging' feature to allow Users an easier way to communicate
     - _Possibilities_: TalkJS - Build from scratch
 
-- Animations
-  - Utilize Framer-Motion to incorporate some animations
-
 - Refactor `<form>`s
   - Use a library to simplify and streamline the use and management of a `<form>`
     - _Possiblities_: Formik - React-Hook-Form
