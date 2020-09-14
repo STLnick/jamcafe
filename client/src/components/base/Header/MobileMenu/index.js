@@ -19,7 +19,7 @@ export const MobileMenu = ({ handleClick }) => {
       },
       {
         path: '/post',
-        text: 'Create A Post'
+        text: 'Create Post'
       },
       {
         path: `/profile/${user.username}`,
@@ -36,20 +36,8 @@ export const MobileMenu = ({ handleClick }) => {
         text: 'Home'
       },
       {
-        path: '/register',
-        text: 'Sign Up'
-      },
-      {
-        path: '/login',
-        text: 'Login'
-      },
-      {
         path: '/about',
         text: 'About'
-      },
-      {
-        path: '/message',
-        text: 'TESTING MSG'
       }
     ]
 

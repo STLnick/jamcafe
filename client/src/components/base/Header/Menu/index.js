@@ -19,7 +19,7 @@ export const Menu = () => {
       },
       {
         path: '/post',
-        text: 'Create A Post'
+        text: 'Create Post'
       },
       {
         path: `/profile/${user.username}`,
@@ -38,10 +38,6 @@ export const Menu = () => {
       {
         path: '/about',
         text: 'About'
-      },
-      {
-        path: '/message',
-        text: 'TESTING MSG'
       }
     ]
 
