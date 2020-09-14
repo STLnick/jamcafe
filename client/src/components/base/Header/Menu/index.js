@@ -84,27 +84,27 @@ export const Menu = () => {
           : null}
         {user
           ? <button
-            className="cancel-btn mt-5 is-size-5 is-uppercase"
+            className="cancel-btn is-size-5 is-uppercase"
             onClick={handleSignOut}>
             Sign out
           </button>
           : <>
             <Link
-              className=" menu--list-link link-button"
+              className="menu--list-link link-button"
               to='/register'
             >
               <button
-                className="cancel-btn mt-5 is-size-5 is-uppercase"
+                className="cancel-btn is-size-5 is-uppercase"
               >
                 Sign Up
             </button>
             </Link>
             <Link
-              className=" menu--list-link link-button"
+              className="menu--list-link link-button"
               to='/login'
             >
               <button
-                className="cta-btn mt-5 is-size-5 is-uppercase"
+                className="cta-btn is-size-5 is-uppercase"
               >
                 Login
             </button>
