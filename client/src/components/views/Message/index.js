@@ -317,7 +317,7 @@ export const Message = () => {
     </motion.div>
     <div className="start-chat-container">
       <button
-        className="cta-btn small-btn start-chat-btn"
+        className="cancel-btn small-btn start-chat-btn"
         onClick={() => setModalIsOpen(true)}
       >
         Start A Chat
