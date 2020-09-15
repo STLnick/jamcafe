@@ -243,7 +243,10 @@ export const Profile = () => {
         </Link>
             : <Link
               className="cta-btn mt-6"
-              to={`/chat?${profile.username}`}>
+              to={{
+                pathname: `/chat`,
+                state: { userToMsg: profile.username }
+              }}>
               Send A Message
         </Link>}
           <h3 className="section-heading profile-posts-heading">Posts By {profile.username}</h3>
