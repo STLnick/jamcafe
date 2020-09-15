@@ -146,9 +146,17 @@ export const Message = () => {
     setActiveChat(chats.find(chat => chat._id === clickedChat.dataset.chatid))
   }
 
+  const populateMatchedUsers = () => {
+    const usersDiv = document.querySelector('.start-chat-users')
+    usersDiv.innerHTML = <ul className="start-chat-users-list">
+      {users.filter(({ username }) => username.toLowerCase() === newChatText.toLowerCase()).map(({ username }) => <li>{username}</li>)}
+    </ul>
+  }
+
   const handleNewChatTextChange = (e) => {
     setNewChatText(e.target.value)
     // TODO: Populate start-chat-users div with usernames that match input
+    populateMatchedUsers()
   }
 
   const handleNewMessageTextChange = (e) => {
