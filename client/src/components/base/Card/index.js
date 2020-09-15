@@ -5,7 +5,7 @@ import { Link, useHistory } from 'react-router-dom'
 import api from 'api'
 
 import './Card.scss'
-import { ReactComponent as EditIcon } from '../../../assets/pencil.svg'
+import { ReactComponent as MessageIcon } from '../../../assets/chatbox-ellipses.svg'
 import { ReactComponent as GuitarIcon } from '../../../assets/electric-guitar.svg'
 import { ReactComponent as BassIcon } from '../../../assets/bass-guitar.svg'
 import { ReactComponent as DrumIcon } from '../../../assets/snare-drum.svg'
@@ -118,7 +118,7 @@ export const Card = ({ post: { content, datePosted, title, user }, userLoggedIn 
         <p className="post--date">{datePosted.slice(0, 10)}</p>
         <Link to={`/message?${user}`}>
           <button className="message-icon-container">
-            <img src="img/icons/chatbox-ellipses.svg" alt="" className="post--message-icon filter-primary" />
+            <MessageIcon className="post--message-icon filter-primary" alt="Message icon" />
           </button>
         </Link>
       </motion.div>
