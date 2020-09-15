@@ -1,27 +1,30 @@
 import cors from 'cors';
 
 import express from 'express';
+import http from 'http';
+import socketio from 'socket.io';
+
 import chats from './routes/chats';
 import posts from './routes/posts';
 import users from './routes/users';
 
 const app = express();
-const http = require('http').createServer(app);
-const io = require('socket.io')(http, { serveClient: false });
+const server = http.createServer(app);
+const io = socketio(server, { serveClient: false });
 
 const PORT = 5000;
 
 app.use(cors());
 app.use(express.json());
 
-io.on('connection', (newSocket) => {
-  console.log('user connected: ', newSocket.id);
+io.on('connection', (socket) => {
+  console.log('user connected: ', socket.id);
 
-  newSocket.on('send message', (body) => {
+  socket.on('send message', (body) => {
     io.emit('message', body);
   });
 
-  newSocket.on('disconnect', () => {
+  socket.on('disconnect', () => {
     console.log('user disconnected');
   });
 });
@@ -34,6 +37,6 @@ app.use('/chats', chats);
 app.use('/posts', posts);
 app.use('/users', users);
 
-http.listen(PORT, () => {
+server.listen(PORT, () => {
   console.log(`Listening at: http://localhost:${PORT}`);
 });
