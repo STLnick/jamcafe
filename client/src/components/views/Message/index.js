@@ -338,6 +338,12 @@ export const Message = () => {
             value={newChatText}
           />
           <div className="start-chat-users"></div>
+          <button
+            className="cancel-btn small-btn start-chat-btn"
+            onClick={() => setModalIsOpen(false)}
+          >
+            Cancel
+          </button>
           <button className="cta-btn small-btn start-chat-btn" type="submit">Start Chat</button>
         </form>
       </Modal>
