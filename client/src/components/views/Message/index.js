@@ -71,9 +71,9 @@ export const Message = () => {
   const [chats, setChats] = useState([])
   const [activeChat, setActiveChat] = useState(null)
   const [modalIsOpen, setModalIsOpen] = useState(false)
-  const [newChatText, setNewChatText] = useState('')
+  const [newChat, setNewChat] = useState({ text: '', matches: [] })
   const [newMessageText, setNewMessageText] = useState('')
-  const [users, setUsers] = useState([])
+  const [usernames, setUsernames] = useState([])
   const socketRef = useRef()
   const { user } = useContext(UserContext)
 
@@ -92,7 +92,8 @@ export const Message = () => {
       (async () => {
         if (isSubscribed) {
           const chatsRes = await chatsAPI.showOne(username)
-          setUsers(await usersAPI.show())
+          const usersRes = await usersAPI.show()
+          setUsernames(usersRes.map(({ username }) => username))
 
           let existingChat = null
           chatsRes.forEach(chat => {
@@ -146,17 +147,13 @@ export const Message = () => {
     setActiveChat(chats.find(chat => chat._id === clickedChat.dataset.chatid))
   }
 
-  const populateMatchedUsers = () => {
-    const usersDiv = document.querySelector('.start-chat-users')
-    usersDiv.innerHTML = <ul className="start-chat-users-list">
-      {users.filter(({ username }) => username.toLowerCase() === newChatText.toLowerCase()).map(({ username }) => <li>{username}</li>)}
-    </ul>
-  }
-
   const handleNewChatTextChange = (e) => {
-    setNewChatText(e.target.value)
-    // TODO: Populate start-chat-users div with usernames that match input
-    populateMatchedUsers()
+    const newText = e.target.value
+    const newMatches = usernames
+      .filter(username => username.toLowerCase().includes(newText.toLowerCase()))
+    setNewChat(() => newText
+      ? ({ text: newText, matches: newMatches })
+      : ({ text: newText, matches: [] }))
   }
 
   const handleNewMessageTextChange = (e) => {
@@ -186,7 +183,7 @@ export const Message = () => {
     // TODO: Provide a search functionality to find a user by username
     e.preventDefault()
 
-    const userToChatWith = newChatText
+    const userToChatWith = newChat.text
     const newChat = {
       users: [user?.username, userToChatWith],
       messages: []
@@ -201,7 +198,7 @@ export const Message = () => {
 
     if (existingChat) {
       setActiveChat(existingChat)
-      setNewChatText('')
+      setNewChat({ text: '', matches: [] })
     } else {
       try {
         const newChatRes = await chatsAPI.create(newChat)
@@ -213,7 +210,7 @@ export const Message = () => {
         ]))
         // TODO: Change activeChat to the newly created chat for UX
 
-        setNewChatText('')
+        setNewChat({ text: '', matches: [] })
       } catch (err) {
         // TODO: Provide feedback on UI
         console.log(err)
@@ -347,9 +344,13 @@ export const Message = () => {
             onChange={e => handleNewChatTextChange(e)}
             placeholder="Username to chat with..."
             type="text"
-            value={newChatText}
+            value={newChat.text}
           />
-          <div className="start-chat-users"></div>
+          <div className="start-chat-users">
+            <ul className="start-chat-users-list">
+              {newChat.matches.map(username => <li>{username}</li>)}
+            </ul>
+          </div>
           <button
             className="cancel-btn small-btn start-chat-btn"
             onClick={() => setModalIsOpen(false)}
