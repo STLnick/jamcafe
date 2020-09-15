@@ -1,18 +1,14 @@
-import React, { useContext } from 'react'
-import { Link, useLocation } from 'react-router-dom'
+import React from 'react'
+import { Link } from 'react-router-dom'
 import PropTypes from 'prop-types'
 
 import { Menu } from './Menu'
 import { MobileMenu } from './MobileMenu'
-import { UserContext } from 'UserContext'
 
 import './Header.scss'
 import { ReactComponent as MenuIcon } from '../../../assets/menu.svg'
 
 export const Header = ({ handleClick, handleKeyDown }) => {
-  const location = useLocation()
-  const { user } = useContext(UserContext)
-
   return (
     <header className="top-nav flex flex--justify-between flex--align-center">
       <div className="logo-container">
