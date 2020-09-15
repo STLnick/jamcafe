@@ -182,9 +182,11 @@ export const Message = () => {
     if (existingChat) {
       setActiveChat(existingChat)
       setNewChat({ text: '', matches: [] })
+      setModalIsOpen(false)
     } else {
       try {
         createNewChatAndSetActive(newChatObj)
+        setModalIsOpen(false)
       } catch (err) {
         // TODO: Provide feedback on UI
         console.log(err)
