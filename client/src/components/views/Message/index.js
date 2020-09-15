@@ -68,6 +68,7 @@ export const Message = () => {
   const location = useLocation()
   const [chats, setChats] = useState([])
   const [activeChat, setActiveChat] = useState(null)
+  const [newChatText, setNewChatText] = useState('')
   const [newMessageText, setNewMessageText] = useState('')
   const socketRef = useRef()
   const { user } = useContext(UserContext)
@@ -180,6 +181,7 @@ export const Message = () => {
           newChat
         ]))
         // TODO: Change activeChat to the newly created chat for UX
+        setNewChatText('')
       } catch (err) {
         // TODO: Provide feedback on UI
         console.log(err)
@@ -290,9 +292,10 @@ export const Message = () => {
       >
         <input
           className="my-input"
-          defaultValue={userToMsg ? userToMsg : ''}
+          onChange={e => handleNewChatTextChange(e)}
           placeholder="Username to chat with..."
           type="text"
+          value={newChatText}
         />
         <button className="cta-btn small-btn start-chat-btn" type="submit">Start Chat</button>
       </form>
