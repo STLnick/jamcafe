@@ -1,5 +1,6 @@
 .chat-container {
   font-size: 1.6em;
+  width: 90%;
 }
 
 .top-chat {
@@ -62,6 +63,10 @@
 .sent-message .user-clip {
   background-color: var(--primary-light);
   color: white;
+}
+
+.user-message {
+  word-wrap: anywhere;
 }
 
 .chat-box {
