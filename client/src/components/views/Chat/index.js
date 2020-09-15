@@ -77,13 +77,11 @@ export const Chat = () => {
   const socketRef = useRef()
   const { user } = useContext(UserContext)
 
-  if (!user) {
-    history.push('/login')
-  }
-
   useEffect(() => {
     let isSubscribed = true;
-
+    if (!user) {
+      history.push('/login')
+    }
     // Set chats and activeChat if a user is present from context
     if (user) {
       const { username } = user;

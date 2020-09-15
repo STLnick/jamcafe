@@ -47,8 +47,8 @@ export const Menu = () => {
 
   const handleSignOut = async () => {
     await auth.signOut()
-    setUser(() => null)
     history.push('/login')
+    setUser(() => null)
   }
 
   const renderLinks = () => links.map(({ path, text }, i) => (<li key={i}>

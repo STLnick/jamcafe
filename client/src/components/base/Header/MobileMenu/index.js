@@ -47,9 +47,9 @@ export const MobileMenu = ({ handleClick }) => {
 
   const handleSignOut = async () => {
     await auth.signOut()
-    setUser(() => null)
     handleClick()
     history.push('/login')
+    setUser(() => null)
   }
 
   const renderLinks = () => links.map(({ path, text }, i) => (<li key={i}>
