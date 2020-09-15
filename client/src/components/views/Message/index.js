@@ -337,6 +337,7 @@ export const Message = () => {
             type="text"
             value={newChatText}
           />
+          <div className="start-chat-users"></div>
           <button className="cta-btn small-btn start-chat-btn" type="submit">Start Chat</button>
         </form>
       </Modal>
