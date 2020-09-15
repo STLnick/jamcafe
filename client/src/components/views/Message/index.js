@@ -12,6 +12,7 @@ import { ReactComponent as MessageIcon } from '../../../assets/chatbox-ellipses.
 
 
 const chatsAPI = api('chats')
+const usersAPI = api('users')
 
 const wrapperVariants = {
   hidden: {
@@ -72,6 +73,7 @@ export const Message = () => {
   const [modalIsOpen, setModalIsOpen] = useState(false)
   const [newChatText, setNewChatText] = useState('')
   const [newMessageText, setNewMessageText] = useState('')
+  const [users, setUsers] = useState([])
   const socketRef = useRef()
   const { user } = useContext(UserContext)
 
@@ -90,6 +92,7 @@ export const Message = () => {
       (async () => {
         if (isSubscribed) {
           const chatsRes = await chatsAPI.showOne(username)
+          setUsers(await usersAPI.show())
 
           let existingChat = null
           chatsRes.forEach(chat => {
@@ -145,6 +148,7 @@ export const Message = () => {
 
   const handleNewChatTextChange = (e) => {
     setNewChatText(e.target.value)
+    // TODO: Populate start-chat-users div with usernames that match input
   }
 
   const handleNewMessageTextChange = (e) => {
