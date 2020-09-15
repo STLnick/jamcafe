@@ -88,7 +88,6 @@ export const Message = () => {
       (async () => {
         if (isSubscribed) {
           const chatsRes = await chatsAPI.showOne(username)
-          setChats(() => chatsRes)
 
           let existingChat = null
           chatsRes.forEach(chat => {
@@ -99,21 +98,39 @@ export const Message = () => {
 
           if (existingChat) {
             setActiveChat(existingChat)
+            setChats(() => chatsRes)
           } else {
-            setActiveChat(chatsRes[0])
-            setNewChatText(userToMsg)
+            if (userToMsg) {
+              const newChat = {
+                users: [username, userToMsg],
+                messages: []
+              }
+
+              const newChatRes = await chatsAPI.create(newChat)
+              newChat._id = newChatRes.insertedId
+
+              setActiveChat(newChat)
+              setChats(() => ([
+                ...chatsRes,
+                newChat
+              ]))
+
+            } else {
+              setActiveChat(chatsRes[0])
+              setChats(() => chatsRes)
+            }
           }
         }
       })()
-    }
 
-    // Setup socket connection and event
-    socketRef.current = io.connect('http://localhost:5000')
-    socketRef.current.on('message', message => {
-      if (isSubscribed) {
-        receivedMessage(message)
-      }
-    })
+      // Setup socket connection and event
+      socketRef.current = io.connect('http://localhost:5000')
+      socketRef.current.on('message', message => {
+        if (isSubscribed) {
+          receivedMessage(message)
+        }
+      })
+    }
 
     // Unsubscribe
     return () => isSubscribed = false
