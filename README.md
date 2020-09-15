@@ -54,3 +54,7 @@ This app is built using the MERN stack:
 - Refactor `<form>`s
   - Use a library to simplify and streamline the use and management of a `<form>`
     - _Possiblities_: Formik - React-Hook-Form
+    
+## Known Bugs
+
+- Logo occassionally does not show up in Header
