@@ -152,6 +152,11 @@ export const Message = () => {
     return existingChat
   }
 
+  const createNewChatObject = (userToChatWith) => ({
+    users: [user?.username, userToChatWith],
+    messages: []
+  })
+
   const createNewChatAndSetActive = async (chatObj) => {
     const newChatRes = await chatsAPI.create(chatObj)
     chatObj._id = newChatRes.insertedId
@@ -171,12 +176,7 @@ export const Message = () => {
 
   const handleNewChatUserClick = (e) => {
     const userToChatWith = e.target.innerText
-
-    const newChatObj = {
-      users: [user?.username, userToChatWith],
-      messages: []
-    }
-
+    const newChatObj = createNewChatObject(userToChatWith)
     const existingChat = checkForExistingChat(userToChatWith)
 
     if (existingChat) {
@@ -229,11 +229,7 @@ export const Message = () => {
     e.preventDefault()
 
     const userToChatWith = newChat.text
-    const newChatObj = {
-      users: [user?.username, userToChatWith],
-      messages: []
-    }
-
+    const newChatObj = createNewChatObject(userToChatWith)
     const existingChat = checkForExistingChat(userToChatWith)
 
     if (existingChat) {
