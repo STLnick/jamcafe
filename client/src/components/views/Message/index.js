@@ -262,7 +262,7 @@ export const Message = () => {
         onSubmit={e => handleStartNewChat(e)}
       >
         <input type="text" className="my-input" placeholder="Username to chat with..." />
-        <button type="submit">Start Chat</button>
+        <button className="cta-btn small-btn start-chat-btn" type="submit">Start Chat</button>
       </form>
     </div>
   </motion.main>)
