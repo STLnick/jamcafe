@@ -287,7 +287,7 @@ export const Message = () => {
       className="section-heading"
       variants={headerVariants}
     >
-      Send A Message
+      ChatCafe
     </motion.h3>
     <motion.div
       className="post chat-container flex flex--column flex--align-center"
