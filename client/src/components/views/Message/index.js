@@ -324,7 +324,7 @@ export const Message = () => {
           content: {
             height: '550px',
             left: '50%',
-            top: '25%',
+            top: '50%',
             transform: 'translate(-50%, -50%)',
             width: '250px',
           }
