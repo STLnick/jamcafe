@@ -142,7 +142,16 @@ export const Message = () => {
     return () => isSubscribed = false
   }, [user])
 
-  const createNewChat = async (chatObj) => {
+  const checkForExistingChat = (userToChatWith) => {
+    let existingChat = null
+    chats.forEach(chat => {
+      if (chat.users.includes(user?.username && userToChatWith)) {
+        existingChat = chat
+      }
+    })
+    return existingChat
+  }
+
   const createNewChatAndSetActive = async (chatObj) => {
     const newChatRes = await chatsAPI.create(chatObj)
     chatObj._id = newChatRes.insertedId
@@ -168,12 +177,7 @@ export const Message = () => {
       messages: []
     }
 
-    let existingChat = null
-    chats.forEach(chat => {
-      if (chat.users.includes(user?.username && userToChatWith)) {
-        existingChat = chat
-      }
-    })
+    const existingChat = checkForExistingChat(userToChatWith)
 
     if (existingChat) {
       setActiveChat(existingChat)
@@ -230,12 +234,7 @@ export const Message = () => {
       messages: []
     }
 
-    let existingChat = null
-    chats.forEach(chat => {
-      if (chat.users.includes(user?.username && userToChatWith)) {
-        existingChat = chat
-      }
-    })
+    const existingChat = checkForExistingChat(userToChatWith)
 
     if (existingChat) {
       setActiveChat(existingChat)
