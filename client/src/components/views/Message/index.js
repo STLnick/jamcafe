@@ -1,6 +1,6 @@
 import { motion } from 'framer-motion'
 import React, { useContext, useEffect, useRef, useState } from 'react';
-import { useHistory } from 'react-router-dom'
+import { useHistory, useLocation } from 'react-router-dom'
 import io from 'socket.io-client'
 
 import api from 'api'
@@ -63,6 +63,8 @@ const containerVariants = {
 
 export const Message = () => {
   const history = useHistory()
+  const location = useLocation()
+  const { userToMsg } = location.state
   const [chats, setChats] = useState([])
   const [activeChat, setActiveChat] = useState(null)
   const [newMessageText, setNewMessageText] = useState('')
@@ -111,7 +113,6 @@ export const Message = () => {
       msg: newMessageText,
       to: activeChat.users[0] === user?.username ? activeChat.users[1] : activeChat.users[0]
     }
-    console.log(activeChat)
 
     socketRef.current.emit('send message', { ...newMsg, chatId: activeChat._id })
 
@@ -216,6 +217,8 @@ export const Message = () => {
       : null
   }
 
+
+
   return (<motion.main
     className="write-post-container flex flex--column flex--align-center"
     initial="hidden"
@@ -261,7 +264,12 @@ export const Message = () => {
         className="start-chat-form"
         onSubmit={e => handleStartNewChat(e)}
       >
-        <input type="text" className="my-input" placeholder="Username to chat with..." />
+        <input
+          className="my-input"
+          defaultValue={userToMsg ? userToMsg : ''}
+          placeholder="Username to chat with..."
+          type="text"
+        />
         <button className="cta-btn small-btn start-chat-btn" type="submit">Start Chat</button>
       </form>
     </div>
