@@ -71,8 +71,10 @@
 
 .new-message {
   background-color: #fff;
+  font-size: 1.4rem;
   height: 75px;
   padding: 0.5rem;
+  resize: none;
   width: 70%;
 }
 
@@ -90,4 +92,17 @@
 
 .start-chat-btn {
   margin: 0 0.5rem;
+}
+
+@media screen and (max-width: 500px) {
+  .users-window {
+    padding: 0.5rem 0.25rem;
+  }
+  .chat-clip {
+    font-size: 1.2rem;
+  }
+
+  .message-icon {
+    display: none;
+  }
 }

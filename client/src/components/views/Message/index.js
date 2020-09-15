@@ -302,7 +302,7 @@ export const Message = () => {
         </div>
       </div>
       <div className="chat-box flex flex--align-center flex--justify-between">
-        <input
+        <textarea
           className="my-input new-message"
           onChange={e => handleNewMessageTextChange(e)}
           value={newMessageText}
