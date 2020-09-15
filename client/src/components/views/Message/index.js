@@ -143,6 +143,7 @@ export const Message = () => {
   }, [user])
 
   const createNewChat = async (chatObj) => {
+  const createNewChatAndSetActive = async (chatObj) => {
     const newChatRes = await chatsAPI.create(chatObj)
     chatObj._id = newChatRes.insertedId
 
@@ -180,7 +181,7 @@ export const Message = () => {
       setNewChat({ text: '', matches: [] })
     } else {
       try {
-        createNewChat(newChatObj)
+        createNewChatAndSetActive(newChatObj)
       } catch (err) {
         // TODO: Provide feedback on UI
         console.log(err)
@@ -242,7 +243,7 @@ export const Message = () => {
       setNewChat({ text: '', matches: [] })
     } else {
       try {
-        createNewChat(newChatObj)
+        createNewChatAndSetActive(newChatObj)
       } catch (err) {
         // TODO: Provide feedback on UI
         console.log(err)
