@@ -66,7 +66,6 @@ const containerVariants = {
 export const Message = () => {
   const history = useHistory()
   const location = useLocation()
-  const { userToMsg } = location.state
   const [chats, setChats] = useState([])
   const [activeChat, setActiveChat] = useState(null)
   const [newMessageText, setNewMessageText] = useState('')
@@ -79,30 +78,53 @@ export const Message = () => {
 
   useEffect(() => {
     let isSubscribed = true;
+
+    // Set chats and activeChat if a user is present from context
     if (user) {
       const { username } = user;
+      const userToMsg = location.state ? location.state.userToMsg : null;
+
       (async () => {
         if (isSubscribed) {
           const chatsRes = await chatsAPI.showOne(username)
-          setChats(chatsRes)
-          setActiveChat(chatsRes[0])
+          setChats(() => chatsRes)
+
+          let existingChat = null
+          chatsRes.forEach(chat => {
+            if (chat.users.includes(username && userToMsg)) {
+              existingChat = chat
+            }
+          })
+
+          if (existingChat) {
+            setActiveChat(existingChat)
+          } else {
+            setActiveChat(chatsRes[0])
+            setNewChatText(userToMsg)
+          }
         }
       })()
     }
 
+    // Setup socket connection and event
     socketRef.current = io.connect('http://localhost:5000')
-
     socketRef.current.on('message', message => {
       if (isSubscribed) {
         receivedMessage(message)
       }
     })
+
+    // Unsubscribe
     return () => isSubscribed = false
   }, [user])
 
   const handleChatChange = (e) => {
     const clickedChat = e.target.closest('div')
     setActiveChat(chats.find(chat => chat._id === clickedChat.dataset.chatid))
+  }
+
+  const handleNewChatTextChange = (e) => {
+    setNewChatText(e.target.value)
   }
 
   const handleNewMessageTextChange = (e) => {
@@ -132,22 +154,22 @@ export const Message = () => {
     // TODO: Provide a search functionality to find a user by username
     e.preventDefault()
 
-    const userToChatWith = e.target.elements[0].value
+    const userToChatWith = newChatText
     const newChat = {
       users: [user?.username, userToChatWith],
       messages: []
     }
 
-    let hasExistingChat = false
+    let existingChat = null
     chats.forEach(chat => {
       if (chat.users.includes(user?.username && userToChatWith)) {
-        hasExistingChat = true
+        existingChat = chat
       }
     })
 
-    if (hasExistingChat) {
-      // TODO: Provide feedback on UI
-      console.log('You already have a chat with them!')
+    if (existingChat) {
+      setActiveChat(existingChat)
+      setNewChatText('')
     } else {
       try {
         const newChatRes = await chatsAPI.create(newChat)
