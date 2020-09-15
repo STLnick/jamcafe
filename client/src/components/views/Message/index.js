@@ -142,9 +142,51 @@ export const Message = () => {
     return () => isSubscribed = false
   }, [user])
 
+  const createNewChat = async (chatObj) => {
+    const newChatRes = await chatsAPI.create(chatObj)
+    chatObj._id = newChatRes.insertedId
+
+    setChats(prevChats => ([
+      ...prevChats,
+      chatObj
+    ]))
+    setActiveChat(chatObj)
+    setModalIsOpen(false)
+    setNewChat({ text: '', matches: [] })
+  }
+
   const handleChatChange = (e) => {
     const clickedChat = e.target.closest('div')
     setActiveChat(chats.find(chat => chat._id === clickedChat.dataset.chatid))
+  }
+
+  const handleNewChatUserClick = (e) => {
+    const userToChatWith = e.target.innerText
+
+    const newChatObj = {
+      users: [user?.username, userToChatWith],
+      messages: []
+    }
+
+    let existingChat = null
+    chats.forEach(chat => {
+      if (chat.users.includes(user?.username && userToChatWith)) {
+        existingChat = chat
+      }
+    })
+
+    if (existingChat) {
+      setActiveChat(existingChat)
+      setNewChat({ text: '', matches: [] })
+    } else {
+      try {
+        createNewChat(newChatObj)
+      } catch (err) {
+        // TODO: Provide feedback on UI
+        console.log(err)
+      }
+    }
+
   }
 
   const handleNewChatTextChange = (e) => {
@@ -180,11 +222,10 @@ export const Message = () => {
   }
 
   const handleStartNewChat = async (e) => {
-    // TODO: Provide a search functionality to find a user by username
     e.preventDefault()
 
     const userToChatWith = newChat.text
-    const newChat = {
+    const newChatObj = {
       users: [user?.username, userToChatWith],
       messages: []
     }
@@ -201,16 +242,7 @@ export const Message = () => {
       setNewChat({ text: '', matches: [] })
     } else {
       try {
-        const newChatRes = await chatsAPI.create(newChat)
-        newChat._id = newChatRes.insertedId
-
-        setChats(prevChats => ([
-          ...prevChats,
-          newChat
-        ]))
-        // TODO: Change activeChat to the newly created chat for UX
-
-        setNewChat({ text: '', matches: [] })
+        createNewChat(newChatObj)
       } catch (err) {
         // TODO: Provide feedback on UI
         console.log(err)
@@ -348,7 +380,14 @@ export const Message = () => {
           />
           <div className="start-chat-users">
             <ul className="start-chat-users-list">
-              {newChat.matches.map(username => <li>{username}</li>)}
+              {newChat.matches.map(username => <button
+                className="button"
+                key={username}
+                onClick={e => handleNewChatUserClick(e)}
+                type="button"
+              >
+                {username}
+              </button>)}
             </ul>
           </div>
           <button
