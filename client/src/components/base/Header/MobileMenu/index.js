@@ -30,7 +30,7 @@ export const MobileMenu = ({ handleClick }) => {
         text: 'Edit Profile'
       },
       {
-        path: '/message',
+        path: '/chat',
         text: 'Chat'
       }
     ]

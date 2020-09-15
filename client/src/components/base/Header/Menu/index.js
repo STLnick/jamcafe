@@ -30,7 +30,7 @@ export const Menu = () => {
         text: 'Edit Profile'
       },
       {
-        path: '/message',
+        path: '/chat',
         text: 'Chat'
       }
     ]
