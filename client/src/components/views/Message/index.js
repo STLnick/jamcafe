@@ -223,7 +223,7 @@ export const Message = () => {
       data-chatid={chat._id}
       key={chat._id}
     >
-      <MessageIcon className="post--message-icon filter-primary" />
+      <MessageIcon className="message-icon filter-primary" />
       <h2>{chat.users[0] === user?.username ? chat.users[1] : chat.users[0]}</h2>
     </div>
   })
