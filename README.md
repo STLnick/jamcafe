@@ -36,6 +36,12 @@ This app is built using the MERN stack:
 - Firebase Auth
   - Creates Users and authorizes them using email and password
   - Removes security risk of storing their email and passwords inside the database
+- Firebase Cloud Functions
+  - Used to delete a User from client-side in Admin Panel
+  - Applied a custom claim to make a user in Firebase an admin
+  - Needed serverless function due to security of allowing deletion from client-side
+- Socket.io
+  - Used to implement in-app live chat feature
 
 ## TODOs
 
@@ -44,10 +50,6 @@ This app is built using the MERN stack:
   - Will deploy server-side on Heroku
 
 ## Future Features
-
-- Messaging
-  - Implement a 'Chat' or 'Messaging' feature to allow Users an easier way to communicate
-    - _Possibilities_: TalkJS - Build from scratch
 
 - Refactor `<form>`s
   - Use a library to simplify and streamline the use and management of a `<form>`
