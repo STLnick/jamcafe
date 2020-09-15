@@ -7,6 +7,8 @@ import api from 'api'
 import { UserContext } from 'UserContext'
 
 import './Message.scss'
+import { ReactComponent as MessageIcon } from '../../../assets/chatbox-ellipses.svg'
+
 
 const chatsAPI = api('chats')
 
@@ -195,7 +197,7 @@ export const Message = () => {
       data-chatid={chat._id}
       key={chat._id}
     >
-      <img className="avatar mr-3" src="img/avatar.jpg" alt="User Avatar" />
+      <MessageIcon className="post--message-icon filter-primary" />
       <h2>{chat.users[0] === user?.username ? chat.users[1] : chat.users[0]}</h2>
     </div>
   })
