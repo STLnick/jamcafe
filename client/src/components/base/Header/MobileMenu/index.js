@@ -15,11 +15,11 @@ export const MobileMenu = ({ handleClick }) => {
     ? [
       {
         path: '/feed',
-        text: 'Post Feed'
+        text: 'Feed'
       },
       {
         path: '/post',
-        text: 'Create Post'
+        text: 'Post'
       },
       {
         path: `/profile/${user.username}`,
