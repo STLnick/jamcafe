@@ -1,5 +1,6 @@
 import { motion } from 'framer-motion'
 import React, { useContext, useEffect, useRef, useState } from 'react';
+import Modal from 'react-modal'
 import { useHistory, useLocation } from 'react-router-dom'
 import io from 'socket.io-client'
 
@@ -11,6 +12,7 @@ import { ReactComponent as MessageIcon } from '../../../assets/chatbox-ellipses.
 
 
 const chatsAPI = api('chats')
+const usersAPI = api('users')
 
 const wrapperVariants = {
   hidden: {
@@ -68,8 +70,10 @@ export const Message = () => {
   const location = useLocation()
   const [chats, setChats] = useState([])
   const [activeChat, setActiveChat] = useState(null)
-  const [newChatText, setNewChatText] = useState('')
+  const [modalIsOpen, setModalIsOpen] = useState(false)
+  const [newChat, setNewChat] = useState({ text: '', matches: [] })
   const [newMessageText, setNewMessageText] = useState('')
+  const [usernames, setUsernames] = useState([])
   const socketRef = useRef()
   const { user } = useContext(UserContext)
 
@@ -88,6 +92,8 @@ export const Message = () => {
       (async () => {
         if (isSubscribed) {
           const chatsRes = await chatsAPI.showOne(username)
+          const usersRes = await usersAPI.show()
+          setUsernames(usersRes.map(({ username }) => username))
 
           let existingChat = null
           chatsRes.forEach(chat => {
@@ -142,7 +148,12 @@ export const Message = () => {
   }
 
   const handleNewChatTextChange = (e) => {
-    setNewChatText(e.target.value)
+    const newText = e.target.value
+    const newMatches = usernames
+      .filter(username => username.toLowerCase().includes(newText.toLowerCase()))
+    setNewChat(() => newText
+      ? ({ text: newText, matches: newMatches })
+      : ({ text: newText, matches: [] }))
   }
 
   const handleNewMessageTextChange = (e) => {
@@ -172,7 +183,7 @@ export const Message = () => {
     // TODO: Provide a search functionality to find a user by username
     e.preventDefault()
 
-    const userToChatWith = newChatText
+    const userToChatWith = newChat.text
     const newChat = {
       users: [user?.username, userToChatWith],
       messages: []
@@ -187,7 +198,7 @@ export const Message = () => {
 
     if (existingChat) {
       setActiveChat(existingChat)
-      setNewChatText('')
+      setNewChat({ text: '', matches: [] })
     } else {
       try {
         const newChatRes = await chatsAPI.create(newChat)
@@ -199,7 +210,7 @@ export const Message = () => {
         ]))
         // TODO: Change activeChat to the newly created chat for UX
 
-        setNewChatText('')
+        setNewChat({ text: '', matches: [] })
       } catch (err) {
         // TODO: Provide feedback on UI
         console.log(err)
@@ -276,7 +287,7 @@ export const Message = () => {
       className="section-heading"
       variants={headerVariants}
     >
-      Send A Message
+      ChatCafe
     </motion.h3>
     <motion.div
       className="post chat-container flex flex--column flex--align-center"
@@ -291,7 +302,7 @@ export const Message = () => {
         </div>
       </div>
       <div className="chat-box flex flex--align-center flex--justify-between">
-        <input
+        <textarea
           className="my-input new-message"
           onChange={e => handleNewMessageTextChange(e)}
           value={newMessageText}
@@ -305,19 +316,50 @@ export const Message = () => {
       </div>
     </motion.div>
     <div className="start-chat-container">
-      <form
-        className="start-chat-form"
-        onSubmit={e => handleStartNewChat(e)}
+      <button
+        className="cancel-btn small-btn start-chat-btn"
+        onClick={() => setModalIsOpen(true)}
       >
-        <input
-          className="my-input"
-          onChange={e => handleNewChatTextChange(e)}
-          placeholder="Username to chat with..."
-          type="text"
-          value={newChatText}
-        />
-        <button className="cta-btn small-btn start-chat-btn" type="submit">Start Chat</button>
-      </form>
+        Start A Chat
+      </button>
+      <Modal
+        isOpen={modalIsOpen}
+        onRequestClose={() => setModalIsOpen(false)}
+        style={{
+          content: {
+            height: '550px',
+            left: '50%',
+            top: '50%',
+            transform: 'translate(-50%, -50%)',
+            width: '250px',
+          }
+        }}
+      >
+        <form
+          className="start-chat-form flex flex--column flex--align-center flex--justify-around"
+          onSubmit={e => handleStartNewChat(e)}
+        >
+          <input
+            className="my-input"
+            onChange={e => handleNewChatTextChange(e)}
+            placeholder="Username to chat with..."
+            type="text"
+            value={newChat.text}
+          />
+          <div className="start-chat-users">
+            <ul className="start-chat-users-list">
+              {newChat.matches.map(username => <li>{username}</li>)}
+            </ul>
+          </div>
+          <button
+            className="cancel-btn small-btn start-chat-btn"
+            onClick={() => setModalIsOpen(false)}
+          >
+            Cancel
+          </button>
+          <button className="cta-btn small-btn start-chat-btn" type="submit">Start Chat</button>
+        </form>
+      </Modal>
     </div>
   </motion.main>)
 }
