@@ -181,6 +181,7 @@ export const Message = () => {
           newChat
         ]))
         // TODO: Change activeChat to the newly created chat for UX
+
         setNewChatText('')
       } catch (err) {
         // TODO: Provide feedback on UI
@@ -215,8 +216,9 @@ export const Message = () => {
   }
 
   const renderChats = () => chats.map(chat => {
+    const activeClass = chat._id === activeChat?._id ? 'active-chat' : null
     return <div
-      className="chat-clip flex flex--align-center mb-4"
+      className={`chat-clip flex flex--align-center mb-4 ${activeClass}`}
       onClick={e => handleChatChange(e)}
       data-chatid={chat._id}
       key={chat._id}
@@ -260,7 +262,7 @@ export const Message = () => {
       Send A Message
     </motion.h3>
     <motion.div
-      className="post flex flex--column flex--align-center"
+      className="post chat-container flex flex--column flex--align-center"
       variants={containerVariants}
     >
       <div className="top-chat flex">
@@ -271,7 +273,7 @@ export const Message = () => {
           {renderActiveChat()}
         </div>
       </div>
-      <div className="chat-box flex flex--justify-between">
+      <div className="chat-box flex flex--align-center flex--justify-between">
         <input
           className="my-input new-message"
           onChange={e => handleNewMessageTextChange(e)}

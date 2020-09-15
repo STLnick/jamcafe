@@ -1,3 +1,7 @@
+.chat-container {
+  font-size: 1.6em;
+}
+
 .top-chat {
   margin: 1em 0;
   padding: 0.5rem;
@@ -13,13 +17,14 @@
 }
 
 .chat-clip {
+  border-radius: 10px;
   padding: 0.5rem;
   transition: all 0.4s;
 }
 
 .chat-clip:focus,
 .chat-clip:hover {
-  background-color: #bbb;
+  background-color: #cfcfcf;
 }
 
 .chat-window {
@@ -27,6 +32,10 @@
   overflow: scroll;
   padding: 0.5rem;
   width: 70%;
+}
+
+.active-chat {
+  background: #bbb;
 }
 
 .message {
@@ -37,16 +46,17 @@
   justify-content: flex-end;
 }
 
-.received-message {
-
-}
-
 .user-clip {
   background-color: #bbb;
   border-radius: 10px;
   font-weight: 600;
   margin: 0 0.5rem;
   padding: 0.25rem 0.5rem;
+}
+
+.sent-message .user-clip {
+  background-color: var(--primary-light);
+  color: white;
 }
 
 .chat-box {
