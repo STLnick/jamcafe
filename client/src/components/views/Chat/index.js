@@ -7,7 +7,7 @@ import io from 'socket.io-client'
 import api from 'api'
 import { UserContext } from 'UserContext'
 
-import './Message.scss'
+import './Chat.scss'
 import { ReactComponent as MessageIcon } from '../../../assets/chatbox-ellipses.svg'
 
 
@@ -65,7 +65,7 @@ const containerVariants = {
   }
 }
 
-export const Message = () => {
+export const Chat = () => {
   const history = useHistory()
   const location = useLocation()
   const [chats, setChats] = useState([])

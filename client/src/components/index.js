@@ -2,13 +2,13 @@ export { Card, Footer, Form, Header, Section } from './base'
 export {
   About,
   Admin,
+  Chat,
   CreatePost,
   EditProfile,
   Feed,
   Forgot,
   Home,
   Login,
-  Message,
   NotFound,
   Profile,
   Register

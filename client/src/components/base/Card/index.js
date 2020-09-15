@@ -117,7 +117,7 @@ export const Card = ({ post: { content, datePosted, title, user }, userLoggedIn 
       >
         <p className="post--date">{datePosted.slice(0, 10)}</p>
         <Link to={{
-          pathname: `/message`,
+          pathname: `/chat`,
           state: { userToMsg: user }
         }}>
           <button className="message-icon-container">

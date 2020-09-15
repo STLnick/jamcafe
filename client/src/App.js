@@ -6,19 +6,19 @@ import {
   useLocation
 } from 'react-router-dom'
 
-// components
+// base components
 import { Footer, Header } from './components'
 // views
 import {
   About,
   Admin,
+  Chat,
   CreatePost,
   EditProfile,
   Feed,
   Forgot,
   Home,
   Login,
-  Message,
   NotFound,
   Profile,
   Register
@@ -79,8 +79,8 @@ export const App = () => {
           <Route exact path='/login'>
             <Login />
           </Route>
-          <Route exact path='/message'>
-            <Message />
+          <Route exact path='/chat'>
+            <Chat />
           </Route>
           <Route exact path='/profile/:username'>
             <Profile />
