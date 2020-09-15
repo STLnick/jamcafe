@@ -1,5 +1,6 @@
 import { motion } from 'framer-motion'
 import React, { useContext, useEffect, useRef, useState } from 'react';
+import Modal from 'react-modal'
 import { useHistory, useLocation } from 'react-router-dom'
 import io from 'socket.io-client'
 
@@ -68,6 +69,7 @@ export const Message = () => {
   const location = useLocation()
   const [chats, setChats] = useState([])
   const [activeChat, setActiveChat] = useState(null)
+  const [modalIsOpen, setModalIsOpen] = useState(false)
   const [newChatText, setNewChatText] = useState('')
   const [newMessageText, setNewMessageText] = useState('')
   const socketRef = useRef()
@@ -305,19 +307,27 @@ export const Message = () => {
       </div>
     </motion.div>
     <div className="start-chat-container">
-      <form
-        className="start-chat-form"
-        onSubmit={e => handleStartNewChat(e)}
+      <button
+        className="cta-btn small-btn start-chat-btn"
+        onClick={() => setModalIsOpen(true)}
       >
-        <input
-          className="my-input"
-          onChange={e => handleNewChatTextChange(e)}
-          placeholder="Username to chat with..."
-          type="text"
-          value={newChatText}
-        />
-        <button className="cta-btn small-btn start-chat-btn" type="submit">Start Chat</button>
-      </form>
+        Start Chat
+      </button>
+      <Modal isOpen={modalIsOpen} onRequestClose={() => setModalIsOpen(false)}>
+        <form
+          className="start-chat-form"
+          onSubmit={e => handleStartNewChat(e)}
+        >
+          <input
+            className="my-input"
+            onChange={e => handleNewChatTextChange(e)}
+            placeholder="Username to chat with..."
+            type="text"
+            value={newChatText}
+          />
+          <button className="cta-btn small-btn start-chat-btn" type="submit">Start Chat</button>
+        </form>
+      </Modal>
     </div>
   </motion.main>)
 }
