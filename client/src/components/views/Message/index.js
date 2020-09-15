@@ -227,7 +227,7 @@ export const Message = () => {
     setNewMessageText('')
   }
 
-  const handleStartNewChat = async (e) => {
+  const handleStartNewChatSubmit = async (e) => {
     e.preventDefault()
 
     const userToChatWith = newChat.text
@@ -368,7 +368,7 @@ export const Message = () => {
       >
         <form
           className="start-chat-form flex flex--column flex--align-center flex--justify-around"
-          onSubmit={e => handleStartNewChat(e)}
+          onSubmit={e => handleStartNewChatSubmit(e)}
         >
           <input
             className="my-input"
