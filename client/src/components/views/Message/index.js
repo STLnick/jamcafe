@@ -311,11 +311,23 @@ export const Message = () => {
         className="cta-btn small-btn start-chat-btn"
         onClick={() => setModalIsOpen(true)}
       >
-        Start Chat
+        Start A Chat
       </button>
-      <Modal isOpen={modalIsOpen} onRequestClose={() => setModalIsOpen(false)}>
+      <Modal
+        isOpen={modalIsOpen}
+        onRequestClose={() => setModalIsOpen(false)}
+        style={{
+          content: {
+            height: '550px',
+            left: '50%',
+            top: '25%',
+            transform: 'translate(-50%, -50%)',
+            width: '250px',
+          }
+        }}
+      >
         <form
-          className="start-chat-form"
+          className="start-chat-form flex flex--column flex--align-center flex--justify-around"
           onSubmit={e => handleStartNewChat(e)}
         >
           <input
